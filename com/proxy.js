@@ -17,14 +17,14 @@ app.get('/products',(req,res)=>{
 
 
 app.get('/verify/0',(req,res)=>{
-    data={teja:"goodboi",key: '123456789'};
+    data={teja:"goodboi",key: 'ABCDE'};
     let obj={url:'http://localhost:3000/products'};
     axios.post('http://localhost:8080/verify/', data)
     .then(resp => {
         obj.url=resp.data;
         res.render('redirect',obj);
     }).catch((err) => {
-        console.log("FAILED");
+        console.log(err);
         res.send("Failed");
     });
 });

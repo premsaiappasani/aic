@@ -30,6 +30,50 @@ app.use(express.urlencoded({
 
 
 
+const {
+    MongoClient
+  } = require('mongodb');
+  const assert = require('assert');
+  const uri = "mongodb+srv://database:accenture25k@cluster0.lqmlj.mongodb.net/companyApis?retryWrites=true&w=majority";
+  const dbName = 'Cluster0';
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
+  function read(attr,val){
+    client.connect(err => {
+      assert.equal(null, err);
+      console.log("Connected successfully to server");
+      const collection = client.db("Cluster0").collection("API_INFORMATION");
+      const db = client.db(dbName);
+      findDocuments(db, function() {
+        client.close();
+      });
+    });
+    const findDocuments = function(db, callback) {
+      const collection = db.collection('API_INFORMATION');
+      collection.find({
+        [attr]:val
+      }).toArray(function(err, docs) {
+        assert.equal(err, null);
+        console.log("Found the following records");
+        console.log(docs);
+        callback(docs);
+        return docs;
+      });
+    }
+  }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -86,6 +130,11 @@ app.post("/verify",(req,res)=>{
     let data=req.body;
     console.log(data);
     let key = data.key;
+    console.log(read("API_KEY",key));
+    // {
+    //     res.status(404).send("Invalid Key");
+    //     return;
+    // }
     let url=`http://localhost:8080/verify/`;
     res.send(url);
 });

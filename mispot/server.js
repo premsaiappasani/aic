@@ -9,25 +9,25 @@ app.use(express.json());
 
 // let gi=0;
 function newKey(){
-    let key=Math.random();
+    let ky=Math.random();
     for(let i=0;i<10;i++){
-        key*=10;
-        key+=Math.random();
+        ky*=10;
+        ky+=Math.random();
     }
     if(key>10000000000){
-        key/=10;
+        ky/=10;
     }
     else if(key<1000000000){
-        key*=10;
+        ky*=10;
     }
-    return Math.floor(key);
+    return Math.floor(ky);
 }
 
 app.use(express.urlencoded({
   extended: true
 }));
 
-
+let array=[];
 
 
 const {
@@ -58,9 +58,8 @@ const {
       }).toArray(function(err, docs) {
         assert.equal(err, null);
         console.log("Found the following records");
-        console.log(docs);
+        array=docs;
         callback(docs);
-        return docs;
       });
     }
   }
@@ -130,11 +129,14 @@ app.post("/verify",(req,res)=>{
     let data=req.body;
     console.log(data);
     let key = data.key;
-    console.log(read("API_KEY",key));
-    // {
-    //     res.status(404).send("Invalid Key");
-    //     return;
-    // }
+    read("API_KEY",key);
+    console.log(array);
+    if(array.length===0) {
+        console.log("Nope");
+        //res.status(404).send("Invalid Key");
+        //return;
+    }
+    console.log(array);
     let url=`http://localhost:8080/verify/`;
     res.send(url);
 });

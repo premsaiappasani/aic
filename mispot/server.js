@@ -33,7 +33,6 @@ app.get("/products",(req,res)=>{
 
 app.post("/verify/:tagid",(req,res)=>{
     let id=req.params.tagid;
-    //res.render("/sample.html",{id,str});
     arr[id]=1;
     let score=parseInt(req.body.score);
     brr[id]=score;

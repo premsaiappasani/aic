@@ -85,7 +85,8 @@ app.post("/verify/:tagid",(req,res)=>{
 app.post("/verify",(req,res)=>{
     let data=req.body;
     console.log(data);
-    let url='http://localhost:8080/verify/0';
+    let key = data.key;
+    let url=`http://localhost:8080/verify/`;
     res.send(url);
 });
 

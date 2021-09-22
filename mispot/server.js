@@ -3,6 +3,8 @@ const express = require("express");
 
 const app = express();
 
+const Joi = require("joi");
+
 app.use(express.json());
 
 // let gi=0;
@@ -26,6 +28,27 @@ app.use(express.urlencoded({
 }));
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 let arr=[0,0,0,0];
 let brr=['bottle','book','teddy bear','backpack'];
 let crr=[-1,-1,-1,-1];
@@ -33,9 +56,8 @@ app.set('view engine', 'ejs');
 
 
 app.get("/home",(req,res)=>{
-    res.render('home',{arr,brr,gi});
+    res.render('profile');
 });
-
 
 
 app.get("/products",(req,res)=>{
@@ -44,7 +66,7 @@ app.get("/products",(req,res)=>{
     res.render("products",obj);
 });
 
-
+/*
 app.post("/verify/:tagid",(req,res)=>{
     let id=req.params.tagid;
     arr[id]=1;
@@ -58,6 +80,14 @@ app.post("/verify/:tagid",(req,res)=>{
     res.redirect('http://localhost:8080/products/');
 });
 
+*/
+
+app.post("/verify",(req,res)=>{
+    let data=req.body;
+    console.log(data);
+    let url='http://localhost:8080/verify/0';
+    res.send(url);
+});
 
 
 app.get("/verify/:tagid",(req,res)=>{
@@ -70,7 +100,7 @@ app.get("/verify/:tagid",(req,res)=>{
     gi/=4;
     gi+=5;
     let obj={id,str,gi};
-    res.render('verify',obj);
+    res.render('barcode',obj);
 });
 
 

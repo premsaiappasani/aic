@@ -5,7 +5,21 @@ const app = express();
 
 app.use(express.json());
 
-let gi=0;
+// let gi=0;
+function newKey(){
+    let key=Math.random();
+    for(let i=0;i<10;i++){
+        key*=10;
+        key+=Math.random();
+    }
+    if(key>10000000000){
+        key/=10;
+    }
+    else if(key<1000000000){
+        key*=10;
+    }
+    return Math.floor(key);
+}
 
 app.use(express.urlencoded({
   extended: true
@@ -65,7 +79,9 @@ app.get("/success",(req,res)=>{
     res.sendFile(__dirname+"#");
 });
 
-
+app.get("/",(req,res)=>{
+    res.send(`Code: ${newKey()}${newKey()}`);
+})
 
 
 app.use(express.static('public'));

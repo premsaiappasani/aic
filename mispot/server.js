@@ -14,10 +14,10 @@ function newKey(){
         ky*=10;
         ky+=Math.random();
     }
-    if(key>10000000000){
+    if(ky>10000000000){
         ky/=10;
     }
-    else if(key<1000000000){
+    else if(ky<1000000000){
         ky*=10;
     }
     return Math.floor(ky);
@@ -130,15 +130,16 @@ app.post("/verify/:tagid",(req,res)=>{
 
 */
 
-app.post("/verify",async (req,res)=>{
+
+app.post("/api",async (req,res)=>{
     let data=req.body;
     console.log(data);
-    let key = data.key;
-    await read("API_KEY",key);
+    let ky = data.key;
+    let brcode = data.barcode;
+    await read("API_KEY",ky);
     if(array.length>0) {
-        console.log("Yes");
         console.log(array);
-        let url=`http://localhost:8080/verify/0`;
+        let url = 'http://localhost:8080/verify/'+ky+brcode;
         res.send(url);
         //res.status(404).send("Invalid Key");
         //return;
@@ -146,7 +147,7 @@ app.post("/verify",async (req,res)=>{
 });
 
 
-app.get("/verify/:tagid",(req,res)=>{
+app.get("/verify/:key/:barcode",(req,res)=>{
     res.render('barcode');
 });
 

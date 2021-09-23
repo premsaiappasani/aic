@@ -16,13 +16,13 @@ app.get('/products',(req,res)=>{
 });
 
 
-app.get('/verify/0',(req,res)=>{
-    data={teja:"goodboi",key: 'ABCDE'};
-    let obj={url:'http://localhost:3000/products'};
-    axios.post('http://localhost:8080/verify/', data)
-    .then(resp => {
-        obj.url=resp.data;
-        res.render('redirect',obj);
+app.get('/verify/:number',(req,res)=>{
+    data={barcode:'6456461645',key:'123456'};
+    axios.post('http://localhost:8080/api/', data)
+    .then((resp) => {
+        console.log(resp,'\n1\n2\n3\n');
+        let ul=resp.body;
+        res.redirect(ul);
     }).catch((err) => {
         console.log(err);
         res.send("Failed");

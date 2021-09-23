@@ -17,7 +17,7 @@ app.get('/products',(req,res)=>{
 
 
 app.get('/verify/:number',(req,res)=>{
-    data={barcode:'6456461645',key:'123456'};
+    let data={barcode:'6456461645',key:'123456'};
     axios.post('http://localhost:8080/api/', data)
     .then((resp) => {
         console.log(resp,'\n1\n2\n3\n');

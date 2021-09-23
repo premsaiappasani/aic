@@ -171,17 +171,30 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      var a = [0,0,0,0];
       function call0() {
-        location.replace(`http://localhost:3000/verify/0`);
+        if(a[0]==0) {
+          location.replace(`http://localhost:3000/verify/0`);
+          a[0] = 1;
+        }
       }
       function call1() {
-        location.replace(`http://localhost:3000/verify/1`);
+        if(a[1]==0) {
+          window.open(`http://localhost:3000/verify/1`);
+          a[1] = 1;
+        }
       }
       function call2() {
-        location.replace(`http://localhost:3000/verify/2`);
+        if(a[2]==0) {
+          location.replace(`http://localhost:3000/verify/2`);
+          a[2] = 1;
+        }
       }
       function call3() {
-        location.replace(`http://localhost:3000/verify/3`);
+        if(a[3]==0) {
+          location.replace(`http://localhost:3000/verify/3`);
+          a[3] = 1;
+        }
       }
     </script>
   </body>

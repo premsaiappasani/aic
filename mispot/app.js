@@ -8,6 +8,9 @@ const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+client.connect(err => {
+  assert.equal(null, err);
+  console.log("Connected successfully to server")});
 
 function Add(id,name,apiKey,pricing,apiCalls,barcode){
   client.connect(err => {
@@ -37,16 +40,8 @@ function Add(id,name,apiKey,pricing,apiCalls,barcode){
 }
 
 function read(attr,val){
-  client.connect(err => {
-    assert.equal(null, err);
-    console.log("Connected successfully to server");
-    const collection = client.db("Cluster0").collection("API_INFORMATION");
-    const db = client.db(dbName);
-    findDocuments(db, function() {
-      client.close();
-    });
-  });
-  const findDocuments = function(db, callback) {
+
+  const findDocuments = function(db) {
     const collection = db.collection('API_INFORMATION');
     collection.find({
       [attr]:val
@@ -54,9 +49,10 @@ function read(attr,val){
       assert.equal(err, null);
       console.log("Found the following records");
       console.log(docs);
-      callback(docs);
     });
   }
+  const db = client.db(dbName);
+  findDocuments(db);
 }
 
 function updateVal(attr1,attr2,val1,val2){
@@ -133,7 +129,7 @@ function DeleteVal(attr,val){
   }
 }
 // Add(5,"ECOMMERCE","123BG",300,0,0);
-// read("COMPANY","ECOMMERCE");
+read("COMPANY","ECOMMERCE");
 // updateVal("COMPANY","API_CALLS","SNAP",4);
 // DeleteVal("COMPANY","ECOMMERCE");
 // barCodeUpdate("COMPANY","BARCODE","ECOMMERCE",{PRODUCT_NAME:"BOTTLE",BARCODE_NUMBER:1234567});

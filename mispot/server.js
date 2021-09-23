@@ -30,39 +30,43 @@ app.use(express.urlencoded({
 let array=[];
 
 
-const {
-    MongoClient
-  } = require('mongodb');
-  const assert = require('assert');
-  const uri = "mongodb+srv://database:accenture25k@cluster0.lqmlj.mongodb.net/companyApis?retryWrites=true&w=majority";
-  const dbName = 'Cluster0';
-  const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
+const MongoClient = require('mongodb').MongoClient
+const uri = "mongodb+srv://database:accenture25k@cluster0.lqmlj.mongodb.net/companyApis?retryWrites=true&w=majority";
+const dbName = 'Cluster0';
+const assert = require('assert');
+const client = new MongoClient(uri);
+const db = client.db(dbName);
 
-  function read(attr,val){
-    client.connect(err => {
-      assert.equal(null, err);
-      console.log("Connected successfully to server");
-      const collection = client.db("Cluster0").collection("API_INFORMATION");
-      const db = client.db(dbName);
-      findDocuments(db, function() {
-        client.close();
-      });
-    });
-    const findDocuments = function(db, callback) {
-      const collection = db.collection('API_INFORMATION');
-      collection.find({
-        [attr]:val
-      }).toArray(function(err, docs) {
-        assert.equal(err, null);
-        console.log("Found the following records");
-        array=docs;
-        callback(docs);
-      });
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
     }
+
+client.connect(err=>{
+    assert.equal(null, err);
+    console.log("Connected successfully to server")});
+  
+async function delayedGreeting() {
+    console.log("Connecting to server");
+    await sleep(10000);
   }
+delayedGreeting();
+
+function read(attr,val)
+ {
+     const findDocuments = function(db){
+         const collection = db.collection("API_INFORMATION")
+         collection.find({
+             [attr]:val
+           }).toArray(function(err, docs) {
+             assert.equal(err, null);
+             console.log("Found the following records");
+             console.log(docs);
+           })
+     }
+     findDocuments(db);
+ }
+
+
 
 
 

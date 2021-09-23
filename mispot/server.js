@@ -47,7 +47,7 @@ client.connect(err=>{
   
 async function delayedGreeting() {
     console.log("Connecting to server");
-    await sleep(5000);
+    await sleep(1);
   }
 delayedGreeting();
 

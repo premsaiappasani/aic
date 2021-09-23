@@ -43,8 +43,8 @@ function sleep(ms) {
 
 client.connect(err=>{
     assert.equal(null, err);
-    console.log("Connected successfully to server")});
-  
+    console.log("Connected successfully to the server")});
+
 async function delayedGreeting() {
     console.log("Connecting to server");
     await sleep(1);

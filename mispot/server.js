@@ -61,6 +61,7 @@ function read(attr,val)
              assert.equal(err, null);
              console.log("Found the following records");
              console.log(docs);
+             array=docs;
            })
      }
      findDocuments(db);
@@ -133,30 +134,20 @@ app.post("/verify",async (req,res)=>{
     let data=req.body;
     console.log(data);
     let key = data.key;
-    read("API_KEY",key);
-    await console.log(array);
-    if(array.length===0) {
-        console.log("Nope");
+    await read("API_KEY",key);
+    if(array.length>0) {
+        console.log("Yes");
+        console.log(array);
+        let url=`http://localhost:8080/verify/0`;
+        res.send(url);
         //res.status(404).send("Invalid Key");
         //return;
     }
-    console.log(array);
-    let url=`http://localhost:8080/verify/`;
-    res.send(url);
 });
 
 
 app.get("/verify/:tagid",(req,res)=>{
-    let id=req.params.tagid;
-    let id2=parseInt(id);
-    let str=brr[id2];
-    crr[id2]=0;
-    gi=crr[0]+crr[1]+crr[2]+crr[3];
-    gi*=5;
-    gi/=4;
-    gi+=5;
-    let obj={id,str,gi};
-    res.render('barcode',obj);
+    res.render('barcode');
 });
 
 

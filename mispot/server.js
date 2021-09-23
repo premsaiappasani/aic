@@ -125,12 +125,12 @@ app.post("/verify/:tagid",(req,res)=>{
 
 */
 
-app.post("/verify",(req,res)=>{
+app.post("/verify",async (req,res)=>{
     let data=req.body;
     console.log(data);
     let key = data.key;
     read("API_KEY",key);
-    console.log(array);
+    await console.log(array);
     if(array.length===0) {
         console.log("Nope");
         //res.status(404).send("Invalid Key");

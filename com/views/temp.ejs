@@ -12,16 +12,17 @@
     <button id="VE1" style="visibility: hidden"></button>
     <script>
       setInterval(fst, 500);
+
       function fst() {
-        var ag = undefined;
+        var ag = document.getElementById('pagereq').innerHTML;
         console.log("rinaog");
         // fetch("http://localhost:3000/fetch/").then((res) => {
         //   ag = res;
         // });
 
         document.getElementById("VE1").innerHTML =
-          '<form id="formid"; action="http://localhost:3000/fetch" method="get"></form>';
-        document.getElementById("VE1").submit();
+          '<form id="formid"; action="http://localhost:3000/temp" method="get"></form>';
+        document.getElementById("formid").submit();
 
         if (ag == "failed") console.log("fiale");
         else if (ag != "undefined") {

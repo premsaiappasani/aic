@@ -20,10 +20,13 @@ app.get('/verify/:number',(req,res)=>{
     changeUrl();
     console.log(reqs);
     console.log("ended");
-    res.render('temp',{reqs});
+    res.redirect('http://localhost:3000/temp');
 });
 var reqs = undefined;
-
+app.get('/temp',(req,res)=>{
+    console.log(reqs);
+    res.render('temp',{reqs});
+});
 app.get('/fetch',(req,res)=>{
     res.send(reqs);
 });
@@ -35,14 +38,14 @@ function sleep(ms) {
 
 function changeUrl(){
     let data={barcode:'6456461645',key:'123456'};
-    axios.post('http://localhost:8080/api/', data)
+    axios.get('http://localhost:8080/api/', data)
     .then((resp) => {
-        // console.log(resp,'\n1\n2\n3\n');
-        reqs=resp.body;
+        console.log(resp,'\n1\n2\n3\n');
+        reqs=resp.data;
         console.log('new',reqs);
         // res.redirect(ul);
     }).catch((err) => {
-        // console.log(err);
+        console.log(err);
         reqs ='failed';
     });
 }

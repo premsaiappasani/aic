@@ -66,7 +66,7 @@ let stack = [],stk2 = [];
 
 app.set('view engine', 'ejs');
 
-app.post("/api",(req,res)=>{
+app.get("/api",(req,res)=>{
     let t;
     let data=req.body;
     console.log(data);
@@ -80,6 +80,7 @@ app.post("/api",(req,res)=>{
     stk2.push({});
     read("API_KEY",ky,t);
     let url = 'http://localhost:8080/verify/'+t;
+    console.log(url);
     res.send(url);
 });
 

@@ -8,6 +8,7 @@
   </head>
   <body>
     <div id="qr-reader" style="width: 600px"></div>
+    <div id="tid" style="visibility: hidden;"><%=tid%></div>
     <script type="text/javascript">
       function onScanSuccess(decodedText, decodedResult) {
         console.log(`Code scanned = ${decodedText}`, decodedResult);
@@ -17,6 +18,33 @@
         qrbox: 250,
       });
       html5QrcodeScanner.render(onScanSuccess);
+
+      let tid = document.getElementById('tid').innerText;
+
+
+
+
+      var txt = undefined;
+      const req = new XMLHttpRequest();
+      req.onload = function () {
+        try{txt = (this.responseText);
+            console.log(txt);
+
+          }
+        catch(err){
+            console.log(err);
+            alert("Unable to fetch data!");
+        }
+      }
+
+      req.open('GET',`http://localhost:8080/barcodedata/`+tid,true);
+      req.send();
+      req.onerror=function () {
+        
+      }
     </script>
   </body>
 </html>
+
+
+

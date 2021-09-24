@@ -44,6 +44,40 @@ async function delayedGreeting() {
     await sleep(1);
   }
 delayedGreeting();
+
+app.get("/login",(req,res)=>{
+    console.log("login page")
+    res.render("login");
+})
+ 
+app.post("/login", async(req, res)=>{
+    try{
+     const user = req.body.username;   
+     const pass = req.body.password;
+     const collection = db.collection("PROFILES");
+     const company = await collection.findOne({username:user});
+     console.log(company);
+     if (pass==(company.password))
+     {
+         console.log("data exists");
+         const ca = db.collection("API_INFORMATION");
+         let call = await ca.findOne({COMPANY:"AMAZON"});
+         let calls = call.API_CALLS;
+         let pricing = call.PRICING;
+         let key = call.API_KEY;
+         res.render("dashboard",{calls,pricing,key});
+     }
+     else
+     {
+         console.log('incorrect');
+         res.send("INCORRECT PASSWORD");
+     }
+     }
+     catch(error){
+         res.status(400).send("Invalid email");
+
+    }
+})
 function read(attr,val,inde)
  {
      const findDocuments = function(db){
@@ -61,15 +95,15 @@ function read(attr,val,inde)
      findDocuments(db);
  }
 
-let stack = [],stk2 = [];
+let stack = [],stk2 = [],stk3 = [];
 
 
 app.set('view engine', 'ejs');
 
-app.get("/api",(req,res)=>{
+app.post("/api",(req,res)=>{
     let t;
     let data=req.body;
-    console.log(data);
+    console.log(req);
     let ky = data.key;
     let brcode = data.barcode;
     do{
@@ -78,6 +112,8 @@ app.get("/api",(req,res)=>{
         return element == t;})!=-1)
     stack.push(t);
     stk2.push({});
+    stk3.push(brcode);
+    console.log(stk3);
     read("API_KEY",ky,t);
     let url = 'http://localhost:8080/verify/'+t;
     console.log(url);
@@ -86,7 +122,9 @@ app.get("/api",(req,res)=>{
 
 
 app.get("/verify/:random",(req,res)=>{
-    res.render('barcode');
+    let tid = req.params.random;
+    console.log(tid);
+    res.render('barcode',{tid});
 });
 
 
@@ -96,7 +134,16 @@ app.get("/success",(req,res)=>{
 });
 
 app.use(express.static('public'));
-
+app.get("/barcodedata/:tidd",(req,res)=>{
+    let tid = req.params.tidd;
+    let hell = stack.findIndex( (eleme)=> { return eleme == tid;});
+    console.log(hell);
+    console.log(stk3[hell]);
+    console.log(stk3);
+    console.log(typeof(hell));
+    let ado = stk3[hell];
+    res.json({ado});
+});
 
 app.listen(8080,()=>{
     console.log("Listening");

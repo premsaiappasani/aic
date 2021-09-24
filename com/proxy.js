@@ -15,26 +15,23 @@ app.get('/products',(req,res)=>{
     res.render('products',{arr,brr,aig:reqs});
 });
 
-app.post('/verify/:number',(req,res)=>{
+app.get('/verify/:number',(req,res)=>{
     console.log('pst request came');
     changeUrl();
-    reqs = undefined;
+    console.log(reqs);
     console.log("ended");
-    res.send('redirecting....<%=aig%><script> setInterval(,100);\
-        function fst(){\
-        console.log("rinaog");\
-        var ag = document.getElementById('pagereq').innerHTML;\
-        if(ag == 'failed') console.log("fiale");\
-        else if(ag != 'undefined') {\
-          location.replace(ag);\
-        }\
-      }</script>')
+    res.render('temp',{reqs});
 });
 var reqs = undefined;
+
+app.get('/fetch',(req,res)=>{
+    res.send(reqs);
+});
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
       }
+
 
 function changeUrl(){
     let data={barcode:'6456461645',key:'123456'};
@@ -42,6 +39,7 @@ function changeUrl(){
     .then((resp) => {
         // console.log(resp,'\n1\n2\n3\n');
         reqs=resp.body;
+        console.log('new',reqs);
         // res.redirect(ul);
     }).catch((err) => {
         // console.log(err);

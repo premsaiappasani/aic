@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="pagereq" ; style="visibility: hidden"><%=reqs%></div>
+    redirecting....<%=reqs%>
+    <button id="VE1" style="visibility: hidden"></button>
+    <script>
+      setInterval(fst, 500);
+      function fst() {
+        var ag = undefined;
+        console.log("rinaog");
+        // fetch("http://localhost:3000/fetch/").then((res) => {
+        //   ag = res;
+        // });
+
+        document.getElementById("VE1").innerHTML =
+          '<form id="formid"; action="http://localhost:3000/fetch" method="get"></form>';
+        document.getElementById("VE1").submit();
+
+        if (ag == "failed") console.log("fiale");
+        else if (ag != "undefined") {
+          location.replace(ag);
+        }
+      }
+    </script>
+  </body>
+</html>

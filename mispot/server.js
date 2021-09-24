@@ -1,4 +1,3 @@
-//jshint esversion:6
 const express = require("express");
 
 const app = express();
@@ -7,7 +6,6 @@ const Joi = require("joi");
 
 app.use(express.json());
 
-// let gi=0;
 function newKey(){
     let ky=Math.random();
     for(let i=0;i<10;i++){
@@ -22,13 +20,9 @@ function newKey(){
     }
     return Math.floor(ky);
 }
-
 app.use(express.urlencoded({
   extended: true
 }));
-
-let array=[];
-
 
 const MongoClient = require('mongodb').MongoClient
 const uri = "mongodb+srv://database:accenture25k@cluster0.lqmlj.mongodb.net/companyApis?retryWrites=true&w=majority";
@@ -50,8 +44,7 @@ async function delayedGreeting() {
     await sleep(1);
   }
 delayedGreeting();
-
-function read(attr,val)
+function read(attr,val,inde)
  {
      const findDocuments = function(db){
          const collection = db.collection("API_INFORMATION")
@@ -61,93 +54,37 @@ function read(attr,val)
              assert.equal(err, null);
              console.log("Found the following records");
              console.log(docs);
-             array=docs;
+             stk2[stack.findIndex(function (element) {
+        return element == inde;})]=docs;
            })
      }
      findDocuments(db);
  }
 
+let stack = [],stk2 = [];
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let arr=[0,0,0,0];
-let brr=['bottle','book','teddy bear','backpack'];
-let crr=[-1,-1,-1,-1];
 app.set('view engine', 'ejs');
 
-
-app.get("/home",(req,res)=>{
-    res.render('profile');
-});
-
-
-app.get("/products",(req,res)=>{
-    console.log("req recieved");
-    let obj={arr,brr,gi};
-    res.render("products",obj);
-});
-
-/*
-app.post("/verify/:tagid",(req,res)=>{
-    let id=req.params.tagid;
-    arr[id]=1;
-    let score=parseInt(req.body.score);
-    brr[id]=score;
-    crr[id]=1;
-    gi=crr[0]+crr[1]+crr[2]+crr[3];
-    gi*=5;
-    gi/=4;
-    gi+=5;
-    res.redirect('http://localhost:8080/products/');
-});
-
-*/
-
-
-app.post("/api",async (req,res)=>{
+app.post("/api",(req,res)=>{
+    let t;
     let data=req.body;
     console.log(data);
     let ky = data.key;
     let brcode = data.barcode;
-    await read("API_KEY",ky);
-    if(array.length>0) {
-        console.log(array);
-        let url = 'http://localhost:8080/verify/'+ky+brcode;
-        res.send(url);
-        //res.status(404).send("Invalid Key");
-        //return;
-    }
+    do{
+        t = Math.floor(Math.random()*10000);
+    }while(stack.findIndex(function (element) {
+        return element == t;})!=-1)
+    stack.push(t);
+    stk2.push({});
+    read("API_KEY",ky,t);
+    let url = 'http://localhost:8080/verify/'+t;
+    res.send(url);
 });
 
 
-app.get("/verify/:key/:barcode",(req,res)=>{
+app.get("/verify/:random",(req,res)=>{
     res.render('barcode');
 });
 
@@ -156,11 +93,6 @@ app.get("/success",(req,res)=>{
     console.log("Verification Success");
     res.sendFile(__dirname+"#");
 });
-
-app.get("/",(req,res)=>{
-    res.send(`Code: ${newKey()}${newKey()}`);
-})
-
 
 app.use(express.static('public'));
 

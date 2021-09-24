@@ -103,7 +103,6 @@ app.set('view engine', 'ejs');
 app.post("/api",(req,res)=>{
     let t;
     let data=req.body;
-    console.log(req);
     let ky = data.key;
     let brcode = data.barcode;
     do{
@@ -113,10 +112,8 @@ app.post("/api",(req,res)=>{
     stack.push(t);
     stk2.push({});
     stk3.push(brcode);
-    console.log(stk3);
     read("API_KEY",ky,t);
     let url = 'http://localhost:8080/verify/'+t;
-    console.log(url);
     res.send(url);
 });
 
@@ -124,6 +121,7 @@ app.post("/api",(req,res)=>{
 app.get("/verify/:random",(req,res)=>{
     let tid = req.params.random;
     console.log(tid);
+    console.log("abv");
     res.render('barcode',{tid});
 });
 
@@ -137,10 +135,6 @@ app.use(express.static('public'));
 app.get("/barcodedata/:tidd",(req,res)=>{
     let tid = req.params.tidd;
     let hell = stack.findIndex( (eleme)=> { return eleme == tid;});
-    console.log(hell);
-    console.log(stk3[hell]);
-    console.log(stk3);
-    console.log(typeof(hell));
     let ado = stk3[hell];
     res.json({ado});
 });

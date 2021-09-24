@@ -8,7 +8,6 @@
   </head>
   <body>
     <div id="qr-reader" style="width: 600px"></div>
-    <div id="tid" style="visibility: hidden;"><%=tid%></div>
     <script type="text/javascript">
       function onScanSuccess(decodedText, decodedResult) {
         console.log(`Code scanned = ${decodedText}`, decodedResult);
@@ -19,8 +18,8 @@
       });
       html5QrcodeScanner.render(onScanSuccess);
 
-      let tid = document.getElementById('tid').innerText;
-
+      let ttid =window.location.href ;
+      ttid = ttid.slice(34);
 
 
 
@@ -37,7 +36,8 @@
         }
       }
 
-      req.open('GET',`http://localhost:8080/barcodedata/`+tid,true);
+      req.open('GET',"http://localhost:8080/barcodedata/`"+ttid,true);
+      console.log(ttid);
       req.send();
       req.onerror=function () {
         

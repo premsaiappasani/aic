@@ -112,6 +112,7 @@ app.post("/api",(req,res)=>{
     stack.push(t);
     stk2.push({});
     stk3.push(brcode);
+    console.log(stk3);
     read("API_KEY",ky,t);
     let url = 'http://localhost:8080/verify/'+t;
     res.send(url);
@@ -134,8 +135,12 @@ app.get("/success",(req,res)=>{
 app.use(express.static('public'));
 app.get("/barcodedata/:tidd",(req,res)=>{
     let tid = req.params.tidd;
+    console.log(tid);
     let hell = stack.findIndex( (eleme)=> { return eleme == tid;});
     let ado = stk3[hell];
+    console.log(hell);
+    console.log(stk3);
+    console.log(ado);
     res.json({ado});
 });
 

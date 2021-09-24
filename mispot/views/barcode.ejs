@@ -28,7 +28,9 @@
       const req = new XMLHttpRequest();
       req.onload = function () {
         try{txt = (this.responseText);
-            console.log(txt);
+          txt = JSON.parse(txt);
+          txt = txt.ado;
+          console.log(txt);
 
           }
         catch(err){
@@ -37,7 +39,7 @@
         }
       }
 
-      req.open('GET',"http://localhost:8080/barcodedata/`"+ttid,true);
+      req.open('GET',"http://localhost:8080/barcodedata/"+ttid,true);
       console.log(ttid);
       req.send();
       req.onerror=function () {

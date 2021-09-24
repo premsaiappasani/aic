@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		MISPOT
+	</title>
+</head>
+
+<body>
+	<h1>MISPOT</h1>
+
+	<form action = "/login" method = 'post' id="users">
+		<label for="username">
+		Username:
+	</label>
+		<input type="text"
+			name="username"
+			id="Username">
+	<br>
+	<br>
+		<label for="password" >
+		Password:
+	</label>
+		<input type="password"
+			name="password">
+	</form>
+
+	<br>
+
+	<button onclick="send()">
+		Submit
+	</button>
+	<br>
+	<br>
+	<script type = "text/javascript">
+		function send()
+		{
+			document.getElementById("users").submit(); 
+		}
+
+
+	</script>
+
+</body>
+
+</html>

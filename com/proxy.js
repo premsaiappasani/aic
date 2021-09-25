@@ -34,10 +34,17 @@ app.get('/fetch',(req,res)=>{
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
       }
-
-
+var bar = '6456461645';
+var ky = '123456';
+var obj = 'bottle';
 function changeUrl(){
-    let data={barcode:'6456461645',key:'123456'};
+    // update bar and object using database
+    obj = '';
+    changeUrl2();
+}
+
+function changeUrl2(){
+    let data={barcode:bar,object:obj,key:ky};
     axios.post('http://localhost:8080/api/', data)
     .then((resp) => {
         console.log(resp,'\n1\n2\n3\n');

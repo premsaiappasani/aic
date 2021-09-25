@@ -3,11 +3,25 @@
   <head>
     <meta charset="utf-8" />
     <title></title>
-
+    <style type="text/css">
+    body{
+      background: #ddd;
+      color: black;
+    }</style>
     <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
   </head>
   <body>
-    <div id="qr-reader" style="width: 600px"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a
+    class="navbar-brand"
+    href="http://localhost:8080/home"
+    style="font-family: 'Courier New', monospace; font-weight: bold"
+    >MiSpot</a
+    >
+  </div>
+</nav>
+    <div id="qr-reader" class="position-absolute top-50 start-50 translate-middle" style="width: 600px"></div>
     <script type="text/javascript">
       function onScanSuccess(decodedText, decodedResult) {
         console.log(`Code scanned = ${decodedText}`, decodedResult);
@@ -20,7 +34,7 @@
 
       let ttid =window.location.href ;
       console.log(ttid);
-      ttid = ttid.slice(29);
+      ttid = ttid.slice(37);
       console.log(ttid);
 
 

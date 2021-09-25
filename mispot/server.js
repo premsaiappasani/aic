@@ -104,6 +104,7 @@ app.post("/api",(req,res)=>{
     let t;
     let data=req.body;
     let ky = data.key;
+    let obj = data.object;
     let brcode = data.barcode;
     do{
         t = Math.floor(Math.random()*10000);
@@ -111,15 +112,23 @@ app.post("/api",(req,res)=>{
         return element == t;})!=-1)
     stack.push(t);
     stk2.push({});
-    stk3.push(brcode);
+    if(brcode != '') stk3.push(brcode);
+    else stk3.push(obj);
     console.log(stk3);
     read("API_KEY",ky,t);
-    let url = 'http://localhost:8080/verify/'+t;
+    let url = 'undefined';
+    if(brcode != '') url = 'http://localhost:8080/verify/barcode/'+t;
+    else url = 'http://localhost:8080/verify/obj/'+t
     res.send(url);
 });
 
+app.get("/verify/obj/:random",(req,res)=>{
+    let tid = req.params.random;
+    console.log(tid);
+    res.render('objectdtct',{tid});
 
-app.get("/verify/:random",(req,res)=>{
+})
+app.get("/verify/barcode/:random",(req,res)=>{
     let tid = req.params.random;
     console.log(tid);
     console.log("abv");

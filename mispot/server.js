@@ -4,6 +4,8 @@ const app = express();
 
 const Joi = require("joi");
 
+const axios = require('axios');
+
 app.use(express.json());
 
 function newKey(){
@@ -95,36 +97,52 @@ function read(attr,val,inde)
      findDocuments(db);
  }
 
-let stack = [],stk2 = [],stk3 = [];
+let stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [];
 
 
 app.set('view engine', 'ejs');
 
 app.post("/api",(req,res)=>{
     let t;
-    let data=req.body;
+    let data = req.body;
     let ky = data.key;
     let obj = data.object;
     let brcode = data.barcode;
+    let urlp = data.redUrl;
+    let oId = data.order;
+    let url = 'undefined';
+    console.log(data);
     do{
         t = Math.floor(Math.random()*10000);
     }while(stack.findIndex(function (element) {
         return element == t;})!=-1)
-    stack.push(t);
-    stk2.push({});
-    if(brcode != '') stk3.push(brcode);
-    else stk3.push(obj);
-    console.log(stk3);
-    read("API_KEY",ky,t);
-    let url = 'undefined';
-    if(brcode != '') url = 'http://localhost:8080/verify/barcode/'+t;
-    else url = 'http://localhost:8080/verify/obj/'+t
+    if(stk5.findIndex(function (element) {
+        return element == oid;})==-1){
+        
+        stk5.push(oId);
+        stack.push(t);
+        stk2.push({});
+        stk4.push(urlp);
+        if(brcode != '') stk3.push(brcode);
+        else stk3.push(obj);
+        console.log(stk3);
+        read("API_KEY",ky,t);
+        console.log(t,'t is here');
+        if(brcode != '') url = 'http://localhost:8080/verify/barcode/'+t;
+        else url = 'http://localhost:8080/verify/obj/'+t
+    }
+    else{
+        if(brcode != '') url = 'http://localhost:8080/verify/barcode/'+stack[stk5.findIndex(function (element) {
+        return element == oId;})];
+        else url = 'http://localhost:8080/verify/obj/'+stack[stk5.findIndex(function (element) {
+        return element == oId;})];
+    }
     res.send(url);
 });
 
 app.get("/verify/obj/:random",(req,res)=>{
     let tid = req.params.random;
-    console.log(tid);
+    console.log(tid,'verifyhere');
     res.render('objectdtct',{tid});
 
 })
@@ -143,16 +161,59 @@ app.get("/success",(req,res)=>{
 
 app.use(express.static('public'));
 app.get("/barcodedata/:tidd",(req,res)=>{
-    let tid = req.params.tidd;
-    console.log(tid);
+    let tid = req.params.tidd;    console.log(tid);
     let hell = stack.findIndex( (eleme)=> { return eleme == tid;});
     let ado = stk3[hell];
     console.log(hell);
     console.log(stk3);
     console.log(ado);
-    res.json({ado});
+    let pre = stk4[hell];
+    console.log(pre,'preishere');
+    var passObj = {ado,pre};
+    res.json(passObj);
 });
 
+
+
+app.get('/status/:sta',(req,res)=>{
+    let ge   = req.params.sta;
+    let urlpr = stk4[stack.findIndex(function (element) {
+        return element == ge;})];
+    sendOk(ge);
+    console.log(urlpr);
+    let a = urlpr;
+    res.json({a})
+})
+function sendOk(ge){
+    let obt1 = stk3[stack.findIndex(function (element) {
+        return element == ge;})];
+    let oid1 = stk5[stack.findIndex(function (element) {
+        return element == ge;})];
+    console.log(oid1,'returning to companh about status');
+    let data={object: obt1,orderId:oid1};
+    axios.post('http://localhost:3000/api/', data)
+    .then((resp) => {       
+        reqs=resp.data;
+        console.log('new',reqs);
+        // res.redirect(ul);
+    }).catch((err) => {
+        console.log(err);
+        reqs ='failed';
+    });
+    dele(ge);
+}
+
+function dele(ge){
+    var del = stack.findIndex(function (element) {
+        return element == ge;});
+    stack.slice(del,1);
+    stk5.slice(del,1)
+    stk4.slice(del,1)
+    stk3.slice(del,1)
+    stk2.slice(del,1)
+    
+}
 app.listen(8080,()=>{
     console.log("Listening");
 });
+

@@ -61,7 +61,7 @@
 
 	</style>
 </head>
-<body>
+<body id="bodyId">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a
@@ -142,13 +142,16 @@
 
 
       var txt = undefined;
+      var prev = undefined;
       const req = new XMLHttpRequest();
       req.onload = function () {
         try{txt = (this.responseText);
           txt = JSON.parse(txt);
+          prev = txt.pre;
           txt = txt.ado;
           match = txt;
           console.log(txt);
+          console.log(prev);
 
           }
         catch(err){
@@ -248,11 +251,27 @@
                 if (ss > h) {
                   h = ss;
                 }
-                document.getElementById("roll").innerHTML =
-                  '<form id="dynForm" method="POST"><input id="ipt" name="score" value="0" type="hidden"></form>';
-                document.getElementById("ipt").value = h;
-                document.getElementById("dynForm").submit();
-                throw new Error("Waiting for the server");
+                const re = new XMLHttpRequest();
+                re.onload = function () {
+                  try{txt = (this.responseText);
+                  txt = JSON.parse(txt);
+                  console.log(txt);
+                  txt = txt.a;
+                  match = txt;
+
+                }
+                catch(err){
+                    console.log(err);
+                    alert("Unable to fetch data!");
+                  }
+                }
+                re.open('GET',"http://localhost:8080/status/"+ttid,true);
+                re.send();
+                re.onerror=function () {
+                  
+                }
+                location.replace(prev);
+                // timeWaste();
               }
               liveView.appendChild(highlighter);
               liveView.appendChild(p);
@@ -268,7 +287,28 @@
         document.getElementById("demos").style.visibility = "visible";
       }
 
+      function timeWaste(){
+        document.getElementById('bodyId').innerHTML='<div\
+      class="spinner-border text-dark"\
+      style="\
+        display: block;\
+        margin-left: auto;\
+        margin-right: auto;\
+        margin-top: 20%;\
+        align-self: center;\
+      "\
+      id="gif"\
+      role="status"\
+    >\
+      <span class="sr-only"></span>\
+    </div>'
+    setTimeout(revert(),1000);
+    console.log(txt);
+      }
+      function revert(){
 
+        location.replace(txt);
+      }
     </script>
 </body>
 </html>

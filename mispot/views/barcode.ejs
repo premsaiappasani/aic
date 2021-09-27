@@ -26,7 +26,26 @@
     <div id="qr-reader" class="position-absolute top-50 start-50 translate-middle" style="height: 40%;"></div>
     <script type="text/javascript">
       function onScanSuccess(decodedText, decodedResult) {
+        if(decodedResult === txt){
+          const re = new XMLHttpRequest();
+                re.onload = function () {
+                  try{txt = (this.responseText);
+
+                }
+                catch(err){
+                    console.log(err);
+                    alert("Unable to fetch data!");
+                  }
+                }
+                re.open('GET',"http://localhost:8080/status/"+ttid,true);
+                re.send();
+                re.onerror=function () {
+                  
+                }
+                location.replace(prev);
+        }
         console.log(`Code scanned = ${decodedText}`, decodedResult);
+        if()
       }
       var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", {
         fps: 10,
@@ -41,10 +60,12 @@
 
 
       var txt = undefined;
+      var prev = undefined;
       const req = new XMLHttpRequest();
       req.onload = function () {
         try{txt = (this.responseText);
           txt = JSON.parse(txt);
+          prev = txt.pre;
           txt = txt.ado;
           console.log(txt);
 

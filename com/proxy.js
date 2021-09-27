@@ -37,14 +37,16 @@ function sleep(ms) {
 var bar = '6456461645';
 var ky = '123456';
 var obj = 'bottle';
+var urlp = 'http://localhost:3000/products';
+var orderId = '44725373'
 function changeUrl(){
     // update bar and object using database
-    obj = '';
+    bar = '';
     changeUrl2();
 }
 
 function changeUrl2(){
-    let data={barcode:bar,object:obj,key:ky};
+    let data={barcode:bar,object:obj,key:ky,redUrl:urlp,order:orderId};
     axios.post('http://localhost:8080/api/', data)
     .then((resp) => {
         console.log(resp,'\n1\n2\n3\n');
@@ -75,3 +77,11 @@ app.set('view engine', 'ejs');
 app.listen(3000,()=>{
     console.log("Hello World");
 });
+
+app.post('/api',(req,res)=>{
+    let obj = req.body.object;
+    let id = req.body.orderId;
+    console.log(obj,id);
+})
+
+app.use(express.static('public'));

@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title></title>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<style type="text/css">
-		body{
-			background: #ddd;
-      color: black;
-		}
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style type="text/css">
+      body {
+        background: #ddd;
+        color: black;
+      }
       hr {
         margin: 6px;
       }
@@ -58,21 +67,20 @@
         z-index: 1;
         position: absolute;
       }
-
-	</style>
-</head>
-<body id="bodyId">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a
- 		class="navbar-brand"
-    href="http://localhost:8080/home"
-    style="font-family: 'Courier New', monospace; font-weight: bold"
-    >MiSpot</a
-    >
-  </div>
-</nav>
- <div
+    </style>
+  </head>
+  <body id="bodyId">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a
+          class="navbar-brand"
+          href="http://localhost:8080/home"
+          style="font-family: 'Courier New', monospace; font-weight: bold"
+          >MiSpot</a
+        >
+      </div>
+    </nav>
+    <div
       class="spinner-border text-dark"
       style="
         display: block;
@@ -87,8 +95,8 @@
       <span class="sr-only"></span>
     </div>
     <div id="roll"></div>
-    <section id="demos" class="" style="visibility: hidden"> 
-      <h3 style="text-align: center; color: black;">
+    <section id="demos" class="" style="visibility: hidden">
+      <h3 style="text-align: center; color: black">
         <span id="score">0</span>% Matched with <span id="str2">bottle</span>
       </h3>
       <div id="liveView" class="camView">
@@ -116,59 +124,50 @@
           height="480"
           style="display: block; margin-left: auto; margin-right: auto"
         ></video>
-      <div id="qr-reader" style="width: 600px;"></div>
+        <div id="qr-reader" style="width: 600px"></div>
       </div>
+      <div id="submit"></div>
     </section>
-    <script 
+    <script
       src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"
       type="text/javascript"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
     <script type="text/javascript">
-
       const video = document.getElementById("webcam");
       const liveView = document.getElementById("liveView");
       const demosSection = document.getElementById("demos");
       const enableWebcamButton = document.getElementById("webcamButton");
       var match = undefined;
 
-
-
       // code to ask for the objet to be detected
-      let ttid =window.location.href ;
+      let ttid = window.location.href;
       console.log(ttid);
       ttid = ttid.slice(33);
       console.log(ttid);
-
 
       var txt = undefined;
       var prev = undefined;
       const req = new XMLHttpRequest();
       req.onload = function () {
-        try{txt = (this.responseText);
+        try {
+          txt = this.responseText;
           txt = JSON.parse(txt);
           prev = txt.pre;
           txt = txt.ado;
           match = txt;
           console.log(txt);
           console.log(prev);
-
-          }
-        catch(err){
-            console.log(err);
-            alert("Unable to fetch data!");
+        } catch (err) {
+          console.log(err);
+          alert("Unable to fetch data!");
         }
-      }
+      };
 
-      req.open('GET',"http://localhost:8080/barcodedata/"+ttid,true);
+      req.open("GET", "http://localhost:8080/barcodedata/" + ttid, true);
       console.log(ttid);
       req.send();
-      req.onerror=function () {
-        
-      }
-
-
-
+      req.onerror = function () {};
 
       //end of req
 
@@ -198,14 +197,15 @@
             video.addEventListener("loadeddata", predictWebcam);
           });
       }
+      let time = 0;
       var h = 0;
       var model = true;
       var model = undefined;
       cocoSsd.load().then(function (loadedModel) {
         document.getElementById("gif").remove();
         model = loadedModel;
-        console.log('done');
-        demosSection.style.visibility = 'visible';
+        console.log("done");
+        demosSection.style.visibility = "visible";
       });
       var children = [];
       let score = document.getElementById("score");
@@ -251,27 +251,18 @@
                 if (ss > h) {
                   h = ss;
                 }
-                const re = new XMLHttpRequest();
-                re.onload = function () {
-                  try{txt = (this.responseText);
-                  txt = JSON.parse(txt);
-                  console.log(txt);
-                  txt = txt.a;
-                  match = txt;
+                document.getElementById("submit").innerHTML =
+                  '<form id="formid"; action="http://localhost:8080/status/' +
+                  ttid +
+                  '" method="post"><input name="h">' +
+                  h +
+                  '</input><input name="t">' +
+                  time +
+                  "</input></form>";
 
-                }
-                catch(err){
-                    console.log(err);
-                    alert("Unable to fetch data!");
-                  }
-                }
-                re.open('GET',"http://localhost:8080/status/"+ttid,true);
-                re.send();
-                re.onerror=function () {
-                  
-                }
-                location.replace(prev);
-                // timeWaste();
+                document.getElementById("formid").submit(function (e) {
+                  e.preventDefault();
+                });
               }
               liveView.appendChild(highlighter);
               liveView.appendChild(p);
@@ -287,8 +278,9 @@
         document.getElementById("demos").style.visibility = "visible";
       }
 
-      function timeWaste(){
-        document.getElementById('bodyId').innerHTML='<div\
+      function timeWaste() {
+        document.getElementById("bodyId").innerHTML =
+          '<div\
       class="spinner-border text-dark"\
       style="\
         display: block;\
@@ -301,14 +293,13 @@
       role="status"\
     >\
       <span class="sr-only"></span>\
-    </div>'
-    setTimeout(revert(),1000);
-    console.log(txt);
+    </div>';
+        setTimeout(revert(), 1000);
+        console.log(txt);
       }
-      function revert(){
-
+      function revert() {
         location.replace(txt);
       }
     </script>
-</body>
+  </body>
 </html>

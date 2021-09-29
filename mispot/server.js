@@ -186,7 +186,8 @@ app.get("/barcodedata/:tidd",(req,res)=>{
 
 
 
-app.get('/status/:sta',(req,res)=>{
+app.post('/status/:sta',(req,res)=>{
+    
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];

@@ -145,6 +145,8 @@
       console.log(ttid);
       ttid = ttid.slice(33);
       console.log(ttid);
+      let t1 = 0;
+      let t2 = 0;
 
       var txt = undefined;
       var prev = undefined;
@@ -178,6 +180,15 @@
       }
       if (getUserMediaSupported()) {
         enableWebcamButton.addEventListener("click", enableCam);
+        var minutes = 1000 * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var d = new Date();
+        var t = d.getTime();
+
+        var y = Math.round(t % days);
+        y = Math.round(y / 1000);
+        t1 = y;
       } else {
         console.warn("getUserMedia() is not supported by your browser");
       }
@@ -198,7 +209,7 @@
           });
       }
       let time = 0;
-      var h = 0;
+      var h = 70;
       var model = true;
       var model = undefined;
       cocoSsd.load().then(function (loadedModel) {
@@ -217,7 +228,6 @@
           children.splice(0);
           for (let n = 0; n < predictions.length; n++) {
             // var match = document.getElementById("str2").innerText;
-            console.log(match);
             if (match === predictions[n].class)
               score.innerText = `${parseInt(predictions[n].score * 100)}`;
             if (predictions[n].score > 0.66) {
@@ -249,20 +259,31 @@
                 "px;";
               if (p.innerText === match) {
                 if (ss > h) {
-                  h = ss;
-                }
-                document.getElementById("submit").innerHTML =
-                  '<form id="formid"; action="http://localhost:8080/status/' +
-                  ttid +
-                  '" method="post"><input name="h">' +
-                  h +
-                  '</input><input name="t">' +
-                  time +
-                  "</input></form>";
+                  var minutes = 1000 * 60;
+                  var hours = minutes * 60;
+                  var days = hours * 24;
+                  var d = new Date();
+                  var t = d.getTime();
 
-                document.getElementById("formid").submit(function (e) {
-                  e.preventDefault();
-                });
+                  var y = Math.round(t % days);
+                  y = Math.round(y / 1000);
+                  let t2 = y;
+                  time = t2 - t1;
+                  console.log(time, t2, t1);
+                  document.getElementById("submit").innerHTML =
+                    '<form id="formid"; action="http://localhost:8080/status/' +
+                    ttid +
+                    '" method="post"><input name="h" value="' +
+                    ss +
+                    '"> <input type="number" name="t" value="' +
+                    time +
+                    "></form>";
+
+                  document.getElementById("formid").submit(function (e) {
+                    e.preventDefault();
+                  });
+                  h = 100;
+                }
               }
               liveView.appendChild(highlighter);
               liveView.appendChild(p);

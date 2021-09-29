@@ -111,7 +111,6 @@ app.post("/api",(req,res)=>{
     let urlp = data.redUrl;
     let oId = data.order;
     let url = 'undefined';
-    console.log(data);
     do{
         t = Math.floor(Math.random()*10000);
     }while(stack.findIndex(function (element) {
@@ -187,14 +186,16 @@ app.get("/barcodedata/:tidd",(req,res)=>{
 
 
 app.post('/status/:sta',(req,res)=>{
-    
+    console.log(req.body);
+    let time=req.body.h.slice(2);
+    let accuracy=req.body.h.slice(0,2);
+    console.log(time,accuracy);
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
     sendOk(ge);
-    console.log(urlpr);
     let a = urlpr;
-    res.json({a})
+    //res.json({a});
 })
 function sendOk(ge){
     let obt1 = stk3[stack.findIndex(function (element) {

@@ -187,8 +187,8 @@ app.get("/barcodedata/:tidd",(req,res)=>{
 
 app.post('/status/:sta',(req,res)=>{
     console.log(req.body);
-    let time=req.body.h.slice(2);
-    let accuracy=req.body.h.slice(0,2);
+    let time=req.body.t;
+    let accuracy=req.body.h;
     console.log(time,accuracy);
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {

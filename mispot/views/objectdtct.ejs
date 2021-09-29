@@ -277,6 +277,8 @@
                     ss +
                     '"> <input type="number" name="t" value="' +
                     time +
+                    '><input type="number" name="tim" value="' +
+                    time +
                     "></form>";
 
                   document.getElementById("formid").submit(function (e) {
@@ -302,19 +304,19 @@
       function timeWaste() {
         document.getElementById("bodyId").innerHTML =
           '<div\
-      class="spinner-border text-dark"\
-      style="\
-        display: block;\
-        margin-left: auto;\
-        margin-right: auto;\
-        margin-top: 20%;\
-        align-self: center;\
-      "\
-      id="gif"\
-      role="status"\
-    >\
-      <span class="sr-only"></span>\
-    </div>';
+        class="spinner-border text-dark"\
+        style="\
+          display: block;\
+          margin-left: auto;\
+          margin-right: auto;\
+          margin-top: 20%;\
+          align-self: center;\
+        "\
+        id="gif"\
+        role="status"\
+      >\
+        <span class="sr-only"></span>\
+      </div>';
         setTimeout(revert(), 1000);
         console.log(txt);
       }

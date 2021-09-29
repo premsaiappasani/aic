@@ -195,7 +195,7 @@ app.post('/status/:sta',(req,res)=>{
         return element == ge;})];
     sendOk(ge);
     let a = urlpr;
-    //res.json({a});
+    res.render("redirect",{a});
 })
 function sendOk(ge){
     let obt1 = stk3[stack.findIndex(function (element) {

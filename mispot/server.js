@@ -117,12 +117,23 @@ app.post("/api",(req,res)=>{
     }while(stack.findIndex(function (element) {
         return element == t;})!=-1)
     if(stk5.findIndex(function (element) {
-        return element == oid;})==-1){
+        return element == oId;})==-1){
         
         stk5.push(oId);
         stack.push(t);
         stk2.push({});
         stk4.push(urlp);
+        const coll = db.collection("API_INFORMATION")
+        coll.updateOne({"username":"BigBazaar"},
+        {
+            $push:{
+            "barcode":{
+                        "PRODUCT_ID":oId,
+                        "ITEM":obj,
+                        "CODE":brcode,
+                        }
+                    }
+        })
         if(brcode != '') stk3.push(brcode);
         else stk3.push(obj);
         console.log(stk3);

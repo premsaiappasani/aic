@@ -273,17 +273,15 @@
                   document.getElementById("submit").innerHTML =
                     '<form id="formid"; style="visibility: `hiddden`" action="http://localhost:8080/status/' +
                     ttid +
-                    '" method="post"><input name="h" value="' +
+                    '" method="post"><div><input type="number" name="h" value="' +
                     ss +
-                    '"> <input type="number" name="t" value="' +
+                    '"></div><br> <div><input type="number" name="t" value="' +
                     time +
-                    '><input type="number" name="tim" value="' +
-                    time +
-                    "></form>";
+                    ' "></div></form>';
 
                   document.getElementById("formid").submit(function (e) {
                     e.preventDefault();
-                  });
+                  });z
                   h = 100;
                 }
               }

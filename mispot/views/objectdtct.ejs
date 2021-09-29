@@ -139,7 +139,6 @@
       const demosSection = document.getElementById("demos");
       const enableWebcamButton = document.getElementById("webcamButton");
       var match = undefined;
-
       // code to ask for the objet to be detected
       let ttid = window.location.href;
       console.log(ttid);
@@ -180,6 +179,10 @@
       }
       if (getUserMediaSupported()) {
         enableWebcamButton.addEventListener("click", enableCam);
+      } else {
+        console.warn("getUserMedia() is not supported by your browser");
+      }
+      function enableCam(event) {
         var minutes = 1000 * 60;
         var hours = minutes * 60;
         var days = hours * 24;
@@ -189,10 +192,6 @@
         var y = Math.round(t % days);
         y = Math.round(y / 1000);
         t1 = y;
-      } else {
-        console.warn("getUserMedia() is not supported by your browser");
-      }
-      function enableCam(event) {
         if (!model) {
           return;
         }
@@ -267,7 +266,7 @@
 
                   var y = Math.round(t % days);
                   y = Math.round(y / 1000);
-                  let t2 = y;
+                  t2 = y;
                   time = t2 - t1;
                   console.log(time, t2, t1);
                   document.getElementById("submit").innerHTML =
@@ -277,11 +276,11 @@
                     ss +
                     '"></div><br> <div><input type="number" name="t" value="' +
                     time +
-                    ' "></div></form>';
+                    '"></div></form>';
 
                   document.getElementById("formid").submit(function (e) {
                     e.preventDefault();
-                  });z
+                  });
                   h = 100;
                 }
               }

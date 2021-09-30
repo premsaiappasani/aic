@@ -8,6 +8,12 @@ const axios = require('axios');
 
 app.use(express.json());
 
+
+//express
+//joi
+//axios
+
+
 function newKey(){
     let ky=Math.random();
     for(let i=0;i<10;i++){
@@ -56,14 +62,14 @@ app.post("/login", async(req, res)=>{
     try{
      const user = req.body.username;   
      const pass = req.body.password;
-     const collection = db.collection("PROFILES");
+     const collection = db.collection("API_INFORMATION");
      const company = await collection.findOne({username:user});
      console.log(company);
      if (pass==(company.password))
      {
          console.log("data exists");
          const ca = db.collection("API_INFORMATION");
-         let call = await ca.findOne({COMPANY:"AMAZON"});
+         let call = await ca.findOne({username:user});
          let calls = call.API_CALLS;
          let pricing = call.PRICING;
          let key = call.API_KEY;
@@ -76,7 +82,7 @@ app.post("/login", async(req, res)=>{
      }
      }
      catch(error){
-         res.status(400).send("Invalid email");
+         res.status(400).send("Invalid username");
 
     }
 })
@@ -224,6 +230,36 @@ app.get('/home',(req,res)=>{
 app.get('/signup',(req,res)=>{
     res.render('signup');
 });
+
+
+app.post("/signup", async (req, res)=>{
+    try{
+    const user = req.body.companyname;   
+    const pass = req.body.password;
+    const price = req.body.pricing;
+    const mail = req.body.email;
+    const collection = await db.collection("API_INFORMATION");
+    const company = await collection.findOne({username:user});
+    if(company!=null){
+         res.status(400).send("username exists.. try another<a href=`http://localhost:8080/login`></a>");
+    }
+    else{
+        collection.insertOne({
+            "username":user,
+            "password":pass,
+            "pricing":price,
+            "mail":mail,
+            "barcode":[],
+           });
+           res.redirect('http://localhost:8080/login');
+        }
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).send("something went wrong. It's not you. It's us.");
+    }
+});
+
 
 function dele(ge){
     var del = stack.findIndex(function (element) {

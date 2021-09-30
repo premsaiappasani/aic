@@ -8,10 +8,10 @@ app.use(express.urlencoded({
   extended: true
 }));
 
+let arr=[0,0,0,0];
+let brr=['','','',''];
 
 app.get('/products',(req,res)=>{
-    let arr=[0,0,0,0];
-    let brr=['','','',''];
     res.render('products',{arr,brr,aig:reqs});
 });
 

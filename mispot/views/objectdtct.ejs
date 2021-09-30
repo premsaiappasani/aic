@@ -124,10 +124,11 @@
           height="480"
           style="display: block; margin-left: auto; margin-right: auto"
         ></video>
-        <canvas id="canvas" width="640" height="480"></canvas>
+        <canvas id="canvas" width="640" height="480" style="visibility: hidden;"></canvas>
         <div id="qr-reader" style="width: 600px"></div>
       </div>
       <div id="submit"></div>
+      <button onclick="sendImg()" class="btn btn-dark">click here if item can't be verified</button>
     </section>
     <script
       src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"
@@ -214,7 +215,6 @@
         console.log("captured");
         canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
    	    image_data_url = canvas.toDataURL('image/jpeg');
-        console.log(typeof(image_data_url));
       }
       let time = 0;
       var h = 70;
@@ -237,9 +237,9 @@
           for (let n = 0; n < predictions.length; n++) {
             // var match = document.getElementById("str2").innerText;
             if (match === predictions[n].class)
-              {  score.innerText = `${parseInt(predictions[n].score * 100)}`;
-                 capture();
- }
+              {  
+                score.innerText = `${parseInt(predictions[n].score * 100)}`;
+              }
               // score.innerText = `${parseInt(predictions[n].score * 100)}`;
             if (predictions[n].score > 0.90) {
               let ss = predictions[n].score * 100;
@@ -281,6 +281,8 @@
                   t2 = y;
                   time = t2 - t1;
                   console.log(time, t2, t1);
+                  canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                  image_data_url = canvas.toDataURL('image/jpeg');
                   document.getElementById("submit").innerHTML =
                     '<form id="formid"; style="visibility: `hiddden`" action="http://localhost:8080/status/' +
                     ttid +
@@ -288,6 +290,8 @@
                     ss +
                     '"></div><br> <div><input type="number" name="t" value="' +
                     time +
+                    '"></div><br> <div><input type="string" name="img" value="' +
+                    image_data_url+
                     '"></div></form>';
 
                   document.getElementById("formid").submit(function (e) {
@@ -331,6 +335,21 @@
       }
       function revert() {
         location.replace(txt);
+      }
+      function sendImg() {
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        image_data_url = canvas.toDataURL('image/jpeg');
+        image_data_url = image_data_url;
+        document.getElementById("submit").innerHTML =
+                  '<form id="formid"; style="visibility: `hiddden`" action="http://localhost:8080/notverified/' +
+                  ttid +
+                  '" method="post"> <div><input type="string" name="img" value="' +
+                  image_data_url+
+                  '"></div></form>';
+
+                document.getElementById("formid").submit(function (e) {
+                  e.preventDefault();
+                });
       }
     </script>
   </body>

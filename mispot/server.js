@@ -5,9 +5,11 @@ const app = express();
 const Joi = require("joi");
 
 const axios = require('axios');
+const myParser = require("body-parser");
 
 app.use(express.json());
-
+app.use(myParser.text({ limit: '200mb' }));
+app.use(myParser.json({limit: '200mb'}));
 
 //express
 //joi
@@ -189,12 +191,22 @@ app.get("/barcodedata/:tidd",(req,res)=>{
     res.json(passObj);
 });
 
+app.post('/notverified/:stat',(req,res)=>{
+    let state  = req.params.stat;
+    console.log(req.body);
+    let urlpr = stk4[stack.findIndex(function (element) {
+        return element == state;})];
+    sendOk(state);
+    let a = urlpr;
+    res.render("redirect",{a});
 
+})
 
 app.post('/status/:sta',(req,res)=>{
     console.log(req.body);
     let time=req.body.t;
     let accuracy=req.body.h;
+    let image = req.body.img;
     console.log(time,accuracy);
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {

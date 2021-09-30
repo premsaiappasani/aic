@@ -124,6 +124,7 @@
           height="480"
           style="display: block; margin-left: auto; margin-right: auto"
         ></video>
+        <canvas id="canvas" width="640" height="480"></canvas>
         <div id="qr-reader" style="width: 600px"></div>
       </div>
       <div id="submit"></div>
@@ -138,6 +139,7 @@
       const liveView = document.getElementById("liveView");
       const demosSection = document.getElementById("demos");
       const enableWebcamButton = document.getElementById("webcamButton");
+      let canvas = document.querySelector("#canvas");
       var match = undefined;
       // code to ask for the objet to be detected
       let ttid = window.location.href;
@@ -207,6 +209,13 @@
             video.addEventListener("loadeddata", predictWebcam);
           });
       }
+      var image_data_url="";
+      function capture(){
+        console.log("captured");
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+   	    image_data_url = canvas.toDataURL('image/jpeg');
+        console.log(typeof(image_data_url));
+      }
       let time = 0;
       var h = 70;
       var model = true;
@@ -228,8 +237,11 @@
           for (let n = 0; n < predictions.length; n++) {
             // var match = document.getElementById("str2").innerText;
             if (match === predictions[n].class)
-              score.innerText = `${parseInt(predictions[n].score * 100)}`;
-            if (predictions[n].score > 0.66) {
+              {  score.innerText = `${parseInt(predictions[n].score * 100)}`;
+                 capture();
+ }
+              // score.innerText = `${parseInt(predictions[n].score * 100)}`;
+            if (predictions[n].score > 0.90) {
               let ss = predictions[n].score * 100;
               ss = parseInt(ss);
               const p = document.createElement("p");

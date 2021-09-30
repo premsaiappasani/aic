@@ -5,12 +5,8 @@ const app = express();
 const Joi = require("joi");
 
 const axios = require('axios');
-const myParser = require("body-parser");
 
 app.use(express.json());
-app.use(myParser.text({ limit: '200mb' }));
-app.use(myParser.json({limit: '200mb'}));
-
 //express
 //joi
 //axios
@@ -31,8 +27,16 @@ function newKey(){
     return Math.floor(ky);
 }
 app.use(express.urlencoded({
-  extended: true
+  extended: true,
 }));
+app.use(express.text({
+    limit:'200mb',
+  }));
+app.use(express.json({
+    limit:'200mb',
+}));
+  
+let ver=0;
 
 const MongoClient = require('mongodb').MongoClient
 const uri = "mongodb+srv://database:accenture25k@cluster0.lqmlj.mongodb.net/Cluster0?retryWrites=true&w=majority";
@@ -111,6 +115,7 @@ let stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [];
 app.set('view engine', 'ejs');
 
 app.post("/api",async(req,res)=>{
+    ver=0;
     let t;
     let data = req.body;
     let ky = data.key;
@@ -160,6 +165,7 @@ app.post("/api",async(req,res)=>{
     res.send(url);
 });
 
+
 app.get("/verify/obj/:random",(req,res)=>{
     let tid = req.params.random;
     console.log(tid,'verifyhere');
@@ -194,11 +200,12 @@ app.get("/barcodedata/:tidd",(req,res)=>{
 });
 
 app.post('/notverified/:stat',async(req,res)=>{
+    ver=0;
     let state  = req.params.stat;
     console.log(req.body);
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == state;})];
-    sendOk(state);
+    sendOk(state,req.body.img);
     let a = urlpr;
     coll = await db.collection("API_INFORMATION");
     coll.updateOne({"company":"amazon"},
@@ -213,7 +220,9 @@ app.post('/notverified/:stat',async(req,res)=>{
 
 })
 
+
 app.post('/status/:sta',(req,res)=>{
+    ver=1;
     console.log(req.body);
     let time=req.body.t;
     let accuracy=req.body.h;
@@ -222,17 +231,18 @@ app.post('/status/:sta',(req,res)=>{
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    sendOk(ge);
+    sendOk(ge,image);
     let a = urlpr;
     res.render("redirect",{a});
 })
-function sendOk(ge){
+
+function sendOk(ge,image){
     let obt1 = stk3[stack.findIndex(function (element) {
         return element == ge;})];
     let oid1 = stk5[stack.findIndex(function (element) {
         return element == ge;})];
     console.log(oid1,'returning to companh about status');
-    let data={object: obt1,orderId:oid1};
+    let data={object: obt1,orderId:oid1,image,ver};
     axios.post('http://localhost:3000/api/', data)
     .then((resp) => {       
         reqs=resp.data;

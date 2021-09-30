@@ -122,13 +122,13 @@
           autoplay
           width="640"
           height="480"
-          style="display: block; margin-left: auto; margin-right: auto"
+          style="display: block; margin-left: auto; margin-right: auto; margin-top: 70px; "
         ></video>
         <canvas id="canvas" width="640" height="480" style="visibility: hidden;"></canvas>
         <div id="qr-reader" style="width: 600px"></div>
       </div>
       <div id="submit"></div>
-      <button onclick="sendImg()" class="btn btn-dark">click here if item can't be verified</button>
+      <button onclick="sendImg()" id="fbutton" class="btn btn-dark position-absolute start-50 translate-middle" style="visibility: hidden; margin-top: 40px;">click here if item can't be verified</button>
     </section>
     <script
       src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"
@@ -199,6 +199,7 @@
           return;
         }
         enableWebcamButton.remove();
+        document.getElementById('fbutton').style.visibility = 'visible';
         event.target.classList.add("removed");
         const constraints = {
           video: true,
@@ -241,7 +242,7 @@
                 score.innerText = `${parseInt(predictions[n].score * 100)}`;
               }
               // score.innerText = `${parseInt(predictions[n].score * 100)}`;
-            if (predictions[n].score > 0.90) {
+            if (predictions[n].score > 0.66) {
               let ss = predictions[n].score * 100;
               ss = parseInt(ss);
               const p = document.createElement("p");

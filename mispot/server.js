@@ -216,6 +216,15 @@ function sendOk(ge){
     dele(ge);
 }
 
+
+app.get('/home',(req,res)=>{
+    res.render("home");
+});
+
+app.get('/signup',(req,res)=>{
+    res.render('signup');
+});
+
 function dele(ge){
     var del = stack.findIndex(function (element) {
         return element == ge;});

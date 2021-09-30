@@ -15,7 +15,7 @@ let ver=0;
 
 app.get('/products',(req,res)=>{
     console.log(str);
-    res.render('products',{arr,brr,aig:reqs,str});
+    res.render('products',{arr,brr,aig:reqs,str,str2});
 });
 
 app.get('/verify/:number',(req,res)=>{
@@ -51,6 +51,7 @@ function changeUrl(num){
     }
     else{
         bar='6456461645';
+        obj = 'book';
     }
     changeUrl2();
 }
@@ -87,14 +88,20 @@ app.set('view engine', 'ejs');
 app.listen(3000,()=>{
     console.log("Hello World");
 });
-
+var str2 = '';
 app.post('/api',(req,res)=>{
     let obj = req.body.object;
     let id = req.body.orderId;
-    str=req.body.image;
     console.log(req.body);
     if(req.body.ver==1){
-        arr[0]=1;
+        if(obj === '6456461645'){
+            arr[1]=1;
+            str2 = req.body.image;
+        }
+        else{
+            arr[0]=1;
+            str=req.body.image;
+        }
     };
     console.log(obj,id);
 })

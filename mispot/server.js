@@ -236,6 +236,18 @@ app.post('/status/:sta',(req,res)=>{
     res.render("redirect",{a});
 })
 
+app.post('/statu/:sta',(req,res)=>{
+    ver=1;
+    console.log(req.body);
+    let image = req.body.img;
+    let ge   = req.params.sta;
+    let urlpr = stk4[stack.findIndex(function (element) {
+        return element == ge;})];
+    sendOk(ge,image);
+    let a = urlpr;
+    res.render("redirect",{a});
+})
+
 function sendOk(ge,image){
     let obt1 = stk3[stack.findIndex(function (element) {
         return element == ge;})];

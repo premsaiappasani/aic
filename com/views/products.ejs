@@ -122,7 +122,7 @@
 			<div class="col-8 card">
 			Product : Book<br>
 			Product Id : 15136
-			<div><% if(arr[1]===1) {%>
+			<div id='forimg22'><% if(arr[1]===1) {%>
             <b style="color: green;">VERIFIED</b>
             <progress title="% Matched" id="file2" value=<%= brr[1] %> max="100"> <%=brr[1] %>% </progress>
             <% } %>
@@ -167,6 +167,7 @@
     <div id="hell"></div>
     <div id="pagereq"; style="visibility: hidden;"><%=aig%></div>
     <div id="forimg"; style="visibility: hidden;"><%=str%></div>
+    <div id="forimg2"; style="visibility: hidden;"><%=str2%></div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -178,6 +179,10 @@
       let image= new Image();
       image.src=imgurl;
       document.getElementById('forimg1').appendChild(image);
+      let imgurl2=document.getElementById('forimg2').innerHTML;
+      let image2= new Image();
+      image2.src=imgurl2;
+      document.getElementById('forimg22').appendChild(image2);
       function call0() {
          {
           // (`http://localhost:3000/verify/0`);

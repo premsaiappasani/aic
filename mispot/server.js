@@ -35,7 +35,7 @@ app.use(express.urlencoded({
 }));
 
 const MongoClient = require('mongodb').MongoClient
-const uri = "mongodb+srv://database:accenture25k@cluster0.lqmlj.mongodb.net/companyApis?retryWrites=true&w=majority";
+const uri = "mongodb+srv://database:accenture25k@cluster0.lqmlj.mongodb.net/Cluster0?retryWrites=true&w=majority";
 const dbName = 'Cluster0';
 const assert = require('assert');
 const client = new MongoClient(uri);
@@ -62,16 +62,16 @@ app.get("/login",(req,res)=>{
  
 app.post("/login", async(req, res)=>{
     try{
-     const user = req.body.username;   
+     const user = req.body.companyname;   
      const pass = req.body.password;
      const collection = db.collection("API_INFORMATION");
-     const company = await collection.findOne({username:user});
+     const company = await collection.findOne({company:user});
      console.log(company);
      if (pass==(company.password))
      {
          console.log("data exists");
          const ca = db.collection("API_INFORMATION");
-         let call = await ca.findOne({username:user});
+         let call = await ca.findOne({company:user});
          let calls = call.API_CALLS;
          let pricing = call.PRICING;
          let key = call.API_KEY;
@@ -110,7 +110,7 @@ let stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [];
 
 app.set('view engine', 'ejs');
 
-app.post("/api",(req,res)=>{
+app.post("/api",async(req,res)=>{
     let t;
     let data = req.body;
     let ky = data.key;
@@ -130,17 +130,19 @@ app.post("/api",(req,res)=>{
         stack.push(t);
         stk2.push({});
         stk4.push(urlp);
-        const coll = db.collection("API_INFORMATION")
-        coll.updateOne({"username":"BigBazaar"},
+        const coll = await db.collection("API_INFORMATION");
+        const up = coll.updateOne({company:"amazon"},
         {
             $push:{
-            "barcode":{
+            barcode:{
                         "PRODUCT_ID":oId,
                         "ITEM":obj,
                         "CODE":brcode,
                         }
                     }
         })
+        console.log(up);
+        console.log("barcode");
         if(brcode != '') stk3.push(brcode);
         else stk3.push(obj);
         console.log(stk3);
@@ -191,13 +193,22 @@ app.get("/barcodedata/:tidd",(req,res)=>{
     res.json(passObj);
 });
 
-app.post('/notverified/:stat',(req,res)=>{
+app.post('/notverified/:stat',async(req,res)=>{
     let state  = req.params.stat;
     console.log(req.body);
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == state;})];
     sendOk(state);
     let a = urlpr;
+    coll = await db.collection("API_INFORMATION");
+    coll.updateOne({"company":"amazon"},
+        {
+            $push:{
+            images:{
+                        "IMAGE":req.body,
+                        }
+                    }
+        })
     res.render("redirect",{a});
 
 })
@@ -251,17 +262,18 @@ app.post("/signup", async (req, res)=>{
     const price = req.body.pricing;
     const mail = req.body.email;
     const collection = await db.collection("API_INFORMATION");
-    const company = await collection.findOne({username:user});
+    const company = await collection.findOne({company:user});
     if(company!=null){
          res.status(400).send("username exists.. try another<a href=`http://localhost:8080/login`></a>");
     }
     else{
         collection.insertOne({
-            "username":user,
+            "company":user,
             "password":pass,
             "pricing":price,
             "mail":mail,
             "barcode":[],
+            "images":[],
            });
            res.redirect('http://localhost:8080/login');
         }

@@ -41,7 +41,7 @@ var urlp = 'http://localhost:3000/products';
 var orderId = '44725373'
 function changeUrl(){
     // update bar and object using database
-    bar = '';
+     bar = '';
     changeUrl2();
 }
 

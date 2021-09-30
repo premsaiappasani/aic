@@ -84,15 +84,16 @@
 		</div>
 	  </nav>
 	<div class="card position-absolute top-50 start-50 translate-middle">
-    <form>
+    <form action = "/login" method = 'post' id="users">
 		
         <div class="card-header">Login</div>
 		
         <div class="card-body">
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <label for="exampleInputEmail1" class="form-label">Company Name</label>
         <input
-          type="email"
+          type="text"
+          name="companyname"
           class="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
@@ -102,6 +103,7 @@
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input
           type="password"
+          name = "password"
           class="form-control"
           id="exampleInputPassword1"
         />

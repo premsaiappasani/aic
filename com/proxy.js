@@ -48,10 +48,12 @@ function changeUrl(num){
     // bar = '';
     if(num==0){
         bar='';
+        orderId="0";
     }
     else{
         bar='6456461645';
         obj = 'book';
+        orderId = "1";
     }
     changeUrl2();
 }

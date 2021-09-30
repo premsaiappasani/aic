@@ -23,24 +23,22 @@
     >
   </div>
 </nav>
-<video
-          id="webcam"
-          autoplay
-          width="640"
-          height="480"
-          style="display: block; margin-left: auto; margin-right: auto; margin-top: 70px; "
-        ></video>
+
+    <canvas id="canvas" width="640" height="480" ></canvas>
     <div id="qr-reader" class="position-absolute top-50 start-50 translate-middle" style="height: 40%;"></div>
-     <canvas id="canvas" width="640" height="480" style="visibility: hidden;"></canvas>
+    
+    
      <div id="submit"></div>
     <script type="text/javascript">
-      let canvas = document.querySelector("#canvas");
-      const video = document.getElementById("webcam");
+      
       function onScanSuccess(decodedText, decodedResult) {
+        document.querySelector("#qr-reader__scan_region > video").id = 'webcam';
+        let canvas = document.querySelector("#canvas");
+        const video = document.getElementById("webcam");
         if(decodedResult === txt){
           var image_data_url = '';
           canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-                  image_data_url = canvas.toDataURL('image/jpeg');
+   	    image_data_url = canvas.toDataURL('image/jpeg');
                   document.getElementById("submit").innerHTML =
                     '<form id="formid"; style="visibility: `hiddden`" action="http://localhost:8080/statu/' +
                     ttid +
@@ -90,6 +88,9 @@
       req.onerror=function () {
         
       }
+
+        
+     
     </script>
   </body>
 </html>

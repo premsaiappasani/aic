@@ -6,7 +6,6 @@ const Joi = require("joi");
 
 const axios = require('axios');
 
-app.use(express.json());
 //express
 //joi
 //axios
@@ -32,9 +31,8 @@ app.use(express.urlencoded({
 app.use(express.text({
     limit:'200mb',
   }));
-app.use(express.json({
-    limit:'200mb',
-}));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true, parameterLimit: 50000}));
   
 let ver=0;
 
@@ -183,6 +181,10 @@ app.get("/verify/barcode/:random",(req,res)=>{
 app.get("/success",(req,res)=>{
     console.log("Verification Success");
     res.sendFile(__dirname+"#");
+});
+
+app.get("/pricing",(req,res)=>{
+    res.render("pricing");
 });
 
 app.use(express.static('public'));

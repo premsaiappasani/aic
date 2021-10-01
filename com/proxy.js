@@ -20,19 +20,19 @@ app.get('/products',(req,res)=>{
 
 app.get('/verify/:number',(req,res)=>{
     let num=req.params.number;
-    console.log('pst request came');
     changeUrl(num);
-    console.log(reqs);
-    console.log("ended");
+    console.log(num,'requested number');
     res.redirect('http://localhost:3000/temp');
 });
 var reqs = undefined;
 app.get('/temp',(req,res)=>{
     console.log(reqs);
     res.render('temp',{reqs});
+    reqs = undefined;
 });
 app.get('/fetch',(req,res)=>{
     res.send(reqs);
+    reqs = undefined;
 });
 
 function sleep(ms) {
@@ -49,6 +49,7 @@ function changeUrl(num){
     if(num==0){
         bar='';
         orderId="0";
+        obj = 'bottle';
     }
     else{
         bar='6456461645';

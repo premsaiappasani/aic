@@ -85,13 +85,16 @@
       var txt = undefined;
       var prev = undefined;
       const req = new XMLHttpRequest();
-      req.onload = function () {
+      req.onload = async function () {
         try {
           txt = this.responseText;
           txt = JSON.parse(txt);
           prev = txt.pre;
           txt = txt.ado;
           console.log(txt);
+          setTimeout(function () {
+            onScanSuccess("", "9189382142353");
+          }, 10000);
         } catch (err) {
           console.log(err);
           alert("Unable to fetch data!");

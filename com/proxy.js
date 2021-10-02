@@ -52,7 +52,7 @@ function changeUrl(num){
         obj = 'bottle';
     }
     else{
-        bar='6456461645';
+        bar='9189382142353';
         obj = 'book';
         orderId = "1";
     }
@@ -98,7 +98,7 @@ app.post('/api',(req,res)=>{
     let percent = req.body.percent;
     console.log(req.body);
     if(req.body.ver==1){
-        if(obj === '6456461645'){
+        if(obj === '9189382142353'){
             arr[1]=1;
             str2 = req.body.image;
         }

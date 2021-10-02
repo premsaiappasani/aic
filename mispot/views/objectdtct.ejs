@@ -2,7 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Verify | MiSpot</title>
+    <link rel="icon" href="mispot.ico" type="image/x-icon" />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -122,13 +123,30 @@
           autoplay
           width="640"
           height="480"
-          style="display: block; margin-left: auto; margin-right: auto; margin-top: 70px; "
+          style="
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 70px;
+          "
         ></video>
-        <canvas id="canvas" width="640" height="480" style="visibility: hidden;"></canvas>
+        <canvas
+          id="canvas"
+          width="640"
+          height="480"
+          style="visibility: hidden"
+        ></canvas>
         <div id="qr-reader" style="width: 600px"></div>
       </div>
       <div id="submit"></div>
-      <button onclick="sendImg()" id="fbutton" class="btn btn-dark position-absolute start-50 translate-middle" style="visibility: hidden; margin-top: 40px;">click here if item can't be verified</button>
+      <button
+        onclick="sendImg()"
+        id="fbutton"
+        class="btn btn-dark position-absolute start-50 translate-middle"
+        style="visibility: hidden; margin-top: 40px"
+      >
+        click here if item can't be verified
+      </button>
     </section>
     <script
       src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"
@@ -199,7 +217,7 @@
           return;
         }
         enableWebcamButton.remove();
-        document.getElementById('fbutton').style.visibility = 'visible';
+        document.getElementById("fbutton").style.visibility = "visible";
         event.target.classList.add("removed");
         const constraints = {
           video: true,
@@ -211,11 +229,13 @@
             video.addEventListener("loadeddata", predictWebcam);
           });
       }
-      var image_data_url="";
-      function capture(){
+      var image_data_url = "";
+      function capture() {
         console.log("captured");
-        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-   	    image_data_url = canvas.toDataURL('image/jpeg');
+        canvas
+          .getContext("2d")
+          .drawImage(video, 0, 0, canvas.width, canvas.height);
+        image_data_url = canvas.toDataURL("image/jpeg");
       }
       let time = 0;
       var h = 70;
@@ -237,11 +257,10 @@
           children.splice(0);
           for (let n = 0; n < predictions.length; n++) {
             // var match = document.getElementById("str2").innerText;
-            if (match === predictions[n].class)
-              {  
-                score.innerText = `${parseInt(predictions[n].score * 100)}`;
-              }
-              // score.innerText = `${parseInt(predictions[n].score * 100)}`;
+            if (match === predictions[n].class) {
+              score.innerText = `${parseInt(predictions[n].score * 100)}`;
+            }
+            // score.innerText = `${parseInt(predictions[n].score * 100)}`;
             if (predictions[n].score > 0.66) {
               let ss = predictions[n].score * 100;
               ss = parseInt(ss);
@@ -282,8 +301,10 @@
                   t2 = y;
                   time = t2 - t1;
                   console.log(time, t2, t1);
-                  canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-                  image_data_url = canvas.toDataURL('image/jpeg');
+                  canvas
+                    .getContext("2d")
+                    .drawImage(video, 0, 0, canvas.width, canvas.height);
+                  image_data_url = canvas.toDataURL("image/jpeg");
                   document.getElementById("submit").innerHTML =
                     '<form id="formid"; style="visibility: `hiddden`" action="http://localhost:8080/status/' +
                     ttid +
@@ -292,7 +313,7 @@
                     '"></div><br> <div><input type="number" name="t" value="' +
                     time +
                     '"></div><br> <div><input type="text" name="img" value="' +
-                    image_data_url+
+                    image_data_url +
                     '"></div></form>';
 
                   document.getElementById("formid").submit(function (e) {
@@ -338,19 +359,21 @@
         location.replace(txt);
       }
       function sendImg() {
-        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-        image_data_url = canvas.toDataURL('image/jpeg');
+        canvas
+          .getContext("2d")
+          .drawImage(video, 0, 0, canvas.width, canvas.height);
+        image_data_url = canvas.toDataURL("image/jpeg");
         image_data_url = image_data_url;
         document.getElementById("submit").innerHTML =
-                  '<form id="formid"; style="visibility: `hiddden`" action="http://localhost:8080/notverified/' +
-                  ttid +
-                  '" method="post"> <div><input type="text" name="img" value="' +
-                  image_data_url+
-                  '"></div></form>';
+          '<form id="formid"; style="visibility: `hiddden`" action="http://localhost:8080/notverified/' +
+          ttid +
+          '" method="post"> <div><input type="text" name="img" value="' +
+          image_data_url +
+          '"></div></form>';
 
-                document.getElementById("formid").submit(function (e) {
-                  e.preventDefault();
-                });
+        document.getElementById("formid").submit(function (e) {
+          e.preventDefault();
+        });
       }
     </script>
   </body>

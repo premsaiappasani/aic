@@ -125,6 +125,7 @@
 			<div id='forimg22'><% if(arr[1]===1) {%>
             <b style="color: green;">VERIFIED</b>
             <progress title="% Matched" id="file2" value=99 max="100"> <%=brr[1] %>% </progress>
+            <img src="" alt="Verified with">
             <% } %>
             <% if(arr[1]===0) { %>
                 <span style="color: darkred;">NOT VERIFIED</span>
@@ -180,9 +181,6 @@
       image.src=imgurl;
       document.getElementById('forimg1').appendChild(image);
       let imgurl2=document.getElementById('forimg2').innerHTML;
-      let image2= new Image();
-      image2.src=imgurl2;
-      document.getElementById('forimg22').appendChild(image2);
       function call0() {
          {
           // (`http://localhost:3000/verify/0`);

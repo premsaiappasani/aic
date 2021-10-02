@@ -95,6 +95,7 @@ var str2 = '';
 app.post('/api',(req,res)=>{
     let obj = req.body.object;
     let id = req.body.orderId;
+    let percent = req.body.percent;
     console.log(req.body);
     if(req.body.ver==1){
         if(obj === '6456461645'){
@@ -103,6 +104,7 @@ app.post('/api',(req,res)=>{
         }
         else{
             arr[0]=1;
+            brr[0]=percent;
             str=req.body.image;
         }
     };

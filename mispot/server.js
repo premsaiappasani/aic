@@ -233,7 +233,7 @@ app.post('/status/:sta',(req,res)=>{
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    sendOk(ge,image);
+    sendOk(ge,image,accuracy);
     let a = urlpr;
     res.render("redirect",{a});
 })
@@ -245,18 +245,19 @@ app.post('/statu/:sta',(req,res)=>{
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    sendOk(ge,image);
+    sendOk(ge,image,100);
     let a = urlpr;
     res.render("redirect",{a});
 })
 
-function sendOk(ge,image){
+function sendOk(ge,image,p){
     let obt1 = stk3[stack.findIndex(function (element) {
         return element == ge;})];
     let oid1 = stk5[stack.findIndex(function (element) {
         return element == ge;})];
+    
     console.log(oid1,'returning to companh about status');
-    let data={object: obt1,orderId:oid1,image,ver};
+    let data={object: obt1,orderId:oid1,image,ver,percent:p};
     axios.post('http://localhost:3000/api/', data)
     .then((resp) => {       
         reqs=resp.data;

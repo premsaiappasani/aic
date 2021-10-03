@@ -74,9 +74,9 @@ app.post("/login", async(req, res)=>{
          console.log("data exists");
          const ca = db.collection("API_INFORMATION");
          let call = await ca.findOne({company:user});
-         let calls = call.API_CALLS;
-         let pricing = call.PRICING;
-         let key = call.API_KEY;
+         let calls = call.api_calls;
+         let pricing = call.pricing;
+         let key = call.api_key;
          res.render("dashboard",{calls,pricing,key});
      }
      else
@@ -297,6 +297,8 @@ app.post("/signup", async (req, res)=>{
             "password":pass,
             "pricing":price,
             "mail":mail,
+            "api_key":"AXH26HTZ8K",
+            "api_calls":0,
             "barcode":[],
             "images":[],
            });

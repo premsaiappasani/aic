@@ -288,7 +288,8 @@ app.post("/signup", async (req, res)=>{
     const pass = req.body.password;
     const price = req.body.pricing;
     const mail = req.body.email;
-    let keyy= toString(newKey());
+    let keyy= newKey();
+    console.log(keyy);
     const collection = await db.collection("API_INFORMATION");
     const company = await collection.findOne({company:user});
     if(company!=null){

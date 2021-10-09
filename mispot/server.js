@@ -288,6 +288,7 @@ app.post("/signup", async (req, res)=>{
     const pass = req.body.password;
     const price = req.body.pricing;
     const mail = req.body.email;
+    let keyy= toString(newKey());
     const collection = await db.collection("API_INFORMATION");
     const company = await collection.findOne({company:user});
     if(company!=null){
@@ -299,7 +300,7 @@ app.post("/signup", async (req, res)=>{
             "password":pass,
             "pricing":price,
             "mail":mail,
-            "api_key":"AXH26HTZ8K",
+            "api_key": keyy,
             "api_calls":0,
             "barcode":[],
             "images":[],

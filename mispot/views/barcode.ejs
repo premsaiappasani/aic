@@ -57,16 +57,33 @@
             .getContext("2d")
             .drawImage(video, 0, 0, canvas.width, canvas.height);
           image_data_url = canvas.toDataURL("image/jpeg");
-          document.getElementById("submit").innerHTML =
-            '<form id="formid"; style="visibility: `hiddden`" action="http://localhost:8080/statu/' +
-            ttid +
-            '" method="post"><div><input type="text" name="img" value="' +
-            image_data_url +
-            '"></div></form>';
 
-          document.getElementById("formid").submit(function (e) {
-            e.preventDefault();
-          });
+          let img = image_data_url;
+          var httpPost = new XMLHttpRequest(),
+            path = "http://localhost:8080/statu/" + ttid,
+            data = JSON.stringify({ img });
+          httpPost.onreadystatechange = function (err) {
+            if (httpPost.readyState == 4 && httpPost.status == 200) {
+              console.log(httpPost.responseText);
+              location.replace(httpPost.responseText);
+            } else {
+              console.log(err);
+            }
+          };
+          // Set the content type of the request to json since that's what's being sent
+          httpPost.open("POST", path, true);
+          httpPost.send(data);
+
+          // document.getElementById("submit").innerHTML =
+          //   '<form id="formid"; style="visibility: `hiddden`" action="http://localhost:8080/statu/' +
+          //   ttid +
+          //   '" method="post"><div><input type="text" name="img" value="' +
+          //   image_data_url +
+          //   '"></div></form>';
+
+          // document.getElementById("formid").submit(function (e) {
+          //   e.preventDefault();
+          // });
         }
         console.log(`Code scanned = ${decodedText}`, decodedResult);
         // if()
@@ -92,9 +109,6 @@
           prev = txt.pre;
           txt = txt.ado;
           console.log(txt);
-          setTimeout(function () {
-            onScanSuccess("", "9189382142353");
-          }, 10000);
         } catch (err) {
           console.log(err);
           alert("Unable to fetch data!");

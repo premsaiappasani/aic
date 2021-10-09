@@ -11,6 +11,7 @@ app.use(express.urlencoded({
 let arr=[0,0,0,0];
 let brr=['','','',''];
 let str='';
+let str2='';
 let ver=0;
 
 app.get('/products',(req,res)=>{
@@ -91,16 +92,15 @@ app.set('view engine', 'ejs');
 app.listen(3000,()=>{
     console.log("Hello World");
 });
-var str2 = '';
 app.post('/api',(req,res)=>{
     let obj = req.body.object;
     let id = req.body.orderId;
     let percent = req.body.percent;
-    console.log(req.body);
     if(req.body.ver==1){
         if(obj === '9189382142353'){
             arr[1]=1;
             str2 = req.body.image;
+            console.log(str2);
         }
         else{
             arr[0]=1;

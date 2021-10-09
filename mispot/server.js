@@ -218,36 +218,37 @@ app.post('/notverified/:stat',async(req,res)=>{
                         }
                     }
         })
-    res.render("redirect",{a});
-
+    res.send(a);
 })
 
 
 app.post('/status/:sta',(req,res)=>{
     ver=1;
-    console.log(req.body);
-    let time=req.body.t;
-    let accuracy=req.body.h;
-    let image = req.body.img;
+    let datt=JSON.parse(req.body);
+    let time=datt.t;
+    let accuracy=datt.h;
+    let image = datt.img;
     console.log(time,accuracy);
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
     sendOk(ge,image,accuracy);
     let a = urlpr;
-    res.render("redirect",{a});
+    res.send(a);
 })
 
 app.post('/statu/:sta',(req,res)=>{
     ver=1;
-    console.log(req.body);
-    let image = req.body.img;
+    let datt2=JSON.parse(req.body);
+    console.log(datt2);
+    let image = datt2.img;
+    console.log(image);
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
     sendOk(ge,image,100);
     let a = urlpr;
-    res.render("redirect",{a});
+    res.send(a);
 })
 
 function sendOk(ge,image,p){

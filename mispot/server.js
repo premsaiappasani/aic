@@ -5,7 +5,9 @@ const app = express();
 const Joi = require("joi");
 
 const axios = require('axios');
-
+let NewOID=""
+let BARcodE=""
+let NEWobj=""
 //express
 //joi
 //axios
@@ -23,7 +25,8 @@ function newKey(){
     else if(ky<1000000000){
         ky*=10;
     }
-    return Math.floor(ky);
+
+    return Math.floor(ky) + "" ;
 }
 app.use(express.urlencoded({
   extended: true,
@@ -119,8 +122,11 @@ app.post("/api",async(req,res)=>{
     let ky = data.key;
     let obj = data.object;
     let brcode = data.barcode;
+    BARcodE=brcode
     let urlp = data.redUrl;
     let oId = data.order;
+    NewOID=oId;
+    NEWobj=obj
     let url = 'undefined';
     do{
         t = Math.floor(Math.random()*10000);
@@ -164,9 +170,16 @@ app.post("/api",async(req,res)=>{
 });
 
 
-app.get("/verify/obj/:random",(req,res)=>{
+app.get("/verify/obj/:random",async (req,res)=>{
     let tid = req.params.random;
     console.log(tid,'verifyhere');
+    coll = await db.collection("API_INFORMATION");
+    coll.updateOne({"company":"startup"},
+        {
+            $inc:{
+                    "api_calls":1
+                }
+        })
     res.render('objectdtct',{tid});
 
 })
@@ -209,20 +222,21 @@ app.post('/notverified/:stat',async(req,res)=>{
         return element == state;})];
     sendOk(state,req.body.img);
     let a = urlpr;
-    coll = await db.collection("API_INFORMATION");
-    coll.updateOne({"company":"amazon"},
-        {
-            $push:{
-            images:{
-                        "IMAGE":req.body,
-                        }
-                    }
-        })
+    // coll = await db.collection("API_INFORMATION");
+    // coll.updateOne({"company":"amazon"},
+    //     {
+    //         $push:{
+    //         "info":{
+                        
+    //                     }
+    //                 }
+    //     })
     res.send(a);
 })
 
 
-app.post('/status/:sta',(req,res)=>{
+app.post('/status/:sta',async (req,res)=>{
+    console.log("called ..........");
     ver=1;
     let datt=JSON.parse(req.body);
     let time=datt.t;
@@ -230,6 +244,18 @@ app.post('/status/:sta',(req,res)=>{
     let image = datt.img;
     console.log(time,accuracy);
     let ge   = req.params.sta;
+    const coll = await db.collection("API_INFORMATION");
+    const up = coll.updateOne({"company":"amazon"},
+    {
+        $push:{
+        "info":{
+                    "PRODUCT_ID":NewOID,
+                    "ITEM":NEWobj,
+                    "img":image,
+                     "status":"Verified"
+                    }
+                }
+    })
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
     sendOk(ge,image,time,accuracy);
@@ -237,7 +263,7 @@ app.post('/status/:sta',(req,res)=>{
     res.send(a);
 })
 
-app.post('/statu/:sta',(req,res)=>{
+app.post('/statu/:sta',async (req,res)=>{
     ver=1;
     let datt2=JSON.parse(req.body);
     console.log(datt2);
@@ -245,6 +271,19 @@ app.post('/statu/:sta',(req,res)=>{
     let time= datt2.time;
     console.log(image);
     let ge   = req.params.sta;
+    const coll = await db.collection("API_INFORMATION");
+    const up = coll.updateOne({"company":"amazon"},
+    {
+        $push:{
+        "info":{
+                    "PRODUCT_ID":NewOID,
+                    "ITEM":NEWobj,
+                    "barcode":BARcodE,
+                    "img":image,
+                    "status":"Verified"
+                    }
+                }
+    })
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
     sendOk(ge,image,time,100);
@@ -292,6 +331,8 @@ app.post("/signup", async (req, res)=>{
     console.log(keyy);
     const collection = await db.collection("API_INFORMATION");
     const company = await collection.findOne({company:user});
+    const sg=await collection.countDocuments();
+    console.log(sg);
     if(company!=null){
          res.status(400).send("username exists.. try another<a href=`http://localhost:8080/login`></a>");
     }
@@ -303,8 +344,7 @@ app.post("/signup", async (req, res)=>{
             "mail":mail,
             "api_key": keyy,
             "api_calls":0,
-            "barcode":[],
-            "images":[],
+            "product_information":[]
            });
            res.redirect('http://localhost:8080/login');
         }

@@ -96,11 +96,12 @@ app.post('/api',(req,res)=>{
     let obj = req.body.object;
     let id = req.body.orderId;
     let percent = req.body.percent;
+    let time= req.body.time;
     if(req.body.ver==1){
         if(obj === '9189382142353'){
             arr[1]=1;
             str2 = req.body.image;
-            console.log(str2);
+            console.log(str2,time);
         }
         else{
             arr[0]=1;

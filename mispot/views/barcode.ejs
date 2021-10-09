@@ -47,7 +47,20 @@
 
     <div id="submit"></div>
     <script type="text/javascript">
+      let t1 = 0;
+      let t2 = 0;
       function onScanSuccess(decodedText, decodedResult) {
+        var minutes = 1000 * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var d = new Date();
+        var t = d.getTime();
+
+        var y = Math.round(t % days);
+        y = Math.round(y / 1000);
+        t2 = y;
+        time = t2 - t1;
+        console.log(time, t2, t1);
         document.querySelector("#qr-reader__scan_region > video").id = "webcam";
         let canvas = document.querySelector("#canvas");
         const video = document.getElementById("webcam");
@@ -61,7 +74,7 @@
           let img = image_data_url;
           var httpPost = new XMLHttpRequest(),
             path = "http://localhost:8080/statu/" + ttid,
-            data = JSON.stringify({ img });
+            data = JSON.stringify({ img, time });
           httpPost.onreadystatechange = function (err) {
             if (httpPost.readyState == 4 && httpPost.status == 200) {
               console.log(httpPost.responseText);
@@ -109,6 +122,15 @@
           prev = txt.pre;
           txt = txt.ado;
           console.log(txt);
+          var minutes = 1000 * 60;
+          var hours = minutes * 60;
+          var days = hours * 24;
+          var d = new Date();
+          var t = d.getTime();
+
+          var y = Math.round(t % days);
+          y = Math.round(y / 1000);
+          t1 = y;
         } catch (err) {
           console.log(err);
           alert("Unable to fetch data!");

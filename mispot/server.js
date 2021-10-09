@@ -232,7 +232,7 @@ app.post('/status/:sta',(req,res)=>{
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    sendOk(ge,image,accuracy);
+    sendOk(ge,image,time,accuracy);
     let a = urlpr;
     res.send(a);
 })
@@ -242,23 +242,24 @@ app.post('/statu/:sta',(req,res)=>{
     let datt2=JSON.parse(req.body);
     console.log(datt2);
     let image = datt2.img;
+    let time= datt2.time;
     console.log(image);
     let ge   = req.params.sta;
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    sendOk(ge,image,100);
+    sendOk(ge,image,time,100);
     let a = urlpr;
     res.send(a);
 })
 
-function sendOk(ge,image,p){
+function sendOk(ge,image,time,p){
     let obt1 = stk3[stack.findIndex(function (element) {
         return element == ge;})];
     let oid1 = stk5[stack.findIndex(function (element) {
         return element == ge;})];
     
     console.log(oid1,'returning to companh about status');
-    let data={object: obt1,orderId:oid1,image,ver,percent:p};
+    let data={object: obt1,orderId:oid1,time,image,ver,percent:p};
     axios.post('http://localhost:3000/api/', data)
     .then((resp) => {       
         reqs=resp.data;

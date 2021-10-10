@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Examplee.com</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style type="text/css">
+    body {
+        background-size: 100%;
+      }
+      hr {
+        margin: 6px;
+      }
+      progress{
+        display: block;
+      }
+      button {
+        margin-left: 8px;
+        text-decoration: none;
+        color: #753;
+        border-collapse: true;
+        border: none;
+        background-color: transparent;
+        resize: none;
+        outline: none;
+      }
+      body {
+        background-color: white;
+        background-repeat: no-repeat;
+        color: black;
+      }
+      nav {
+        background: center;
+      }
+      .col-lg-6 {
+        padding-top: 5px;
+      }
+      #VE1, #VE2, #VE3, #VE4 {
+        border: 1px solid limegreen;
+      }
+      img{
+        padding: 10px 10px 10px 10px;
+        height:200px;
+        width:auto;
+        align-self: center;
+      }
+      .card{
+        background-color: transparent;
+      }
+      .col-sm-4,.col-sm-8{
+        padding: 0px;
+      }
+      .col-sm-4:hover{
+        background-color: #eee;
+      }
+      #rcor {
+        border-radius: 25px;
+        background: orange;
+        width: 150px;
+        color: white;
+        margin-bottom: 5px;
+      }
+      #rcor:hover{
+        background-color: #974;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light"
+      style="background-color: #e8f6e8 !important"
+    >
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="http://localhost:3000/home" >Examplee</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="http://localhost:3000/home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Your Orders</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">help</a>
+            </li>
+            <!-- <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li> -->
+          </ul>
+          <form class="d-flex">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <br />
+    <div class = "container">
+		<div class=" row mb-3" id="loading">
+			
+		</div>
+		</div>
+			
+		</div>
+	</div>
+    <div id="hell"></div>
+    <div id="v"; style="visibility: hidden;"></div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      var arrpro = ['book', 'bottle', 'backpack', 'teddy'];
+      var arrprosrc = ['book.jpg', 'bottle.jfif', 'backpack.jpg', 'teddy.jpg'];
+      var arrpropri = ['99', '199', '999', '150'];
+      var arrpromrp = ['150.00', '230.00', '1200.00', '156.00']
+      var inner  = ''
+      var format = ''
+      for (var i = 0; i <arrpro.length; i++) {
+        let hi = '<div class="col-sm-4" onclick="hello('+i+')" style=""><div class="card" style="margin: 5%; padding:10px;  box-shadow: 0 4px 8px 0 #333, 0 6px 20px 0 #333;"><img src="'+arrprosrc[i]+'" style="width = 20%; "><div>'+arrpro[i]+'</div><div>₹'+arrpropri[i]+'.00/-</div></div></div>';
+        inner = inner + hi;
+      }
+      document.getElementById('loading').innerHTML = inner;
+      function hello(i){
+        let hi =  '<div class="col-sm-4" ><div class="card" style="padding:1px;"><img src="'+arrprosrc[i]+'" style="width = auto;"></div></div>\
+        <div class="card col-sm-8" id="matter" style=" padding: 10px; height : auto;"><div>'+arrpro[i]+'</div><p style="font-size:0.5em; margin:0px">MRP:   ₹<del >'+arrpromrp[i]+'</del>/-</p><div>price: ₹'+arrpropri[i]+'.00/-</div>\
+        <div  style="display: inline-block;"><button id="rcor" onclick="reloacte()">Add to cart</button></div><div style="display: inline-block;"><button id="rcor" style="" onclick="call('+i+')">buy now</button></div>\
+        </div>';
+        document.getElementById('loading').innerHTML = hi;
+
+      }
+      function call(n){
+          var txt = undefined;
+        const req = new XMLHttpRequest();
+        req.onload = function () {
+          try {
+            txt = this.responseText;
+            txt = JSON.parse(txt);
+          } catch (err) {
+            console.log(err);
+            alert("Unable to fetch data!");
+          }
+        };
+
+        req.open("GET", "http://localhost:3000/neworder/"+n, true);
+        req.send();
+        req.onerror = function () {};
+        document.getElementById("matter").innerHTML = '<div> Ordere Conformed..</div> <button id="rcor" onclick="reloacte()">Go to home page.</button>';
+
+      }
+      function reloacte(){
+        location.replace('')
+      }
+      function fst(){
+        console.log("rinaog");
+        var ag = document.getElementById('pagereq').innerHTML;
+        if(ag == 'failed') console.log("fiale");
+        else if(ag != 'undefined') {
+          location.replace(ag);
+        }
+      }
+    </script>
+  </body>
+</html>

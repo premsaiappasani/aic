@@ -7,7 +7,9 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
+var cors = require('cors');
 
+app.use(cors()) ;
 let arr=[0,0,0,0];
 let brr=['','','',''];
 let str='';
@@ -60,6 +62,31 @@ function changeUrl(num){
     changeUrl2();
 }
 
+var arrpro = ['book', 'bottle', 'backpack', 'teddy'];
+var arrprosrc = ['book.jpg', 'bottle.jfif', 'backpack.jpg', 'teddy.jpg'];
+var objlist = [];
+var objsrc = [];
+var objver = [];
+var objid = [];
+var ky=5001;
+app.get('/productdata',(req,res)=>{
+    var sending = {objlist,objsrc,objver,objid};
+    res.json(sending);
+});
+
+app.get('/neworder/:num',(req,res)=>{
+    var numbe = req.params.num;
+    numbe = parseInt(numbe);
+    objlist.push(arrpro[numbe]);
+    objsrc.push(arrprosrc[numbe]);
+    objver.push(0);
+    objid.push(ky);
+    ky++;
+    var se = {ky};
+    res.json(se);
+});
+
+
 function changeUrl2(){
     let data={barcode:bar,object:obj,key:ky,redUrl:urlp,order:orderId};
     axios.post('http://localhost:8080/api/', data)
@@ -85,9 +112,11 @@ app.get('/newUrl/',(req,res)=>{
     }
 })
 
-
 app.set('view engine', 'ejs');
 
+app.get('/examplee.com',(req,res)=>{
+    res.render('examplee.ejs');
+})
 
 app.listen(3000,()=>{
     console.log("Hello World");

@@ -316,12 +316,23 @@ app.get('/home',(req,res)=>{
     res.render("home");
 });
 
-app.get('/signup',(req,res)=>{
-    res.render('signup');
+app.get('/signup/:pln',(req,res)=>{
+    let plnn=req.params.pln;
+    let pln=0;
+    if(plnn==1){
+        pln=0;
+    }
+    else if(plnn==2){
+        pln=1000;
+    }
+    else if(plnn==3){
+        pln=10000;
+    }
+    res.render('signup',{pln});
 });
 
 
-app.post("/signup", async (req, res)=>{
+app.post("/signup/:pln", async (req, res)=>{
     try{
     const user = req.body.companyname;   
     const pass = req.body.password;

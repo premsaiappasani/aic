@@ -164,7 +164,12 @@
                 <span class="h2">FREE</span>
                 <br /><br />
                 <div class="d-grid my-3">
-                  <button class="btn btn-outline-dark btn-block">Select</button>
+                  <button
+                    class="btn btn-outline-dark btn-block"
+                    onclick="location.replace(txt+'1');"
+                  >
+                    Select
+                  </button>
                 </div>
                 <ul>
                   <li>10 Calls per minute</li>
@@ -184,7 +189,12 @@
                 <br /><br />
                 <span class="h2">₹1,000</span>/month <br /><br />
                 <div class="d-grid my-3">
-                  <button class="btn btn-outline-dark btn-block">Select</button>
+                  <button
+                    class="btn btn-outline-dark btn-block"
+                    onclick="location.replace(txt+'2');"
+                  >
+                    Select
+                  </button>
                 </div>
                 <ul>
                   <li>100 Calls per minute</li>
@@ -203,7 +213,12 @@
                 <br /><br />
                 <span class="h2">₹10,000</span>/month <br /><br />
                 <div class="d-grid my-3">
-                  <button class="btn btn-outline-dark btn-block">Select</button>
+                  <button
+                    class="btn btn-outline-dark btn-block"
+                    onclick="location.replace(txt+'3');"
+                  >
+                    Select
+                  </button>
                 </div>
                 <ul>
                   <li>1,000 Calls per minute</li>
@@ -218,5 +233,8 @@
         </div>
       </div>
     </div>
+    <script>
+      let txt = "http://localhost:8080/signup/";
+    </script>
   </body>
 </html>

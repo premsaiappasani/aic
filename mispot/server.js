@@ -316,6 +316,12 @@ app.get('/home',(req,res)=>{
     res.render("home");
 });
 
+
+app.get('/start',(req,res)=>{
+    res.render('start');
+});
+
+
 app.get('/signup/:pln',(req,res)=>{
     let plnn=req.params.pln;
     let pln=0;

@@ -334,9 +334,19 @@ app.get('/signup/:pln',(req,res)=>{
 
 app.post("/signup/:pln", async (req, res)=>{
     try{
+        let plnn=req.params.pln;
+        let pln=0;
+        if(plnn==1){
+            pln=0;
+        }
+        else if(plnn==2){
+            pln=1000;
+        }
+        else if(plnn==3){
+            pln=10000;
+        }
     const user = req.body.companyname;   
     const pass = req.body.password;
-    const price = req.body.pricing;
     const mail = req.body.email;
     let keyy= newKey();
     console.log(keyy);
@@ -351,7 +361,7 @@ app.post("/signup/:pln", async (req, res)=>{
         collection.insertOne({
             "company":user,
             "password":pass,
-            "pricing":price,
+            "pricing":pln,
             "mail":mail,
             "api_key": keyy,
             "api_calls":0,

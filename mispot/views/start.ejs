@@ -128,16 +128,16 @@
                   <a class="nav-link introduction" href="#Introduction">Introduction</a>
                 </li>
                 <li class="nav-item">
-                 <a class="nav-link layout" href="#Layout">Get all the information needed</a>
+                 <a class="nav-link layout" href="#Layout">Data you Send</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link content" href="#Content">Send Data</a>
+                  <a class="nav-link content" href="#Content">Verification</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link components" href="#Components">Verification</a>
+                  <a class="nav-link components" href="#Components">Logistics</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link reference" href="#Reference">Recieve Data</a>
+                  <a class="nav-link reference" href="#Reference">Data you Get</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link reference" href="#Bestway">Best ways to excell</a>
@@ -245,6 +245,48 @@ seller = '100-201';
 product = '213-4589';
 barcode = '9848235684143';
 }</code>
+</pre>
+<h3>Send Data</h3>
+  <p>Send a http POST request at http://localhost:8080/api with a data object (shown above).</p>
+  <p>In return, you will get a unique link where you need to redirect the seller. Look at the code below to know how to create a http post to us in node.js.</p>
+<pre>
+<code>
+const https = require('https')
+
+const data = JSON.stringify({
+  key = 1234567890,
+  redUrl = 'https://api.mycompany.com/getData',
+  object = 'bottle',
+  order = '421-4562-619',
+  seller = '100-201',
+  product = '213-4589',
+  barcode = '9848235684',
+  })
+
+const options = {
+  hostname: 'http://localhost:8080/api',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  }
+}
+
+const req = https.request(options, res => {
+  console.log(`statusCode: ${res.statusCode}`)
+
+  res.on('data', d => {
+    process.stdout.write(d)
+  })
+})
+
+req.on('error', error => {
+  console.error(error)
+})
+
+req.write(data)
+req.end()
+</code>
 </pre>
           </article>    
         </section>

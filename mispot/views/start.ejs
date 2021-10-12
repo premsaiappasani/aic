@@ -96,7 +96,7 @@
                 </li>
                 <li>
                   <a class="dropdown-item" href="http://localhost:8080/pricing"
-                    >pricing</a
+                    >Pricing</a
                   >
                 </li>
                 <li>
@@ -116,11 +116,300 @@
         </div>
       </div>
     </nav>
+    <body>
+      <div class="container-fluid">
+        <div class="row">
+          
+          <div class="col">
+            <nav id="navbar" style="top: 82px; height: 44%">
+              <ul class="nav flex-column">
+               <header>TOC</header>
+                <li class="nav-item">
+                  <a class="nav-link introduction" href="#Introduction">Introduction</a>
+                </li>
+                <li class="nav-item">
+                 <a class="nav-link layout" href="#Layout">Layout</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link content" href="#Content">Content</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link components" href="#Components">Components</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link reference" href="#Reference">Reference</a>
+                </li>
+            </ul>
+         </nav>
+        </div>
+            
+      <div class="col-md-9">
+        <main id="main-doc">    
+          <div class="head-box">
+            <h1>Getting Started</h1>
+          </div>
+          
+            <section class="main-section" id="Introduction">
+              <header><h2>Introduction</h2></header>
+                <article>
+                  <p>MiSpot is a software solution, which reduces product mismatches in the e-commerce industry. Checkout demo <a href="#">here</a> before getting started.</p>
+                  <p>Follow the steps below to get started with MiSpot</p>
+                </article>
+           </section>
+        
+        <section class="main-section" id="Layout">
+          <header><h2>Get all the Information needed</h2></header>
+          <p>You need to send the product data to us at http://localhost:8080/api/ . The body of your request should contain all the information you need to send to MiSpot. Follow the steps below to know what is that data and how can you send it.</p>
+          <p>First of all, Register by selecting a plan <a href="#">here</a> to create an account on MiSpot.</p>
+          <p>Next, Login using your credentials <a href="#">here</a>.</p>
+          <h3>API Key</h3>
+          <p>Note the API Key provided on the profile page which renders right after you login. You will need it everytime when you send information to MiSpot. API key is a unique, secret 10-digit number, which describes your identity everytime we process your request.</p>
+          <p>Include the API key in the data set you send.</p> 
+          <article>
+            <p><img src="#" alt="Screenshot of register page"></p>
+        <pre>
+          <code>
+            {
+            key = 1234567890;
+          }</code>
+        </pre>
+       
+          <h3>Post URL</h3>
+              <p>Send the url of your company to where you want MiSpot to send the data</p>
+        <pre>
+          <code>
+            {
+            key = 1234567890;
+            redUrl = 'https://api.mycompany.com/getData';
+          }</code>
+        </pre>
+        <h3>Name of the product</h3>
+        <p>Send the name of your product which needs to get verified.</p>
+  <pre>
+    <code>
+      {
+      key = 1234567890;
+      redUrl = 'https://api.mycompany.com/getData';
+      object = 'bottle';
+    }</code>
+  </pre>
+  <h3>Order ID</h3>
+  <p>Send the Order ID to distinguish the product data over others.</p>
+<pre>
+<code>
+{
+key = 1234567890;
+redUrl = 'https://api.mycompany.com/getData';
+object = 'bottle';
+order = '421-4562-619';
+}</code>
+</pre>
+<h3>Seller ID</h3>
+  <p>Send the Seller ID to get exclusive data about the seller like <a href="#">Genuinity Index</a> of the Seller.</p>
+<pre>
+<code>
+{
+key = 1234567890;
+redUrl = 'https://api.mycompany.com/getData';
+object = 'bottle';
+order = '421-4562-619';
+seller = '100-201';
+}</code>
+</pre>
+<h3>Product ID</h3>
+  <p>Send the Product ID to get <a href="#">Genuinity Index</a> of the Product.</p>
+<pre>
+<code>
+{
+key = 1234567890;
+redUrl = 'https://api.mycompany.com/getData';
+object = 'bottle';
+order = '421-4562-619';
+seller = '100-201';
+product = '213-4589';
+}</code>
+</pre>
+<h3>Barcode</h3>
+  <p>Send the Barcode, which will be useful while MiSpot verifies the product. Although it is not mandatory, It is highly recommended to send the barcode data if available.</p>
+<pre>
+<code>
+{
+key = 1234567890;
+redUrl = 'https://api.mycompany.com/getData';
+object = 'bottle';
+order = '421-4562-619';
+seller = '100-201';
+product = '213-4589';
+barcode = '9848235684143';
+}</code>
+</pre>
+          </article>    
+        </section>
+        
+          
+                
+        
+          
+          </main>
+                      
+        </div>
+       </div>
+      </div>
+      <style>
+        @import url('https://fonts.googleapis.com/css?family=Pontano+Sans');
 
-    Select plan
-    <br />
-    enter details
-    <br />
-    sinup and get your credentials
+html, body {
+  font-family: 'Pontano Sans', sans-serif;
+  font-size: 18px;
+  background-color: #fff;
+  color: #000;
+  letter-spacing: 1px;
+}
+
+/*------------NAV BAR----------------*/
+
+#navbar {
+  background-color: #000;
+  height: 96%;
+  top: 10px;
+  position: fixed;
+  width: 22%;
+}
+
+.nav header {
+  display: block;
+  text-align:center;
+  margin: 0 10px;
+  padding: 5px;
+  border-bottom: 1px solid #30336b;
+  font-size: 120%;
+  font-weight: thin;
+  color: #95a5a6;
+}
+
+.nav-link:link {
+  color: #30336b;
+  margin-top: 10px;
+  padding-left: 30px;
+}
+.nav-link:hover,
+.nav-link:active {
+  color: #fff;
+  background-color: #2c3e50;
+  transition: 0.3s;
+}
+
+.nav-link:visited {
+  color: #fd79a8;
+}
+
+.head-box {
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/*-------------BODY-----------*/
+
+header {
+  margin-top: 20px;
+}
+
+h2 {
+  font-weight: bold;
+  color: #130f40;
+}
+
+h3 {
+  margin-top: 20px;
+  padding-left: 15px;
+  color: #30336b;
+}
+
+p {
+  font-size: 90%;
+  line-height: 1.5;
+  padding-left: 30px;
+  padding-right: 20px;
+  text-align: justify;
+}
+
+section article {
+  padding-right: 20px;
+}
+
+article li {
+  font-size: 80%;
+  margin-left: 20px;
+}
+
+/*---CODE SECTION---*/
+
+pre {
+  display: inline-block;
+  background-color: #34495e;
+  color: #fff;
+  margin-left: 40px;
+  padding: 0 0 20px 30px;
+  font-size: 80%;
+  width: 90%;
+  white-space: pre-line;
+
+}
+
+/*-------FOOTER------*/
+
+hr {
+  border: 0.5px solid;
+  color: #34495e;
+}
+
+a {
+  color: #8e44ad;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #e84393;
+}
+
+.fa {
+  font-size: 22x;
+}
+
+footer {
+  text-align: center;
+}
+
+footer p {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 80%;
+}
+
+/*---------RESPONSIVE--------*/
+
+@media only screen and (max-width: 768px) {
+  #navbar {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  pre {
+    font-size: 60%;
+    max-width: 80%;
+    margin-left: 30px;
+    padding: 0 10px 10px 20px;
+  }
+}
+      </style>
   </body>
 </html>

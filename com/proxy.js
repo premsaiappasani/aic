@@ -45,25 +45,24 @@ var bar = '6456461645';
 var ky = '123456';
 var obj = 'bottle';
 var urlp = 'http://localhost:3000/products';
-var orderId = '44725373';
+var orderId = 1;
 function changeUrl(num){
     // update bar and object using database
     // bar = '';
-    if(num==0){
-        bar='';
-        orderId="0";
-        obj = 'bottle';
-    }
-    else{
+    if(Dirto[arrpro.findIndex((argu)=>{return argu === objlist[num]})] == 1){
         bar='9189382142353';
         obj = 'book';
-        orderId = "1";
     }
+    else{
+        bar = '';
+    }
+    orderId++;
     changeUrl2();
 }
 
 var arrpro = ['book', 'bottle', 'backpack', 'teddy'];
 var arrprosrc = ['book.jpg', 'bottle.jfif', 'backpack.jpg', 'teddy.jpg'];
+var Dirto = [1,0,0,0];
 var objlist = [];
 var objsrc = [];
 var objver = [];

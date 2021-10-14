@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Getting Started | MiSpot</title>
     <link rel="icon" href="mispot.ico" type="image/x-icon" />
     <script
@@ -25,6 +26,11 @@
       ul li a:hover {
         background: #555 !important;
       }
+      @media (min-width:768px){
+      #box {
+        height: 84vh; overflow: scroll;
+      }
+    }
     </style>
   </head>
   <body style="">
@@ -218,7 +224,7 @@
         <div class="row">
           
           <div class="col ">
-            <nav id="navbar" style="top: 82px;">
+            <nav id="navbar box2"  style="padding-top: 10px;">
               <ul class="nav flex-column card" style="background-color: black;">
                <header>TOC</header>
                 <li class="nav-item">
@@ -243,7 +249,7 @@
          </nav>
         </div>
             
-      <div class="col-md-9" style="">
+      <div class="col-md-9" id="box" style="">
         <main id="main-doc">    
           <div class="head-box">
             <h1>Getting Started</h1>

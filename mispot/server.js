@@ -5,6 +5,9 @@ const app = express();
 const Joi = require("joi");
 
 const axios = require('axios');
+var cors = require('cors');
+var path = require('path');
+app.use(cors())
 let NewOID=""
 let BARcodE=""
 let NEWobj=""
@@ -64,7 +67,27 @@ app.get("/login",(req,res)=>{
     console.log("login page")
     res.render("login");
 })
- 
+
+app.get('/wasm', function(req, res){
+    var options = {
+        root: path.join(__dirname)
+    };
+    console.log(options);
+    var fileName = 'datasymbol-sdk.wasm';
+    res.sendFile(fileName, options, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Sent:', fileName);
+        }
+    });
+});
+
+
+
+
+
+
 app.post("/login", async(req, res)=>{
     try{
      const user = req.body.companyname;   

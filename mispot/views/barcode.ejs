@@ -22,6 +22,11 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <script>
+      var DEF_WASM_PATH = "http://localhost:8080/wasm";
+  </script>
+      
+  <script defer type="text/javascript" src="\datasymbol-sdk-hlp.min.js"></script>
   </head>
   <body>
     <nav
@@ -37,16 +42,158 @@
         >
       </div>
     </nav>
-
+    <p id='status'>Downloading ...</p>
+    <div id="datasymbol-barcode-viewport" style="display:block;width:640px; height:480px;"></div>
     <canvas id="canvas" width="640" height="480"></canvas>
-    <div
+    <!-- <div
       id="qr-reader"
       class="position-absolute top-50 start-50 translate-middle"
       style="height: 40%"
     ></div>
 
-    <div id="submit"></div>
-    <script type="text/javascript">
+    <div id="submit"></div> -->
+
+<script>
+var bFirst = true;
+
+function onBarcodeReady (barcodeResult) {
+  var barDataEl = document.getElementById('status');
+
+for (var i = 0; i < barcodeResult.length; ++i) {
+        var sBarcode = DSScanner.bin2String(barcodeResult[i]);
+        var sPoints = "";
+        for (var j = 0; j < 4; j++)
+            sPoints += "(" + barcodeResult[i].points[j].x + ", " + barcodeResult[i].points[j].y + "),";
+
+        barDataEl.innerHTML = barcodeResult[i].type + ": " + sBarcode + "|" + sPoints;
+        console.log(barDataEl.innerHTML);
+  }
+};
+
+function onError(err) {
+  var statusElement = document.getElementById('status');
+  statusElement.innerHTML = 'Error: ' + err.message;
+
+  /*
+  if(err.name == 'NotFoundError')
+      alert('no camera');
+  else if(err.name == 'PermissionDeniedError')
+      alert('camera permission denied');
+  else if(err.name == 'NotCompatibleBrowser')
+      alert('browser err');
+  else if(err.name == 'ModuleAbort')
+      alert('module err');
+  else if(err.name == 'CannotInitLib')
+      alert('Cannot initialize barcode decoder SDK');
+  */
+}
+
+function CreateScanner(device){
+  var scannerSettings = {
+      scanner: {
+    //barcodeAtPoint:true,
+          key: '',
+          frameTimeout:	100,
+          barcodeTimeout:	1000,
+          beep: false,
+      },
+      viewport: {
+          id: 'datasymbol-barcode-viewport',
+          width: 500,	//if not defined then 100%
+          //height: 200,
+      },
+      camera: {
+          id: device ? device.id : null,
+          label: device ? device.label : null,
+          resx: 640,
+          // resy: 480,
+          //facingMode: 'user', //'environment'
+      },
+      barcode: {
+          barcodeTypes: ['EAN13', 'Code128', 'DataMatrix'],
+          bQRCodeFindMicro: false,
+      },
+  };
+
+  DSScanner.addEventListener('onError', onError);
+  DSScanner.addEventListener('onBarcode', onBarcodeReady);
+  DSScanner.addEventListener('onScannerStarted', function() {
+    console.log('HTML onScannerStarted');
+  });
+
+  DSScanner.addEventListener('onScannerReady', function (frameSize) {
+      console.log('HTML onScannerReady|'+frameSize.width + '|'+frameSize.height);
+  
+  if( !bFirst ) {
+    DSScanner.StartScanner();
+    return;
+  }
+  
+  bFirst = false;
+
+      var statusElement = document.getElementById('status');
+      statusElement.innerHTML = ' ';	//statusElement.hidden = true;
+      DSScanner.StartScanner();
+
+  //set scanning rect
+  var scannerSettings = {
+    scanner: {
+      scanningRect: {left:frameSize.width/4, top:frameSize.height/4, width:frameSize.width/2, height:frameSize.height/2},
+    },
+  };
+  DSScanner.setScannerSettings(scannerSettings);
+});
+
+  DSScanner.Create(scannerSettings);
+}
+
+function ChangeScannerSettings() {
+  var scannerSettings = {
+      scanner: {
+    //scanningRect: {left:0, top:0, width:320, height:240},
+      },
+      viewport: {
+          width: 300,
+      },
+      barcode: {
+          barcodeTypes: ['EAN13', 'DataMatrix'],
+      },
+  };
+
+  DSScanner.setScannerSettings(scannerSettings);
+}
+
+window.onload = function () {
+  /*    DSScanner.getVideoDevices(function (devices) {
+          devices.forEach(function (device) {
+              alert("device:" + device.label + '|' + device.id);
+          });
+      });
+*/
+CreateScanner();
+}
+  
+function ClearScanningRect() {
+  var scannerSettings = {
+    scanner: {
+      scanningRect: {left:0, top:0, width:0, height:0},
+    },
+  };
+  DSScanner.setScannerSettings(scannerSettings);
+}
+
+function SetScanningRect() {
+  var scannerSettings = {
+    scanner: {
+      scanningRect: {left:0, top:0, width:320, height:240},
+    },
+  };
+  DSScanner.setScannerSettings(scannerSettings);
+}
+
+</script>
+
+    <!-- <script type="text/javascript">
       let t1 = 0;
       let t2 = 0;
       function onScanSuccess(decodedText, decodedResult) {
@@ -141,6 +288,6 @@
       console.log(ttid);
       req.send();
       req.onerror = function () {};
-    </script>
+    </script> -->
   </body>
 </html>

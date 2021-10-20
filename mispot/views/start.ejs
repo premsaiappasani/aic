@@ -131,95 +131,6 @@
         </div>
       </div>
     </nav>
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: fixed; overflow: hidden; width: 100%;">
-      <div class="container-fluid">
-        <a
-          class="navbar-brand"
-          href="http://localhost:3000/home"
-          style="font-family: 'Courier New', monospace; font-weight: bold"
-          >MiSpot</a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div style="position: absolute; right: 60px">
-          <span class="nav-item">
-            <a
-              class="nav-link"
-              href="http://localhost:8080/login"
-              style="display: inline; color: white"
-              >Login</a
-            >
-            <a
-              class="nav-link"
-              href="http://localhost:8080/signup/1"
-              style="display: inline; color: white"
-              >Register</a
-            >
-          </span>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a
-                class="nav-link active"
-                aria-current="page"
-                href="http://localhost:8080/home"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Docs
-              </a>
-              <ul
-                class="dropdown-menu"
-                aria-labelledby="navbarDropdownMenuLink"
-              >
-                <li><a class="dropdown-item" href="#">Demo</a></li>
-                <li>
-                  <a class="dropdown-item" href="http://localhost:8080/pricing"
-                    >Getting Started</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="http://localhost:8080/pricing"
-                    >Pricing</a
-                  >
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="http://localhost:8080/signup"
-                    style="display: inline"
-                    >Get your free trail today</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">How to use MiSpot</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav> -->
-    <!-- <body> -->
       <div class="container-fluid">
         <div class="row">
           
@@ -259,6 +170,17 @@
               <header><h2>Introduction</h2></header>
                 <article>
                   <p>MiSpot is a software solution, which reduces product mismatches in the e-commerce industry. Checkout demo <a href="#">here</a> before getting started.</p>
+                  <h6>Here's the short version of what you need to do:</h6>
+                  <p>
+                    <ul>
+                      <li><b>Sign up: Get an API key</b></li>
+                      <li><b>Add a verify button: </b>Ask the seller to verify the product before he ship.</li>
+                      <li><b>Send the information to MiSpot: </b>Send the required information for verification along with your API key.</li>
+                      <li><b>Product will be verified: </b>Seller will be redirected to our verification page and verification is done.</li>
+                      <li><b>Get the verification status and other statistics: </b>You will get the verification info.</li>
+                      <li><b>Build the TRUST in customers.</b></li>
+                    </ul>
+                  </p>
                   <p>Follow the steps below to get started with MiSpot</p>
                 </article>
            </section>
@@ -280,7 +202,7 @@
           }</code>
         </pre>
        
-          <h3>Post URL</h3>
+          <h3 id="redurl">Post URL</h3>
               <p>Send the url of your company to where you want MiSpot to send the data</p>
         <pre>
           <code>
@@ -354,9 +276,8 @@ barcode = '9848235684143';
   <p>In return, you will get a unique link where you need to redirect the seller. Look at the code below to know how to create a http post request to us in node.js.</p>
 <pre>
 <code>
-const https = require('https')
-
-const data = JSON.stringify({
+const http = require('http')
+<!-- const data = JSON.stringify({
   key = 1234567890,
   redUrl = 'https://api.mycompany.com/getData',
   object = 'bottle',
@@ -365,7 +286,6 @@ const data = JSON.stringify({
   product = '213-4589',
   barcode = '9848235684',
   })
-
 const options = {
   hostname: 'http://localhost:8080/api',
   method: 'POST',
@@ -374,7 +294,6 @@ const options = {
     'Content-Length': data.length
   }
 }
-
 const req = https.request(options, res => {
   console.log(`statusCode: ${res.statusCode}`)
 
@@ -382,20 +301,229 @@ const req = https.request(options, res => {
     process.stdout.write(d)
   })
 })
-
 req.on('error', error => {
   console.error(error)
+})
+req.write(data)
+req.end() -->
+const data = JSON.stringify({
+  &emsp; key : 1234567890,
+  &emsp;redUrl : 'https://api.mycompany.com/getData',
+  &emsp; object : 'bottle',
+  &emsp; order : '421-4562-619',
+  &emsp; seller : '100-201',
+  &emsp; product : '213-4589',
+  &emsp; barcode : '9848235684',
+  })
+
+const options = {
+  &emsp; host: 'localhost',
+  &emsp; port: '8080',
+  &emsp; method: 'POST',
+  &emsp; path: '/api',
+  &emsp; headers: {
+    &emsp;&emsp;'Content-Type': 'application/json',
+    &emsp;&emsp;'Content-Length': data.length
+  }
+}
+
+const req = http.request(options, res => {
+  &emsp; console.log(`statusCode: ${res.statusCode}`)
+  &emsp; res.on('data', d => {
+    &emsp;&emsp; process.stdout.write(d)
+  &emsp; })
+})
+
+req.on('error', error => {
+ &emsp; console.error(error)
 })
 
 req.write(data)
 req.end()
 </code>
 </pre>
+<h3 id="Content">What to do now ?</h3>
+<p>Now you have the link where the seller has to be redirected. Once the seller completes the verification of the prouct, MiSpot will send the verification status to the <a href="#redurl">url</a> using http POST request, where you wanted MiSpot to post the data, along with other data like the image MiSpot captured, Genuinity index of the product and seller etc..</p>
+<h3 id="Components">Genuinity Index</h3>
+<p>A new way and a better way of representing the genuinity of a product or a seller. Usually all the E-Commerce industries use rating given by the customers and return of a product to know how good a seller is or to know the quality of the product. As anyone can review an product their might be a chance of misusage of it. Even the ratings can be biased.</p>
+<p>
+  To avoid this type of situations, MiSpot uses the verification data and returns data combinedly to create a new variable which rates a seller or a product over a scale of 0 to 10. Thus it uses real time verification to decide genuinity index, thus it can't be biased and gives a clear idea.
+</p>
+<p>Genuintiy Index is calculated by following formula.</p>
+<h3>Example code to accept the POST request</h3>
+<p>You can use the below code to accept the information you get from POST request MiSpot send.</p>
+<code>
+  <pre>
+
+    const express = require("express");
+    const app = express();
+    app.post('/getData',(req,res)=>{
+      &emsp; console.log(req.data);
+    });
+  </pre>
+</code>
+<h3 id="Reference">Data You Get</h3>
+<p>MiSpot send the following information to you in the body of the POST request when object detection is used.</p>
+<code>
+  <pre>
+
+    {
+      &emsp; object: 'bottle',
+      &emsp; orderId: '421-4562-619',
+      &emsp; time: 59,
+      &emsp; image: '{image as data url}',
+      &emsp; verification: 1,
+      &emsp; percent: 74,
+      &emsp; genuinity_prod: 8,
+      &emsp; genuinity_seller: 7
+    }
+  </pre>
+</code>
+
+<p>
+  <ul>
+    <li>object - Object that is detected from the seller's camera.</li>
+    <li>orderId - Order id of the particular order. so that, you can differentiate it with other orders.</li>
+    <li>time - Time taken for verification by the seller.</li>
+    <li>image - image we caputured whil verifing the product. You can send it to the customer.</li>
+    <li>verification - It has the number to represent the verification status.
+        <ul>
+          <li>1 is given if verification is successful.</li>
+          <li>0 is given if verification is not successful. In this case you can take required action. You also get the image of the product sent by the seller.</li>
+        </ul>
+    </li>
+    <li>percent - percentage that represent how much the product resembles according to description according to the machine learing model MiSpot used.</li>
+    <li>genuinity_prod - genuinity index of the product.</li>
+    <li>genuinity_seller - genuinity index of the seller.</li>
+  </ul>
+
+</p>
+<h3>Accessing the elements in the body</h3>
+<p>You can access the elements in the body of the request as shown.</p>
+<code>
+  <pre>
+
+    const express = require("express");
+    const app = express();
+    app.post('/getData',(req,res)=>{
+      &emsp; let verification_status = req.body.verification;
+      &emsp; console.log('verification status : ', verification_status);
+      &emsp; let object_detected = req.body.object;
+      &emsp; console.log('object detected : ', object_detected);
+      &emsp; let Order_id = req.body.orderId;
+      &emsp; console.log('order id : ',Order_id);
+      &emsp; let percent_of_verification = req.body.percent;
+      &emsp; console.log('percentage of verification : ', percent_of_verification);
+      &emsp; let time_taken_for_verification = req.body.time;
+      &emsp; console.log('time taken by the seller to verify : ', time_taken_for_verification);
+      &emsp; let genuinity_of_prod = req.body.genuinity_prod;
+      &emsp; console.log('new genuinity index of the product : ', genuinity_of_prod);
+      &emsp; let genuinity_of_seller = req.body.genuinity_seller;
+      &emsp; console.log('new genuinity index of the seller : ',genuinity_of_seller);
+    });
+  </pre>
+</code>
+<h6>Output of the above code</h6>
+<code>
+  <pre>
+    
+    &emsp; verification status : 1
+    &emsp; object detected : bottle
+    &emsp; order id : 421-4562-619
+    &emsp; percentage of verification : 74
+    &emsp; time taken by the seller to verify : 59s
+    &emsp; new genuinity index of the product : 8
+    &emsp; new genuinity index of the seller : 7
+  </pre>
+</code>
+<p>MiSpot send the following information to you in the body of the POST request when barcode scanner is used.</p>
+<code>
+  <pre>
+
+    {
+      &emsp; barcode: '9848235684',
+      &emsp; orderId: '421-4562-619',
+      &emsp; time: 59,
+      &emsp; image: '{image as data url}',
+      &emsp; verification: 1,
+      &emsp; genuinity_prod: 8,
+      &emsp; genuinity_seller: 7
+    }
+  </pre>
+</code>
+
+<p>
+  <ul>
+    <li>barcode - Barcode that is detected from the seller's camera.</li>
+    <li>orderId - Order id of the particular order. so that, you can differentiate it with other orders.</li>
+    <li>time - Time taken for verification by the seller.</li>
+    <li>image - image we caputured whil verifing the product. You can send it to the customer.</li>
+    <li>verification - It has the number to represent the verification status.
+        <ul>
+          <li>1 is given if verification is successful.</li>
+          <li>0 is given if verification is not successful. In this case you can take required action. You also get the image of the product sent by the seller.</li>
+        </ul>
+    </li>
+    <li>genuinity_prod - genuinity index of the product.</li>
+    <li>genuinity_seller - genuinity index of the seller.</li>
+  </ul>
+</p>
+<h3>Accessing the elements in the body</h3>
+<p>You can access the elements in the body of the request as shown.</p>
+<code>
+  <pre>
+
+    const express = require("express");
+    const app = express();
+    app.post('/getData',(req,res)=>{
+      &emsp; let verification_status = req.body.verification;
+      &emsp; console.log('verification status : ', verification_status);
+      &emsp; let barcode_detected = req.body.barcode;
+      &emsp; console.log('barcode detected : ', barcode_detected);
+      &emsp; let Order_id = req.body.orderId;
+      &emsp; console.log('order id : ',Order_id);
+      &emsp; let time_taken_for_verification = req.body.time;
+      &emsp; console.log('time taken by the seller to verify : ', time_taken_for_verification);
+      &emsp; let genuinity_of_prod = req.body.genuinity_prod;
+      &emsp; console.log('new genuinity index of the product : ', genuinity_of_prod);
+      &emsp; let genuinity_of_seller = req.body.genuinity_seller;
+      &emsp; console.log('new genuinity index of the seller : ',genuinity_of_seller);
+    });
+  </pre>
+</code>
+<h6>Output of the above code</h6>
+<code>
+  <pre>
+    
+    &emsp; verification status : 1
+    &emsp; barcode detected : 9848235684
+    &emsp; order id : 421-4562-619
+    &emsp; time taken by the seller to verify : 59s
+    &emsp; new genuinity index of the product : 8
+    &emsp; new genuinity index of the seller : 7
+  </pre>
+</code>
+<h3 id="Bestway">How you can excell the E-Commerce using MiSpot ?</h3>
+<p>Implementing MiSpot and sending the verification status to the customer before the customer accepts his package will build and ensure the trust between the E-Commerce companies and customers and helps the E-Commerce comapnies to grow. You can also send the image of the product shipped. So that he can conform he is getting what he ordered. He can also take necessary action if something goes wrong.</p>
+<p>
+Although ecommerce sales increased over the past years but most of the people are preferring offline because they can check their product while buying.So, MiSpot will solve this problem of verification and changes people opinion on E-Commerce.
+</p>
+<p>
+<h6>How MiSpot makes your E-Commerce plotform unique...</h6>
+<ul>
+  <li>Most of the E-Commerce companies doesn’t check for mismatches but mispot verifies the product during the verification stage.</li>
+  <li>E-Commerce Companies check the genuinity of the seller based on number of returns but mispot checks genuinity based on genuinity index which ensures customers trust on E-Commerce</li>
+  <li>Mispot applies real time verification on product.</li>
+</ul>
+
+
+
+</p>
+<h5>Finally we conclude that MiSpot ensures the trust between you and customers, help you save the money you are spending on product returns and can also helps startups to grow!</h5>
+
+
           </article>    
         </section>
-        
-          
-                
         
           
           </main>

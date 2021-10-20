@@ -1,5 +1,6 @@
 //jshint esversion:6
 
+const http = require('http')
 const express = require("express");
 const app = express();
 const axios = require('axios');
@@ -87,17 +88,54 @@ app.get('/neworder/:num',(req,res)=>{
 
 
 function changeUrl2(){
-    let data={barcode:bar,object:obj,key:ky,redUrl:urlp,order:orderId};
-    axios.post('http://localhost:8080/api/', data)
-    .then((resp) => {
-        console.log(resp,'\n1\n2\n3\n');
-        reqs=resp.data;
-        console.log('new',reqs);
-        // res.redirect(ul);
-    }).catch((err) => {
-        console.log(err);
-        reqs ='failed';
-    });
+    // let data={barcode:bar,object:obj,key:ky,redUrl:urlp,order:orderId};
+    // axios.post('http://localhost:8080/api/', data)
+    // .then((resp) => {
+    //     console.log(resp,'\n1\n2\n3\n');
+    //     reqs=resp.data;
+    //     console.log('new',reqs);
+    //     // res.redirect(ul);
+    // }).catch((err) => {
+    //     console.log(err);
+    //     reqs ='failed';
+    // });
+
+var data = JSON.stringify({
+  key : 1234567890,
+  redUrl : 'https://api.mycompany.com/getData',
+  object : 'bottle',
+  order : '421-4562-619',
+  seller : '100-201',
+  product : '213-4589',
+  barcode : '',
+  })
+
+const options = {
+  host: 'localhost',
+  port: '8080',
+  method: 'POST',
+  path: '/api',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  }
+}
+
+const req = http.request(options, res => {
+  console.log(`statusCode: ${res.statusCode}`)
+
+  res.on('data', d => {
+    process.stdout.write(d)
+    reqs=d;
+  })
+})
+
+req.on('error', error => {
+  console.error(error)
+})
+
+req.write(data)
+req.end()
 }
 app.get('/newUrl/',(req,res)=>{
     if(reqs=='failed'){

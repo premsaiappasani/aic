@@ -55,6 +55,7 @@ function changeUrl(num){
         obj = 'book';
     }
     else{
+        obj = objlist[num];
         bar = '';
     }
     orderId++;
@@ -103,11 +104,11 @@ function changeUrl2(){
 var data = JSON.stringify({
   key : 1234567890,
   redUrl : 'https://api.mycompany.com/getData',
-  object : 'bottle',
+  object : obj,
   order : '421-4562-619',
   seller : '100-201',
   product : '213-4589',
-  barcode : '',
+  barcode : bar,
   })
 
 const options = {

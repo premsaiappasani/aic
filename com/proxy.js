@@ -49,7 +49,6 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
       }
 var bar = '9789311126128';
-var ky = '123456';
 var obj = 'bottle';
 var urlp = 'http://localhost:3000/products';
 var orderId = 1;
@@ -65,19 +64,21 @@ function changeUrl(num){
         bar = '';
     }
     orderId++;
-    changeUrl2();
+    changeUrl2(num);
 }
 
 var arrpro = ['book', 'bottle', 'backpack', 'teddy'];
 var arrprosrc = ['book.jpg', 'bottle.jfif', 'backpack.jpg', 'teddy.jpg'];
 var Dirto = [1,0,0,0];
+var verimage = [];
 var objlist = [];
 var objsrc = [];
 var objver = [];
 var objid = [];
+var pers = [];
 var ky=5001;
 app.get('/productdata',(req,res)=>{
-    var sending = {objlist,objsrc,objver,objid};
+    var sending = {objlist,objsrc,objver,objid,verimage,pers};
     res.json(sending);
 });
 
@@ -94,7 +95,7 @@ app.get('/neworder/:num',(req,res)=>{
 });
 
 
-function changeUrl2(){
+function changeUrl2(num){
     // let data={barcode:bar,object:obj,key:ky,redUrl:urlp,order:orderId};
     // axios.post('http://localhost:8080/api/', data)
     // .then((resp) => {
@@ -111,7 +112,7 @@ var data = JSON.stringify({
   key : 1234567890,
   redUrl : 'http://localhost:3000/api',
   object : obj,
-  order : orderId,
+  order : objid[num],
   seller : '100-201',
   product : '213-4589',
   barcode : bar,
@@ -167,24 +168,34 @@ app.listen(3000,()=>{
     console.log("Hello World");
 });
 app.post('/api',(req,res)=>{
-    console.log('fuckku',req.body);
     let obj = req.body.object;
     let id = req.body.orderId;
     let percent = req.body.percent;
     let time= req.body.time;
+    let needish = req.body.ver;
+    let index = objid.findIndex(function (element) {
+        return element == id;});
+    console.log(id,objid);
     console.log(req.body.image);
-    if(req.body.ver==1){
-        if(obj === '9189382142353'){
-            arr[1]=1;
-            str2 = req.body.image;
-            console.log(str2,time);
-        }
-        else{
-            arr[0]=1;
-            brr[0]=percent;
-            str=req.body.image;
-        }
-    };
+    console.log(needish);
+    if (needish===1){
+        console.log("needish done",index);
+        objver[index]=1;
+        verimage[index]=req.body.image;
+        pers[index]=percent;
+    }
+    // if(req.body.ver==1){
+    //     if(obj === '9189382142353'){
+    //         arr[1]=1;
+    //         str2 = req.body.image;
+    //         console.log(str2,time);
+    //     }
+    //     else{
+    //         arr[0]=1;
+    //         brr[0]=percent;
+    //         str=req.body.image;
+    //     }
+    // };
     console.log(obj,id);
 })
 

@@ -11,6 +11,7 @@ app.use(cors())
 let NewOID=""
 let BARcodE=""
 let NEWobj=""
+let newBarcodeByDynamosoft=[]
 //express
 //joi
 //axios
@@ -177,7 +178,9 @@ app.post("/api",async(req,res)=>{
         console.log("barcode");
         if(brcode != '') stk3.push(brcode);
         else stk3.push(obj);
+        newBarcodeByDynamosoft=stk3
         console.log(stk3);
+        console.log(newBarcodeByDynamosoft);
         read("API_KEY",ky,t);
         console.log(t,'t is here');
         if(brcode != '') url = 'http://localhost:8080/verify/barcode/'+t;
@@ -210,7 +213,9 @@ app.get("/verify/barcode/:random",(req,res)=>{
     let tid = req.params.random;
     console.log(tid);
     console.log("abv");
-    res.render('barcode',{tid});
+    console.log(newBarcodeByDynamosoft);
+    let passingbarcodeNum=newBarcodeByDynamosoft[0];
+    res.render('barcode',{tid,passingbarcodeNum});
 });
 
 

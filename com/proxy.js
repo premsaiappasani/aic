@@ -8,6 +8,12 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
+app.use(express.text({
+    limit:'200mb',
+  }));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true, parameterLimit: 50000}));
+ 
 var cors = require('cors');
 
 app.use(cors()) ;
@@ -103,12 +109,13 @@ function changeUrl2(){
 
 var data = JSON.stringify({
   key : 1234567890,
-  redUrl : 'https://api.mycompany.com/getData',
+  redUrl : 'http://localhost:3000/api',
   object : obj,
-  order : '421-4562-619',
+  order : orderId,
   seller : '100-201',
   product : '213-4589',
   barcode : bar,
+  sellerUrl : 'http://localhost:3000/products'
   })
 
 const options = {
@@ -160,10 +167,12 @@ app.listen(3000,()=>{
     console.log("Hello World");
 });
 app.post('/api',(req,res)=>{
+    console.log('fuckku',req.body);
     let obj = req.body.object;
     let id = req.body.orderId;
     let percent = req.body.percent;
     let time= req.body.time;
+    console.log(req.body.image);
     if(req.body.ver==1){
         if(obj === '9189382142353'){
             arr[1]=1;

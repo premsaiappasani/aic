@@ -35,6 +35,7 @@ function newKey(){
 app.use(express.urlencoded({
   extended: true,
 }));
+
 app.use(express.text({
     limit:'200mb',
   }));
@@ -134,7 +135,7 @@ function read(attr,val,inde)
      findDocuments(db);
  }
 
-let stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [];
+let stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [],stk6 = [];
 
 
 app.set('view engine', 'ejs');
@@ -151,6 +152,7 @@ app.post("/api",async(req,res)=>{
     let oId = data.order;
     NewOID=oId;
     NEWobj=obj
+    let urlofprod = data.sellerUrl;
     let url = 'undefined';
     do{
         t = Math.floor(Math.random()*10000);
@@ -162,7 +164,8 @@ app.post("/api",async(req,res)=>{
         stk5.push(oId);
         stack.push(t);
         stk2.push({});
-        stk4.push(urlp);
+        stk4.push(urlofprod);
+        stk6.push(urlp);
         const coll = await db.collection("API_INFORMATION");
         const up = coll.updateOne({company:"amazon"},
         {
@@ -266,6 +269,7 @@ app.post('/notverified/:stat',async(req,res)=>{
 app.post('/status/:sta',async (req,res)=>{
     console.log("called ..........");
     ver=1;
+    console.log(req.body);
     let datt=JSON.parse(req.body);
     let time=datt.t;
     let accuracy=datt.h;
@@ -324,10 +328,12 @@ function sendOk(ge,image,time,p){
         return element == ge;})];
     let oid1 = stk5[stack.findIndex(function (element) {
         return element == ge;})];
-    
+    let reUrl =stk6[ stack.findIndex(function (element) {
+        return element == ge;})];
+    console.log('reurl',reUrl);
     console.log(oid1,'returning to companh about status');
     let data={object: obt1,orderId:oid1,time,image,ver,percent:p};
-    axios.post('http://localhost:3000/api/', data)
+    axios.post(reUrl, data)
     .then((resp) => {       
         reqs=resp.data;
         console.log('new',reqs);

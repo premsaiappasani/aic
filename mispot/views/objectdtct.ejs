@@ -238,7 +238,7 @@
         image_data_url = canvas.toDataURL("image/jpeg");
       }
       let time = 0;
-      var h = 70;
+      var h = 60;
       var model = true;
       var model = undefined;
       cocoSsd.load().then(function (loadedModel) {
@@ -311,6 +311,7 @@
                   var httpPost = new XMLHttpRequest(),
                     path = "http://localhost:8080/status/" + ttid,
                     data = JSON.stringify({ h, t, img });
+                    console.log(data);
                   httpPost.onreadystatechange = function (err) {
                     if (httpPost.readyState == 4 && httpPost.status == 200) {
                       console.log(httpPost.responseText);

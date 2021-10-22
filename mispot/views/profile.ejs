@@ -19,12 +19,32 @@
       body {
         background: #ddd;
       }
+      a {
+        color: #f4d504 !important;
+      }
+      ul li a:hover {
+        background: #555 !important;
+      }
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark"
+      style="position: relative; color: #f4d504 !important;"
+    >
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <img src="mispotimg.png" style="height: 50px; display: inline" />
+        <a
+          class="navbar-brand"
+          href="http://localhost:8080/home"
+          style="
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #f4d504 !important;
+          "
+          ><div>MiSpot</div>
+          <div style="font-size: 0.3em">Mismatches Spotted</div></a
+        >
         <button
           class="navbar-toggler"
           type="button"
@@ -36,17 +56,35 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div style="position: absolute; right: 60px">
+          <span class="nav-item">
+            
+          </span>
+        </div>
+        <div class="collapse navbar-collapse bg-dark" id="navbarNavDropdown">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="http://localhost:8080/home"
+                >Home</a
+              >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
+            <li>
+              <a
+              class="nav-link"
+              href="http://localhost:8080/login"
+              style=" "
+              >Login</a
+            >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
+            <li><a
+              class="nav-link"
+              href="http://localhost:8080/signup"
+              style=" "
+              >Register</a
+            ></li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -56,16 +94,34 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Dropdown link
+                Docs
               </a>
               <ul
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
+                style="background-color: #212529 !important"
               >
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Demo</a></li>
                 <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <a class="dropdown-item" href="http://localhost:8080/start"
+                    >Getting Started</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="http://localhost:8080/pricing"
+                    >Pricing</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="http://localhost:8080/signup"
+                    style="display: inline"
+                    >Get your free trail today</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">How to use MiSpot</a>
                 </li>
               </ul>
             </li>

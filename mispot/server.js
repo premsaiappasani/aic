@@ -349,6 +349,9 @@ app.get('/start',(req,res)=>{
     res.render('start');
 });
 
+app.get('/signup',(req,res)=>{
+    res.render('pricing')
+});
 
 app.get('/signup/:pln',(req,res)=>{
     let plnn=req.params.pln;

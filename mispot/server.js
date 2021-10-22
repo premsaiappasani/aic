@@ -32,9 +32,9 @@ function newKey(){
 
     return Math.floor(ky) + "" ;
 }
-app.use(express.urlencoded({
-  extended: true,
-}));
+// app.use(express.urlencoded({
+//   extended: true,
+// }));
 
 app.use(express.text({
     limit:'200mb',

@@ -4,10 +4,10 @@ const http = require('http')
 const express = require("express");
 const app = express();
 const axios = require('axios');
-app.use(express.json());
-app.use(express.urlencoded({
-  extended: true
-}));
+// app.use(express.json());
+// app.use(express.urlencoded({
+//   extended: true
+// }));
 app.use(express.text({
     limit:'200mb',
   }));
@@ -48,7 +48,7 @@ app.get('/fetch',(req,res)=>{
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
       }
-var bar = '247624479298';
+var bar = '9789311126128';
 var ky = '123456';
 var obj = 'bottle';
 var urlp = 'http://localhost:3000/products';
@@ -57,7 +57,7 @@ function changeUrl(num){
     // update bar and object using database
     // bar = '';
     if(Dirto[arrpro.findIndex((argu)=>{return argu === objlist[num]})] == 1){
-        bar='9189382142353';
+        bar='9789311126128';
         obj = 'book';
     }
     else{

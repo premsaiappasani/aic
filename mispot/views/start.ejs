@@ -31,10 +31,9 @@
         height: 84vh; overflow: scroll;
       }
     }
-    }
     </style>
   </head>
-  <body style="">
+  <body>
     <nav
       class="navbar navbar-expand-lg navbar-dark bg-dark"
       style="position: relative; color: #f4d504 !important;">
@@ -42,7 +41,7 @@
         <img src="mispotimg.png" style="height: 50px; display: inline" />
         <a
           class="navbar-brand"
-          href="http://localhost:8080/home"
+          href="https://mismatchesspotted.el.r.appspot.com/home"
           style="
             font-family: 'Courier New', monospace;
             font-weight: bold;
@@ -73,21 +72,21 @@
               <a
                 class="nav-link active"
                 aria-current="page"
-                href="http://localhost:8080/home"
+                href="https://mismatchesspotted.el.r.appspot.com/home"
                 >Home</a
               >
             </li>
             <li>
               <a
               class="nav-link"
-              href="http://localhost:8080/login"
+              href="https://mismatchesspotted.el.r.appspot.com/login"
               style=" "
               >Login</a
             >
             </li>
             <li><a
               class="nav-link"
-              href="http://localhost:8080/signup"
+              href="https://mismatchesspotted.el.r.appspot.com/signup"
               style=" "
               >Register</a
             ></li>
@@ -109,19 +108,19 @@
               >
                 <li><a class="dropdown-item" href="#">Demo</a></li>
                 <li>
-                  <a class="dropdown-item" href="http://localhost:8080/start"
+                  <a class="dropdown-item" href="https://mismatchesspotted.el.r.appspot.com/start"
                     >Getting Started</a
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="http://localhost:8080/pricing"
+                  <a class="dropdown-item" href="https://mismatchesspotted.el.r.appspot.com/pricing"
                     >Pricing</a
                   >
                 </li>
                 <li>
                   <a
                     class="dropdown-item"
-                    href="http://localhost:8080/signup"
+                    href="https://mismatchesspotted.el.r.appspot.com/signup"
                     style="display: inline"
                     >Get your free trail today</a
                   >
@@ -191,7 +190,7 @@
         
         <section class="main-section" id="Layout">
           <header><h2>Get all the Information needed</h2></header>
-          <p>You need to send the product data to us at http://localhost:8080/api/ . The body of your request should contain all the information you need to send to MiSpot. Follow the steps below to know what is that data and how can you send it.</p>
+          <p>You need to send the product data to us at https://mismatchesspotted.el.r.appspot.com/api/ . The body of your request should contain all the information you need to send to MiSpot. Follow the steps below to know what is that data and how can you send it.</p>
           <p>First of all, Register by selecting a plan <a href="#">here</a> to create an account on MiSpot.</p>
           <p>Next, Login using your credentials <a href="#">here</a>.</p>
           <h3>API Key</h3>
@@ -276,7 +275,7 @@ barcode = '9848235684143';
 }</code>
 </pre>
 <h3>Send Data</h3>
-  <p>Send a http POST request at http://localhost:8080/api with a data object (shown above).</p>
+  <p>Send a http POST request at https://mismatchesspotted.el.r.appspot.com/api with a data object (shown above).</p>
   <p>In return, you will get a unique link where you need to redirect the seller. Look at the code below to know how to create a http post request to us in node.js.</p>
 <pre>
 <code>
@@ -291,7 +290,7 @@ const http = require('http')
   barcode = '9848235684',
   })
 const options = {
-  hostname: 'http://localhost:8080/api',
+  hostname: 'https://mismatchesspotted.el.r.appspot.com/api',
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',

@@ -186,13 +186,13 @@ app.post("/api",async(req,res)=>{
         console.log(newBarcodeByDynamosoft);
         read("API_KEY",ky,t);
         console.log(t,'t is here');
-        if(brcode != '') url = 'http://localhost:8080/verify/barcode/'+t;
-        else url = 'http://localhost:8080/verify/obj/'+t
+        if(brcode != '') url = 'https://mismatchesspotted.el.r.appspot.com/verify/barcode/'+t;
+        else url = 'https://mismatchesspotted.el.r.appspot.com/verify/obj/'+t
     }
     else{
-        if(brcode != '') url = 'http://localhost:8080/verify/barcode/'+stack[stk5.findIndex(function (element) {
+        if(brcode != '') url = 'https://mismatchesspotted.el.r.appspot.com/verify/barcode/'+stack[stk5.findIndex(function (element) {
         return element == oId;})];
-        else url = 'http://localhost:8080/verify/obj/'+stack[stk5.findIndex(function (element) {
+        else url = 'https://mismatchesspotted.el.r.appspot.com/verify/obj/'+stack[stk5.findIndex(function (element) {
         return element == oId;})];
     }
     res.send(url);
@@ -398,7 +398,7 @@ app.post("/signup/:pln", async (req, res)=>{
     const sg=await collection.countDocuments();
     console.log(sg);
     if(company!=null){
-         res.status(400).send("username exists.. try another<a href=`http://localhost:8080/login`></a>");
+         res.status(400).send("username exists.. try another<a href=`https://mismatchesspotted.el.r.appspot.com/login`></a>");
     }
     else{
         collection.insertOne({
@@ -410,7 +410,7 @@ app.post("/signup/:pln", async (req, res)=>{
             "api_calls":0,
             "product_information":[]
            });
-           res.redirect('http://localhost:8080/login');
+           res.redirect('https://mismatchesspotted.el.r.appspot.com/login');
         }
     }
     catch(e){

@@ -430,7 +430,10 @@ function dele(ge){
     stk2.slice(del,1)
     
 }
-app.listen(8080,()=>{
+
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT,()=>{
     console.log("Listening");
 });
 

@@ -319,7 +319,7 @@ app.post('/statu/:sta',async (req,res)=>{
     })
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    sendOk(ge,image,time,100);
+    let needishless  = await sendOk(ge,image,time,100);
     let a = urlpr;
     res.send(a);
 })
@@ -344,6 +344,7 @@ function sendOk(ge,image,time,p){
         reqs ='failed';
     });
     dele(ge);
+    
 }
 
 

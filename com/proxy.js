@@ -197,6 +197,7 @@ app.post('/api',(req,res)=>{
     //     }
     // };
     console.log(obj,id);
+    res.send("https://mysterious-tundra-89995.herokuapp.com/products");
 })
 
 app.use(express.static('public'));

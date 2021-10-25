@@ -96,7 +96,6 @@ app.post("/login", async(req, res)=>{
      const pass = req.body.password;
      const collection = db.collection("API_INFORMATION");
      const company = await collection.findOne({company:user});
-     console.log(company);
      if (pass==(company.password))
      {
          console.log("data exists");

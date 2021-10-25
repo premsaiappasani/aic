@@ -80,37 +80,6 @@
                   httpPost.send(data);
                   var txt = undefined;
                   var prev = undefined;
-                  const req = new XMLHttpRequest();
-                  req.onload = async function () {
-                    try {
-                      txt = this.responseText;
-                      txt = JSON.parse(txt);
-                      prev = txt.pre;
-                      txt = txt.ado;
-                      console.log(txt);
-                      var minutes = 1000 * 60;
-                      var hours = minutes * 60;
-                      var days = hours * 24;
-                      var d = new Date();
-                      var t = d.getTime();
-
-                      var y = Math.round(t % days);
-                      y = Math.round(y / 1000);
-                      t1 = y;
-                    } catch (err) {
-                      console.log(err);
-                      alert("Unable to fetch data!");
-                    }
-                  };
-                  req.open(
-                    "GET",
-                    "https://mismatchesspotted.el.r.appspot.com/barcodedata/" +
-                      ttid,
-                    true
-                  );
-                  console.log(ttid);
-                  req.send();
-                  req.onerror = function () {};
                 } catch (ex) {
                   console.error(ex);
                 }

@@ -4,9 +4,6 @@
     <meta charset="utf-8" />
     <title>Verify | MiSpot</title>
     <link rel="icon" href="mispot.ico" type="image/x-icon" />
-    <script>
-      src = ""
-    </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -193,7 +190,11 @@
         }
       };
 
-      req.open("GET", "https://mismatchesspotted.el.r.appspot.com/barcodedata/" + ttid, true);
+      req.open(
+        "GET",
+        "https://mismatchesspotted.el.r.appspot.com/barcodedata/" + ttid,
+        true
+      );
       console.log(ttid);
       req.send();
       req.onerror = function () {};
@@ -316,9 +317,11 @@
                   t = time;
                   let img = image_data_url;
                   var httpPost = new XMLHttpRequest(),
-                    path = "https://mismatchesspotted.el.r.appspot.com/status/" + ttid,
+                    path =
+                      "https://mismatchesspotted.el.r.appspot.com/status/" +
+                      ttid,
                     data = JSON.stringify({ h, t, img });
-                    console.log(data);
+                  console.log(data);
                   httpPost.onreadystatechange = function (err) {
                     if (httpPost.readyState == 4 && httpPost.status == 200) {
                       console.log(httpPost.responseText);
@@ -390,7 +393,7 @@
         // Set the content type of the request to json since that's what's being sent
         httpPost.open("POST", path, true);
         httpPost.send(data);
-        h=100;
+        h = 100;
       }
     </script>
   </body>

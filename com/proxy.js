@@ -109,15 +109,16 @@ function changeUrl2(num){
     // });
 
 var data = JSON.stringify({
-  key : 1234567890,
-  redUrl : 'https://mysterious-tundra-89995.herokuapp.com/api',
-  object : obj,
-  order : objid[num],
-  seller : '100-201',
-  product : '213-4589',
-  barcode : bar,
-  sellerUrl : 'https://mysterious-tundra-89995.herokuapp.com/products'
-  })
+    "key": "1234567890",
+    "redUrl": "https://mysterious-tundra-89995.herokuapp.com/api",
+    "object": obj,
+    "order": objid[num],
+    "seller": "100-201",
+    "product": "213-4589",
+    "barcode": bar,
+    "sellerUrl": "https://mysterious-tundra-89995.herokuapp.com/products"
+})
+
 
 const options = {
   host: 'sheltered-hollows-13976.herokuapp.com',

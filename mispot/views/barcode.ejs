@@ -37,7 +37,7 @@
             for (let result of results) {
               console.log(result.barcodeText);
               let bbbb = document.getElementById("barcodeNumber").innerHTML;
-              let cccc = " " + result.barcodeText + " ";
+              let cccc = result.barcodeText;
               if (bbbb === cccc) {
                 try {
                   let cvss = await scanner.getIntermediateCanvas();

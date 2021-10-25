@@ -149,6 +149,7 @@ app.post("/api",async(req,res)=>{
     let brcode = data.barcode;
     BARcodE=brcode
     let urlp = data.redUrl;
+    console.log(urlp,"urlp");
     let oId = data.order;
     NewOID=oId;
     NEWobj=obj
@@ -166,6 +167,7 @@ app.post("/api",async(req,res)=>{
         stk2.push({});
         stk4.push(urlofprod);
         stk6.push(urlp);
+        console.log("stk6",stk6);
         const coll = await db.collection("API_INFORMATION");
         const up = coll.updateOne({company:"amazon"},
         {
@@ -182,7 +184,7 @@ app.post("/api",async(req,res)=>{
         if(brcode != '') stk3.push(brcode);
         else stk3.push(obj);
         newBarcodeByDynamosoft=stk3
-        console.log(stk3);
+        console.log(stk3,"stk3");
         console.log(newBarcodeByDynamosoft);
         read("API_KEY",ky,t);
         console.log(t,'t is here');
@@ -301,6 +303,7 @@ app.post('/statu/:sta',async (req,res)=>{
     let image = datt2.img;
     let time= datt2.time;
     let ge   = req.params.sta;
+    console.log('ge',ge);
     const coll = await db.collection("API_INFORMATION");
     const up = coll.updateOne({"company":"amazon"},
     {
@@ -326,10 +329,10 @@ function sendOk(ge,image,time,p){
         return element == ge;})];
     let oid1 = stk5[stack.findIndex(function (element) {
         return element == ge;})];
-    let reUrl =stk6[ stack.findIndex(function (element) {
+    let reUrl =stk6[stack.findIndex(function (element) {
         return element == ge;})];
     console.log('reurl',reUrl);
-    console.log(oid1,'returning to companh about status');
+    console.log(oid1,'returning to company about status');
     let data={object: obt1,orderId:oid1,time,image,ver,percent:p};
     axios.post(reUrl, data)
     .then((resp) => {       

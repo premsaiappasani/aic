@@ -269,7 +269,6 @@ app.post('/notverified/:stat',async(req,res)=>{
 app.post('/status/:sta',async (req,res)=>{
     console.log("called ..........");
     ver=1;
-    console.log(req.body);
     let datt=JSON.parse(req.body);
     let time=datt.t;
     let accuracy=datt.h;
@@ -301,7 +300,6 @@ app.post('/statu/:sta',async (req,res)=>{
     console.log(datt2);
     let image = datt2.img;
     let time= datt2.time;
-    console.log(image);
     let ge   = req.params.sta;
     const coll = await db.collection("API_INFORMATION");
     const up = coll.updateOne({"company":"amazon"},

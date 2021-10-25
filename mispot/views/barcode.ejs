@@ -1,157 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Dynamsoft Barcode Reader Sample - Hello World (Decoding via Camera)</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>
+      Dynamsoft Barcode Reader Sample - Hello World (Decoding via Camera)
+    </title>
     <script src="https://cdn.jsdelivr.net/npm/dynamsoft-javascript-barcode@8.6.3/dist/dbr.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <h2>Minimum Code to Read Barcodes</h2>
-    <button id='readBarcode'>Read Barcode via Camera</button>
+    <button id="readBarcode">Read Barcode via Camera</button>
     <!-- <canvas id="canvas" width="640" height="480"></canvas> -->
-    <p id="barcodeNumber" > <%= passingbarcodeNum %> </p>
-    <div id='scannerV' style="width:50vw;height:50vh"></div>
-    <div align = right id='cvses'></div>
+    <p id="barcodeNumber"><%= passingbarcodeNum %></p>
+    <div id="scannerV" style="width: 50vw; height: 50vh"></div>
+    <div align="right" id="cvses"></div>
     <script>
-        Dynamsoft.DBR.BarcodeScanner.organizationID = "100721303";
-        Dynamsoft.DBR.BarcodeReader.productKeys = "t0068NQAAAIzyc2etsCgNeczqr+/WK9PayKav6F0K4Izz7xi28wAVnZhkBHmxKrIQeuP7bxeh9xW31HMP4oRxlgee1Bke8AE=";
-        let pScanner = null;
-        document.getElementById('readBarcode').onclick = async function () {
-            try {
-                let scanner = await (pScanner = pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
-                scanner._bUseWebgl = false;
-                document.getElementById('scannerV').appendChild(scanner.getUIElement());;
-                await scanner.updateRuntimeSettings('balance');
-                let rs = await scanner.getRuntimeSettings();
-                rs.intermediateResultTypes = 1;
-                await scanner.updateRuntimeSettings(rs);
-                scanner.onFrameRead = async (results) => {
-                    for (let result of results)
-                    {    console.log(result.barcodeText);
-                        let bbbb = document.getElementById('barcodeNumber').innerHTML;
-                        let cccc = " "+result.barcodeText+" ";
-                        if(bbbb === cccc){
-                            try {
-                                let cvss = await scanner.getIntermediateCanvas();
-                                console.log(cvss);
-                                var image_data_url = "";
-                                image_data_url = cvss[0].toDataURL("image/jpeg");
-                                let img = image_data_url;
-                                console.log(img);
-                                let ttid = window.location.href;
-                                console.log(ttid);
-                                ttid = ttid.slice(61);
-                                console.log(ttid);
-                                var minutes = 1000 * 60;
-                                var hours = minutes * 60;
-                                var days = hours * 24;
-                                var d = new Date();
-                                var t = d.getTime();
-                                let t1 = 0;
-                                let t2 = 0;
-                                var y = Math.round(t % days);
-                                y = Math.round(y / 1000);
-                                t2 = y;
-                                time = t2 - t1;
-                                console.log(time, t2, t1);
-                                var httpPost = new XMLHttpRequest(),
-                                path = "https://mismatchesspotted.el.r.appspot.com/statu/" + ttid,
-                                data = JSON.stringify({ img, time });
-                                httpPost.onreadystatechange = function (err) {
-                                    if (httpPost.readyState == 4 && httpPost.status == 200) {
-                                    console.log(httpPost.responseText);
-                                    location.replace(httpPost.responseText);
-                                    } else {
-                                    console.log(err);
-                                    }
-                                };                  
-                                console.log(ttid);              
-                                httpPost.open("POST", path, true);
-                                httpPost.send(data);
-                                for (let cvs of cvss) {
-                                    console.log("hi")
-                                    document.getElementById('cvses').appendChild(cvs);
-                                }
-                                var txt = undefined;
-                                var prev = undefined;
-                                const req = new XMLHttpRequest();
-                                req.onload = async function () {
-                                    try {
-                                    txt = this.responseText;
-                                    txt = JSON.parse(txt);
-                                    prev = txt.pre;
-                                    txt = txt.ado;
-                                    console.log(txt);
-                                    var minutes = 1000 * 60;
-                                    var hours = minutes * 60;
-                                    var days = hours * 24;
-                                    var d = new Date();
-                                    var t = d.getTime();
-
-                                    var y = Math.round(t % days);
-                                    y = Math.round(y / 1000);
-                                    t1 = y;
-                                    } catch (err) {
-                                    console.log(err);
-                                    alert("Unable to fetch data!");
-                                    }
-                                };
-                                req.open("GET", "https://mismatchesspotted.el.r.appspot.com/barcodedata/" + ttid, true);
-                                console.log(ttid);
-                                req.send();
-                                req.onerror = function () {};
-                            } catch (ex) {
-                                console.error(ex);
-                            }
-                            scanner.hide();
-                        }
+      Dynamsoft.DBR.BarcodeScanner.organizationID = "100721303";
+      Dynamsoft.DBR.BarcodeReader.productKeys =
+        "t0068NQAAAIzyc2etsCgNeczqr+/WK9PayKav6F0K4Izz7xi28wAVnZhkBHmxKrIQeuP7bxeh9xW31HMP4oRxlgee1Bke8AE=";
+      let pScanner = null;
+      document.getElementById("readBarcode").onclick = async function () {
+        try {
+          let scanner = await (pScanner =
+            pScanner || Dynamsoft.DBR.BarcodeScanner.createInstance());
+          scanner._bUseWebgl = false;
+          document
+            .getElementById("scannerV")
+            .appendChild(scanner.getUIElement());
+          await scanner.updateRuntimeSettings("balance");
+          let rs = await scanner.getRuntimeSettings();
+          rs.intermediateResultTypes = 1;
+          await scanner.updateRuntimeSettings(rs);
+          scanner.onFrameRead = async (results) => {
+            for (let result of results) {
+              console.log(result.barcodeText);
+              let bbbb = document.getElementById("barcodeNumber").innerHTML;
+              let cccc = " " + result.barcodeText + " ";
+              if (bbbb === cccc) {
+                try {
+                  let cvss = await scanner.getIntermediateCanvas();
+                  console.log(cvss);
+                  var image_data_url = "";
+                  image_data_url = cvss[0].toDataURL("image/jpeg");
+                  let img = image_data_url;
+                  console.log(img);
+                  let ttid = window.location.href;
+                  console.log(ttid);
+                  ttid = ttid.slice(58);
+                  console.log(ttid);
+                  var minutes = 1000 * 60;
+                  var hours = minutes * 60;
+                  var days = hours * 24;
+                  var d = new Date();
+                  var t = d.getTime();
+                  let t1 = 0;
+                  let t2 = 0;
+                  var y = Math.round(t % days);
+                  y = Math.round(y / 1000);
+                  t2 = y;
+                  time = t2 - t1;
+                  console.log(time, t2, t1);
+                  var httpPost = new XMLHttpRequest(),
+                    path =
+                      "https://mismatchesspotted.el.r.appspot.com/statu/" +
+                      ttid,
+                    data = JSON.stringify({ img, time });
+                  httpPost.onreadystatechange = function (err) {
+                    if (httpPost.readyState == 4 && httpPost.status == 200) {
+                      console.log(httpPost.responseText);
+                      location.replace(httpPost.responseText);
+                    } else {
+                      console.log(err);
                     }
-                };
+                  };
+                  console.log(ttid);
+                  httpPost.open("POST", path, true);
+                  httpPost.send(data);
+                  var txt = undefined;
+                  var prev = undefined;
+                  const req = new XMLHttpRequest();
+                  req.onload = async function () {
+                    try {
+                      txt = this.responseText;
+                      txt = JSON.parse(txt);
+                      prev = txt.pre;
+                      txt = txt.ado;
+                      console.log(txt);
+                      var minutes = 1000 * 60;
+                      var hours = minutes * 60;
+                      var days = hours * 24;
+                      var d = new Date();
+                      var t = d.getTime();
 
-                // scanner.onFrameRead = async(results) => {
-                //     console.log("Barcodes on one frame:");
-                //     for (let result of results) {
-                //         console.log(result.barcodeFormatString + ": " + result.barcodeText);
-                //         let bbbb = document.getElementById('barcodeNumber').innerHTML;
-                //         let cccc = " "+result.barcodeText+" ";
-                //         console.log(bbbb);
-                //         console.log(cccc);
-                //         if( cccc == bbbb ){
-                //           console.log("if statement is working");
-                //         //   await scanner.updateRuntimeSettings('balance');
-                //         //   let rs = await scanner.getRuntimeSettings();
-                //         //   rs.intermediateResultTypes = 1;
-                //         //   await scanner.updateRuntimeSettings(rs);
-                          
-                //           console.log(cvss);
-                //           console.log(cvss0);
-                //         //   document.getElementById('cvses').appendChild(cvss);
-                //         for (let cvs of cvss0) {
-                //             console.log("loop working");
-                //             document.getElementById('cvses').appendChild("it is appending");
-                //         }
-                //         //   scanner.destroy();
-                //         //   const screenShot = document.getElementsByClassName("dbrScanner-cvs-scanarea");
-                //         //   let canvas = document.getElementById("canvas");
-                //         //   let context = canvas.getContext("2d");
-                //         //   var image_data_url = "";
-                //         //   context.drawImage(screenShot, 0, 0, canvas.width, canvas.height);
-                //         //   image_data_url = canvas.toDataURL("image/jpeg");
-                //         //   console.log(image_data_url);
-                //         //   break;
-                //         }
-                //     }
-                // };
-                await scanner.show();
-            } catch (ex) {
-                alert(ex.message);
-                throw ex;
+                      var y = Math.round(t % days);
+                      y = Math.round(y / 1000);
+                      t1 = y;
+                    } catch (err) {
+                      console.log(err);
+                      alert("Unable to fetch data!");
+                    }
+                  };
+                  req.open(
+                    "GET",
+                    "https://mismatchesspotted.el.r.appspot.com/barcodedata/" +
+                      ttid,
+                    true
+                  );
+                  console.log(ttid);
+                  req.send();
+                  req.onerror = function () {};
+                } catch (ex) {
+                  console.error(ex);
+                }
+                scanner.hide();
+              }
             }
-        };
-    </script>
-</body>
+          };
 
+          // scanner.onFrameRead = async(results) => {
+          //     console.log("Barcodes on one frame:");
+          //     for (let result of results) {
+          //         console.log(result.barcodeFormatString + ": " + result.barcodeText);
+          //         let bbbb = document.getElementById('barcodeNumber').innerHTML;
+          //         let cccc = " "+result.barcodeText+" ";
+          //         console.log(bbbb);
+          //         console.log(cccc);
+          //         if( cccc == bbbb ){
+          //           console.log("if statement is working");
+          //         //   await scanner.updateRuntimeSettings('balance');
+          //         //   let rs = await scanner.getRuntimeSettings();
+          //         //   rs.intermediateResultTypes = 1;
+          //         //   await scanner.updateRuntimeSettings(rs);
+
+          //           console.log(cvss);
+          //           console.log(cvss0);
+          //         //   document.getElementById('cvses').appendChild(cvss);
+          //         for (let cvs of cvss0) {
+          //             console.log("loop working");
+          //             document.getElementById('cvses').appendChild("it is appending");
+          //         }
+          //         //   scanner.destroy();
+          //         //   const screenShot = document.getElementsByClassName("dbrScanner-cvs-scanarea");
+          //         //   let canvas = document.getElementById("canvas");
+          //         //   let context = canvas.getContext("2d");
+          //         //   var image_data_url = "";
+          //         //   context.drawImage(screenShot, 0, 0, canvas.width, canvas.height);
+          //         //   image_data_url = canvas.toDataURL("image/jpeg");
+          //         //   console.log(image_data_url);
+          //         //   break;
+          //         }
+          //     }
+          // };
+          await scanner.show();
+        } catch (ex) {
+          alert(ex.message);
+          throw ex;
+        }
+      };
+    </script>
+  </body>
 </html>

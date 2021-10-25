@@ -5,7 +5,7 @@
     <title>Verify | MiSpot</title>
     <link rel="icon" href="mispot.ico" type="image/x-icon" />
     <script>
-      src = "";
+      src = ""
     </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -170,7 +170,7 @@
       // code to ask for the objet to be detected
       let ttid = window.location.href;
       console.log(ttid);
-      ttid = ttid.slice(33);
+      ttid = ttid.slice(57);
       console.log(ttid);
       let t1 = 0;
       let t2 = 0;
@@ -193,11 +193,7 @@
         }
       };
 
-      req.open(
-        "GET",
-        "https://mismatchesspotted.el.r.appspot.com/barcodedata/" + ttid,
-        true
-      );
+      req.open("GET", "https://mismatchesspotted.el.r.appspot.com/barcodedata/" + ttid, true);
       console.log(ttid);
       req.send();
       req.onerror = function () {};
@@ -320,11 +316,9 @@
                   t = time;
                   let img = image_data_url;
                   var httpPost = new XMLHttpRequest(),
-                    path =
-                      "https://mismatchesspotted.el.r.appspot.com/status/" +
-                      ttid,
+                    path = "https://mismatchesspotted.el.r.appspot.com/status/" + ttid,
                     data = JSON.stringify({ h, t, img });
-                  console.log(data);
+                    console.log(data);
                   httpPost.onreadystatechange = function (err) {
                     if (httpPost.readyState == 4 && httpPost.status == 200) {
                       console.log(httpPost.responseText);
@@ -396,7 +390,7 @@
         // Set the content type of the request to json since that's what's being sent
         httpPost.open("POST", path, true);
         httpPost.send(data);
-        h = 100;
+        h=100;
       }
     </script>
   </body>

@@ -32,7 +32,7 @@ app.get('/verify/:number',(req,res)=>{
     let num=req.params.number;
     changeUrl(num);
     console.log(num,'requested number');
-    res.redirect('http://localhost:3000/temp');
+    res.redirect('https://mysterious-tundra-89995.herokuapp.com/temp');
 });
 var reqs = undefined;
 app.get('/temp',(req,res)=>{
@@ -48,15 +48,15 @@ app.get('/fetch',(req,res)=>{
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
       }
-var bar = '9789311126128';
+var bar = '247624479298';
 var obj = 'bottle';
-var urlp = 'http://localhost:3000/products';
+var urlp = 'https://mysterious-tundra-89995.herokuapp.com/products';
 var orderId = 1;
 function changeUrl(num){
     // update bar and object using database
     // bar = '';
     if(Dirto[arrpro.findIndex((argu)=>{return argu === objlist[num]})] == 1){
-        bar='9789311126128';
+        bar='247624479298';
         obj = 'book';
     }
     else{
@@ -110,18 +110,17 @@ function changeUrl2(num){
 
 var data = JSON.stringify({
   key : 1234567890,
-  redUrl : 'http://localhost:3000/api',
+  redUrl : 'https://mysterious-tundra-89995.herokuapp.com/api',
   object : obj,
   order : objid[num],
   seller : '100-201',
   product : '213-4589',
   barcode : bar,
-  sellerUrl : 'http://localhost:3000/products'
+  sellerUrl : 'https://mysterious-tundra-89995.herokuapp.com/products'
   })
 
 const options = {
-  host: 'localhost',
-  port: '8080',
+  host: 'sheltered-hollows-13976.herokuapp.com',
   method: 'POST',
   path: '/api',
   headers: {
@@ -164,7 +163,7 @@ app.get('/examplee.com',(req,res)=>{
     res.render('examplee.ejs');
 })
 
-app.listen(3000,()=>{
+app.listen(process.env.PORT || 3000,()=>{
     console.log("Hello World");
 });
 app.post('/api',(req,res)=>{

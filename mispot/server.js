@@ -96,6 +96,7 @@ app.post("/login", async(req, res)=>{
      const pass = req.body.password;
      const collection = db.collection("API_INFORMATION");
      const company = await collection.findOne({company:user});
+     console.log(company);
      if (pass==(company.password))
      {
          console.log("data exists");
@@ -429,10 +430,7 @@ function dele(ge){
     stk2.slice(del,1)
     
 }
-
-const PORT = process.env.PORT || 8080;
-
-app.listen(PORT,()=>{
+app.listen(process.env.PORT || 8080,()=>{
     console.log("Listening");
 });
 

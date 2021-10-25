@@ -63,6 +63,7 @@ function updateVal(attr1,attr2,val1,val2){
     const db = client.db(dbName);
     updateDocument(db, function() {
       client.close();
+      console.log('we win');
     });
   });
   const updateDocument = function(db, callback) {

@@ -11,22 +11,21 @@
     redirecting....<%=reqs%>
     <button id="VE1" style="visibility: hidden"></button>
     <script>
-      setInterval(fst, 100);
-
+      fst();
       function fst() {
         var ag = document.getElementById('pagereq').innerHTML;
         console.log("rinaog");
         // fetch("http://localhost:3000/fetch/").then((res) => {
         //   ag = res;
         // });
-
-        document.getElementById("VE1").innerHTML =
-          '<form id="formid"; action="http://localhost:3000/temp" method="get"></form>';
-        document.getElementById("formid").submit();
-
         if (ag == "failed") console.log("fiale");
         else if (ag != "undefined") {
           location.replace(ag);
+        }else{
+
+        document.getElementById("VE1").innerHTML =
+          '<form id="formid"; action="https://mysterious-tundra-89995.herokuapp.com/temp" method="get"></form>';
+        document.getElementById("formid").submit();
         }
       }
     </script>

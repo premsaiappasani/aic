@@ -219,7 +219,7 @@ app.get("/verify/barcode/:random",(req,res)=>{
     console.log(tid);
     console.log("abv");
     console.log(newBarcodeByDynamosoft);
-    let passingbarcodeNum=newBarcodeByDynamosoft[-1];
+    let passingbarcodeNum=newBarcodeByDynamosoft.slice(-1)[0];
     res.render('barcode',{tid,passingbarcodeNum});
 });
 

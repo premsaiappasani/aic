@@ -181,9 +181,9 @@ app.post("/api",async(req,res)=>{
         })
         console.log(up);
         console.log("barcode");
-        if(brcode != '') stk3.push(brcode);
+        if(brcode != '') {stk3.push(brcode);
+            newBarcodeByDynamosoft.push(brcode);}
         else stk3.push(obj);
-        newBarcodeByDynamosoft=stk3
         console.log(stk3,"stk3");
         console.log(newBarcodeByDynamosoft);
         read("API_KEY",ky,t);

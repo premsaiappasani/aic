@@ -32,15 +32,15 @@ app.get('/verify/:number',(req,res)=>{
     let num=req.params.number;
     changeUrl(num);
     console.log(num,'requested number');
-    res.redirect('https://mysterious-tundra-89995.herokuapp.com/temp');
+    res.redirect('https://mysterious-tundra-89995.herokuapp.com/temp'+num);
 });
 var reqs = undefined;
-app.get('/temp',(req,res)=>{
-    console.log(reqs);
-    res.render('temp',{reqs});
-    reqs = undefined;
+app.get('/temp/:NUM',(req,res)=>{
+    let elementTo = req.params.NUM;
+    res.render('temp',{elementTo});
 });
-app.get('/fetch',(req,res)=>{
+app.get('/fetch/:NUM',(req,res)=>{
+    reqs = tempurl[req.params.NUM];
     res.send(reqs);
     reqs = undefined;
 });
@@ -76,6 +76,7 @@ var objsrc = [];
 var objver = [];
 var objid = [];
 var pers = [];
+var tempurl = [];
 var ky=5001;
 app.get('/productdata',(req,res)=>{
     var sending = {objlist,objsrc,objver,objid,verimage,pers};
@@ -135,7 +136,7 @@ const req = http.request(options, res => {
 
   res.on('data', d => {
     process.stdout.write(d)
-    reqs=d;
+    tempurl[num]=d;
   })
 })
 

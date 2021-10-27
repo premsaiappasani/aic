@@ -7,27 +7,53 @@
     <title>Document</title>
   </head>
   <body>
-    <div id="pagereq" ; style="visibility: hidden"><%=reqs%></div>
+    <div id="pagereq" ; style="visibility: hidden"><%=elementTo%></div>
     redirecting....<%=reqs%>
     <button id="VE1" style="visibility: hidden"></button>
     <script>
-      fst();
-      function fst() {
-        var ag = document.getElementById('pagereq').innerHTML;
-        console.log("rinaog");
-        // fetch("http://localhost:3000/fetch/").then((res) => {
-        //   ag = res;
-        // });
-        if (ag == "failed") console.log("fiale");
-        else if (ag != "undefined") {
-          location.replace(ag);
-        }else{
+      // fst();
+      // function fst() {
+      //   var ag = document.getElementById('pagereq').innerHTML;
+      //   console.log("rinaog");
+      //   // fetch("http://localhost:3000/fetch/").then((res) => {
+      //   //   ag = res;
+      //   // });
+        // if (ag == "failed") console.log("fiale");
+        // else if (ag != "undefined") {
+        //   location.replace(ag);
+        // }else{
 
-        document.getElementById("VE1").innerHTML =
-          '<form id="formid"; action="https://mysterious-tundra-89995.herokuapp.com/temp" method="get"></form>';
-        document.getElementById("formid").submit();
-        }
-      }
+      //   document.getElementById("VE1").innerHTML =
+      //     '<form id="formid"; action="https://mysterious-tundra-89995.herokuapp.com/temp" method="get"></form>';
+      //   document.getElementById("formid").submit();
+      //   }
+      // }
+      setInterval(func,100);
+      function func() 
+      {var ag = undefined;
+            const req = new XMLHttpRequest();
+            req.onload = function () {
+              try {
+                ag = this.responseText;
+                if (ag == "failed") console.log("fiale");
+                else if (ag != "undefined") {
+                location.replace(ag);
+                }
+                
+              } catch (err) {
+                console.log(err);
+                alert("Unable to fetch data!");
+              }
+            };
+      
+            req.open(
+              "GET",
+              "https://mysterious-tundra-89995.herokuapp.com/fetch" + document.getElementById('pagereq').innerHTML,
+              true
+            );
+            req.send();
+            req.onerror = function () {};
+          }
     </script>
   </body>
 </html>

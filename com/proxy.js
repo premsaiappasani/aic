@@ -32,7 +32,7 @@ app.get('/verify/:number',(req,res)=>{
     let num=req.params.number;
     changeUrl(num);
     console.log(num,'requested number');
-    res.redirect('https://mysterious-tundra-89995.herokuapp.com/temp'+num);
+    res.redirect('https://mysterious-tundra-89995.herokuapp.com/temp/'+num);
 });
 var reqs = undefined;
 app.get('/temp/:NUM',(req,res)=>{

@@ -147,10 +147,15 @@
 
       function load () {
         let texttoins = '';
+        document.getElementById('gi').innerHTML=txt.genuinityIndex;
         for (var i = txt.objlist.length-1; i >=0; i--) {
         let tx = 'ntng';
         if(txt.objver[i] === 0){
           tx = '<div id="forimg1"><span  style="color: darkred;">NOT VERIFIED</span>\
+                <div style="position: absolute;   right: 0px; top: 50%; transform: translate(-50%, -50%);"> <button class="btn btn-outline-success" id="VE1" onclick="call('+i+')">VERIFY</button></div></div>'
+        }
+        else if(txt.objver[i]===2){
+          tx = '<div id="forimg1"><span  style="color: darkred;">VERIFICATION NOT COMPLETED</span><div><img src = '+txt.verimage[i]+'></img></div>\
                 <div style="position: absolute;   right: 0px; top: 50%; transform: translate(-50%, -50%);"> <button class="btn btn-outline-success" id="VE1" onclick="call('+i+')">VERIFY</button></div></div>'
         }
         else{

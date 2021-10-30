@@ -188,18 +188,11 @@ app.post('/api',(req,res)=>{
         pers[index]=percent;
         genuinityIndex = req.body.genuinity_seller;
     }
-    // if(req.body.ver==1){
-    //     if(obj === '9189382142353'){
-    //         arr[1]=1;
-    //         str2 = req.body.image;
-    //         console.log(str2,time);
-    //     }
-    //     else{
-    //         arr[0]=1;
-    //         brr[0]=percent;
-    //         str=req.body.image;
-    //     }
-    // };
+    else(req.body.ver==1){
+        objver[index] = 2;
+        verimage[index] = req.body.image;
+        genuinityIndex = req.body.genuinity_seller;
+    };
     console.log(obj,id);
     res.send("https://mysterious-tundra-89995.herokuapp.com/products");
 })

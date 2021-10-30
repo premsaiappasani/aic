@@ -318,7 +318,24 @@
                   let h = ss;
                   t = time;
                   let img = image_data_url;
-                  var httpPost = new XMLHttpRequest(),
+                  functocall(h,t,img);
+                  h = 100;
+                }
+              }
+              liveView.appendChild(highlighter);
+              liveView.appendChild(p);
+              children.push(highlighter);
+              children.push(p);
+            }
+          }
+          window.requestAnimationFrame(predictWebcam);
+        });
+      }
+      var numbver = 0;
+      function functocall(h,t,img){
+        if(numbver ===0){
+          numbver++;
+          var httpPost = new XMLHttpRequest(),
                     path =
                       "https://mismatchesspotted.el.r.appspot.com/status/" +
                       ttid,
@@ -335,17 +352,7 @@
                   // Set the content type of the request to json since that's what's being sent
                   httpPost.open("POST", path, true);
                   httpPost.send(data);
-                  h = 100;
-                }
-              }
-              liveView.appendChild(highlighter);
-              liveView.appendChild(p);
-              children.push(highlighter);
-              children.push(p);
-            }
-          }
-          window.requestAnimationFrame(predictWebcam);
-        });
+        }
       }
       function done() {
         document.getElementById("roll").innerHTML = " ";

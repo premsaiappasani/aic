@@ -389,7 +389,7 @@
         image_data_url = image_data_url;
         let img = image_data_url;
         var httpPost = new XMLHttpRequest(),
-          path = "https://mismatchesspotted.el.r.appspot.com/status/" + ttid,
+          path = "https://mismatchesspotted.el.r.appspot.com/notverified/" + ttid,
           data = JSON.stringify({ img });
         httpPost.onreadystatechange = function (err) {
           if (httpPost.readyState == 4 && httpPost.status == 200) {

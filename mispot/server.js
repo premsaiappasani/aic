@@ -207,7 +207,7 @@ app.get("/verify/obj/:random",async (req,res)=>{
     let tid = req.params.random;
     console.log(tid,'verifyhere');
     coll = await db.collection("API_INFORMATION");
-    coll.updateOne({"company":"startup"},
+    coll.updateOne({"company":"amazon"},
         {
             $inc:{
                     "api_calls":1
@@ -258,17 +258,20 @@ app.post('/notverified/:stat',async(req,res)=>{
 
     let nov = 0;
     let non = 0;
-    sendOk(state,req.body.img,0,0,nov,non);
+    sendOk(0,state,req.body.img,0,0,nov,non);
     let a = urlpr;
-    // coll = await db.collection("API_INFORMATION");
-    // coll.updateOne({"company":"amazon"},
-    //     {
-    //         $push:{
-    //         "info":{
-                        
-    //                     }
-    //                 }
-    //     })
+    coll = await db.collection("API_INFORMATION");
+    coll.updateOne({"company":"amazon"},
+        {
+            $push:{
+                "product_information":{
+                            "PRODUCT_ID":NewOID,
+                            "ITEM":NEWobj,
+                            "img":image,
+                             "status":"Not Verified"
+                            }
+                        }
+        })
 
     res.send(a);
 })
@@ -287,7 +290,7 @@ app.post('/status/:sta',async (req,res)=>{
     const up = coll.updateOne({"company":"amazon"},
     {
         $push:{
-        "info":{
+        "product_information":{
                     "PRODUCT_ID":NewOID,
                     "ITEM":NEWobj,
                     "img":image,
@@ -299,7 +302,7 @@ app.post('/status/:sta',async (req,res)=>{
         return element == ge;})];
     let nov = 0;
     let non = 0;
-    sendOk(ge,image,time,accuracy,nov,non);
+    sendOk(1,ge,image,time,accuracy,nov,non);
     let a = urlpr;
     res.send(a);
 })
@@ -316,7 +319,7 @@ app.post('/statu/:sta',async (req,res)=>{
     const up = coll.updateOne({"company":"amazon"},
     {
         $push:{
-        "info":{
+        "product_information":{
                     "PRODUCT_ID":NewOID,
                     "ITEM":NEWobj,
                     "barcode":BARcodE,
@@ -327,14 +330,15 @@ app.post('/statu/:sta',async (req,res)=>{
     })
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    let nov = 0;
-    let non = 0;
-    sendOk(ge,image,time,100,nov,non);
+    let nov = await coll.find({company:"amazon",product_information:{"status":"Verified"}}).count();
+    let non = await coll.find({company:"amazon",product_information:{"status":"Not Verified"}}).count();
+    console.log(nov,non);
+    sendOk(1,ge,image,time,100,nov,non);
     let a = urlpr;
     res.send(a);
 })
 
-function sendOk(ge,image,time,p,nov,non){
+function sendOk(ve,ge,image,time,p,nov,non){
     let obt1 = stk3[stack.findIndex(function (element) {
         return element == ge;})];
     let oid1 = stk5[stack.findIndex(function (element) {
@@ -351,6 +355,7 @@ function sendOk(ge,image,time,p,nov,non){
     gi = Math.exp(gi) * 20 - 10;
     gi = gi.toFixed(2);
     console.log(oid1,'returning to company about status');
+    ver = ve;
     let data={object: obt1,orderId:oid1,time,image,ver,percent:p,genuinity_seller:gi};
     axios.post(reUrl, data)
     .then((resp) => {       

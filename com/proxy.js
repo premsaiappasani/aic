@@ -78,8 +78,9 @@ var objid = [];
 var pers = [];
 var tempurl = [];
 var ky=5001;
+var genuinityIndex;
 app.get('/productdata',(req,res)=>{
-    var sending = {objlist,objsrc,objver,objid,verimage,pers};
+    var sending = {objlist,objsrc,objver,objid,verimage,pers,genuinityIndex};
     res.json(sending);
 });
 
@@ -185,6 +186,7 @@ app.post('/api',(req,res)=>{
         objver[index]=1;
         verimage[index]=req.body.image;
         pers[index]=percent;
+        genuinityIndex = req.body.genuinity_seller;
     }
     // if(req.body.ver==1){
     //     if(obj === '9189382142353'){

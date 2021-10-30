@@ -135,7 +135,7 @@ function read(attr,val,inde)
      findDocuments(db);
  }
 
-let stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [],stk6 = [];
+let stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [],stk6 = [],stk7 = [];
 
 
 app.set('view engine', 'ejs');
@@ -151,6 +151,7 @@ app.post("/api",async(req,res)=>{
     let urlp = data.redUrl;
     console.log(urlp,"urlp");
     let oId = data.order;
+    let notV = data.notVerified;
     NewOID=oId;
     NEWobj=obj
     let urlofprod = data.sellerUrl;
@@ -167,6 +168,7 @@ app.post("/api",async(req,res)=>{
         stk2.push({});
         stk4.push(urlofprod);
         stk6.push(urlp);
+        stk7.push(notV);
         console.log("stk6",stk6);
         const coll = await db.collection("API_INFORMATION");
         const up = coll.updateOne({company:"amazon"},
@@ -253,7 +255,10 @@ app.post('/notverified/:stat',async(req,res)=>{
     console.log(req.body);
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == state;})];
-    sendOk(state,req.body.img);
+
+    let nov = 0;
+    let non = 0;
+    sendOk(state,req.body.img,0,0,nov,non);
     let a = urlpr;
     // coll = await db.collection("API_INFORMATION");
     // coll.updateOne({"company":"amazon"},
@@ -264,6 +269,7 @@ app.post('/notverified/:stat',async(req,res)=>{
     //                     }
     //                 }
     //     })
+
     res.send(a);
 })
 
@@ -291,7 +297,9 @@ app.post('/status/:sta',async (req,res)=>{
     })
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    sendOk(ge,image,time,accuracy);
+    let nov = 0;
+    let non = 0;
+    sendOk(ge,image,time,accuracy,nov,non);
     let a = urlpr;
     res.send(a);
 })
@@ -319,12 +327,14 @@ app.post('/statu/:sta',async (req,res)=>{
     })
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    let needishless  = await sendOk(ge,image,time,100);
+    let nov = 0;
+    let non = 0;
+    sendOk(ge,image,time,100,nov,non);
     let a = urlpr;
     res.send(a);
 })
 
-function sendOk(ge,image,time,p){
+function sendOk(ge,image,time,p,nov,non){
     let obt1 = stk3[stack.findIndex(function (element) {
         return element == ge;})];
     let oid1 = stk5[stack.findIndex(function (element) {
@@ -332,8 +342,16 @@ function sendOk(ge,image,time,p){
     let reUrl =stk6[stack.findIndex(function (element) {
         return element == ge;})];
     console.log('reurl',reUrl);
+    let ret = stk7[stack.findIndex(function (element) {
+        return element == ge;})];
+    let gi = 0.5*nov+0.2*non-0.6*ret;
+    if(gi<0) gi = 0;
+    gi = gi/(20+0.5*ret);
+    gi = -gi;
+    gi = Math.exp(gi) * 20 - 10;
+    gi = gi.toFixed(2);
     console.log(oid1,'returning to company about status');
-    let data={object: obt1,orderId:oid1,time,image,ver,percent:p};
+    let data={object: obt1,orderId:oid1,time,image,ver,percent:p,genuinity_seller:gi};
     axios.post(reUrl, data)
     .then((resp) => {       
         reqs=resp.data;

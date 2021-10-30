@@ -117,7 +117,8 @@ var data = JSON.stringify({
     "seller": "100-201",
     "product": "213-4589",
     "barcode": bar,
-    "sellerUrl": "https://mysterious-tundra-89995.herokuapp.com/products"
+    "sellerUrl": "https://mysterious-tundra-89995.herokuapp.com/products",
+    "notVerified": 0
 })
 
 

@@ -302,6 +302,17 @@ app.post('/status/:sta',async (req,res)=>{
         return element == ge;})];
     let nov = 0;
     let non = 0;
+    const vp = await coll.aggregate([{$match:{company:"amazon"}},{$unwind:"$product_information"},{$match:{"product_information.status":"Verified"}},{$count:"total"}])
+    const nvp = await coll.aggregate([{$match:{company:"amazon"}},{$unwind:"$product_information"},{$match:{"product_information.status":"Not Verified"}},{$count:"total"}]);
+    let nov = 0;
+    let non = 0;
+    for await (const doc of vp) {
+        nov = doc.total;
+    }
+    for await (const docx of nvp) {
+        non = docx.total;
+    }
+    console.log(nov,non);
     sendOk(1,ge,image,time,accuracy,nov,non);
     let a = urlpr;
     res.send(a);
@@ -330,9 +341,18 @@ app.post('/statu/:sta',async (req,res)=>{
     })
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    let nov = await coll.find({company:"amazon",product_information:{"status":"Verified"}}).count();
-    let non = await coll.find({company:"amazon",product_information:{"status":"Not Verified"}}).count();
+    const vp = await coll.aggregate([{$match:{company:"amazon"}},{$unwind:"$product_information"},{$match:{"product_information.status":"Verified"}},{$count:"total"}])
+    const nvp = await coll.aggregate([{$match:{company:"amazon"}},{$unwind:"$product_information"},{$match:{"product_information.status":"Not Verified"}},{$count:"total"}]);
+    let nov = 0;
+    let non = 0;
+    for await (const doc of vp) {
+        nov = doc.total;
+    }
+    for await (const docx of nvp) {
+        non = docx.total;
+    }
     console.log(nov,non);
+    // console.log(nov,non);
     sendOk(1,ge,image,time,100,nov,non);
     let a = urlpr;
     res.send(a);

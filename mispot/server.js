@@ -44,6 +44,9 @@ app.use(express.urlencoded({limit: '50mb', extended: true, parameterLimit: 50000
   
 let ver=0;
 
+let stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [],stk6 = [],stk7 = [];
+
+
 const MongoClient = require('mongodb').MongoClient
 const uri = "mongodb+srv://database:accenture25k@cluster0.lqmlj.mongodb.net/Cluster0?retryWrites=true&w=majority";
 const dbName = 'Cluster0';
@@ -135,7 +138,6 @@ function read(attr,val,inde)
      findDocuments(db);
  }
 
-let stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [],stk6 = [],stk7 = [];
 
 
 app.set('view engine', 'ejs');
@@ -153,7 +155,7 @@ app.post("/api",async(req,res)=>{
     let oId = data.order;
     let notV = data.notVerified;
     NewOID=oId;
-    NEWobj=obj
+    NEWobj=obj;
     let urlofprod = data.sellerUrl;
     let url = 'undefined';
     do{
@@ -162,13 +164,14 @@ app.post("/api",async(req,res)=>{
         return element == t;})!=-1)
     if(stk5.findIndex(function (element) {
         return element == oId;})==-1){
-        
+        console.log("done");
         stk5.push(oId);
         stack.push(t);
         stk2.push({});
         stk4.push(urlofprod);
         stk6.push(urlp);
         stk7.push(notV);
+        console.log("stack",stack);
         console.log("stk6",stk6);
         const coll = await db.collection("API_INFORMATION");
         const up = coll.updateOne({company:"amazon"},
@@ -252,27 +255,36 @@ app.get("/barcodedata/:tidd",(req,res)=>{
 app.post('/notverified/:stat',async(req,res)=>{
     ver=0;
     let state  = req.params.stat;
-    console.log(req.body);
+    let parsb = JSON.parse(req.body);
+    console.log("hi",req.body);
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == state;})];
-
+    const coll = await db.collection("API_INFORMATION");
+    const vp = await coll.aggregate([{$match:{company:"amazon"}},{$unwind:"$product_information"},{$match:{"product_information.status":"Verified"}},{$count:"total"}])
+    const nvp = await coll.aggregate([{$match:{company:"amazon"}},{$unwind:"$product_information"},{$match:{"product_information.status":"Not Verified"}},{$count:"total"}]);
     let nov = 0;
     let non = 0;
-    sendOk(0,state,req.body.img,0,0,nov,non);
+    for await (const doc of vp) {
+        nov = doc.total;
+    }
+    for await (const docx of nvp) {
+        non = docx.total;
+    }
+    console.log("novo",nov,"nono",non);
     let a = urlpr;
-    coll = await db.collection("API_INFORMATION");
+    console.log(NewOID);
     coll.updateOne({"company":"amazon"},
         {
             $push:{
                 "product_information":{
                             "PRODUCT_ID":NewOID,
                             "ITEM":NEWobj,
-                            "img":image,
+                            "img":parsb.img,
                              "status":"Not Verified"
                             }
                         }
         })
-
+    sendOk(0,state,parsb.img,0,0,nov,non);
     res.send(a);
 })
 
@@ -287,7 +299,7 @@ app.post('/status/:sta',async (req,res)=>{
     console.log(time,accuracy);
     let ge   = req.params.sta;
     const coll = await db.collection("API_INFORMATION");
-    const up = coll.updateOne({"company":"amazon"},
+    const up = await coll.updateOne({"company":"amazon"},
     {
         $push:{
         "product_information":{
@@ -300,8 +312,6 @@ app.post('/status/:sta',async (req,res)=>{
     })
     let urlpr = stk4[stack.findIndex(function (element) {
         return element == ge;})];
-    let nov = 0;
-    let non = 0;
     const vp = await coll.aggregate([{$match:{company:"amazon"}},{$unwind:"$product_information"},{$match:{"product_information.status":"Verified"}},{$count:"total"}])
     const nvp = await coll.aggregate([{$match:{company:"amazon"}},{$unwind:"$product_information"},{$match:{"product_information.status":"Not Verified"}},{$count:"total"}]);
     let nov = 0;
@@ -312,7 +322,7 @@ app.post('/status/:sta',async (req,res)=>{
     for await (const docx of nvp) {
         non = docx.total;
     }
-    console.log(nov,non);
+    console.log("nov",nov,"non",non);
     sendOk(1,ge,image,time,accuracy,nov,non);
     let a = urlpr;
     res.send(a);
@@ -327,7 +337,7 @@ app.post('/statu/:sta',async (req,res)=>{
     let ge   = req.params.sta;
     console.log('ge',ge);
     const coll = await db.collection("API_INFORMATION");
-    const up = coll.updateOne({"company":"amazon"},
+    const up = await coll.updateOne({"company":"amazon"},
     {
         $push:{
         "product_information":{
@@ -351,7 +361,7 @@ app.post('/statu/:sta',async (req,res)=>{
     for await (const docx of nvp) {
         non = docx.total;
     }
-    console.log(nov,non);
+    console.log("novo",nov,"nono",non);
     // console.log(nov,non);
     sendOk(1,ge,image,time,100,nov,non);
     let a = urlpr;
@@ -368,12 +378,20 @@ function sendOk(ve,ge,image,time,p,nov,non){
     console.log('reurl',reUrl);
     let ret = stk7[stack.findIndex(function (element) {
         return element == ge;})];
+    console.log(stk3,stk5,stk6,stk7,stack);
+    console.log("ge",ge);
     let gi = 0.5*nov+0.2*non-0.6*ret;
-    if(gi<0) gi = 0;
-    gi = gi/(20+0.5*ret);
-    gi = -gi;
-    gi = Math.exp(gi) * 20 - 10;
-    gi = gi.toFixed(2);
+    if(gi<0) 
+    { 
+        gi = 0;
+    }
+    else
+    {
+        gi = gi/(20+0.5*ret);
+        gi = -gi;
+        gi = (20/(1+Math.exp(gi))) - 10;
+        gi = gi.toFixed(2);
+    }
     console.log(oid1,'returning to company about status');
     ver = ve;
     let data={object: obt1,orderId:oid1,time,image,ver,percent:p,genuinity_seller:gi};
@@ -466,6 +484,7 @@ app.post("/signup/:pln", async (req, res)=>{
 
 
 function dele(ge){
+    console.log("delete called");
     var del = stack.findIndex(function (element) {
         return element == ge;});
     stack.slice(del,1);

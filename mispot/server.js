@@ -1,33 +1,16 @@
 const express = require("express");
 
-
 const app = express();
-
 
 const Joi = require("joi");
 
-
 const axios = require('axios');
-
-
 var cors = require('cors');
-
-
 var path = require('path');
-
-
 app.use(cors())
-
-
 let NewOID=""
-
-
 let BARcodE=""
-
-
 let NEWobj=""
-
-
 let newBarcodeByDynamosoft=[]
 //express
 //joi
@@ -53,76 +36,41 @@ function newKey(){
 //   extended: true,
 // }));
 
-
-
-
 app.use(express.text({
     limit:'200mb',
   }));
-
- 
-  
-
 app.use(express.json({limit: '50mb'}));
-
-
 app.use(express.urlencoded({limit: '50mb', extended: true, parameterLimit: 50000}));
-
-
+  
 var ver=0;
-
 
 var stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [],stk6 = [],stk7 = [];
 
 
 const MongoClient = require('mongodb').MongoClient
-
-
 const uri = "mongodb+srv://database:accenture25k@cluster0.lqmlj.mongodb.net/Cluster0?retryWrites=true&w=majority";
-
-
 const dbName = 'Cluster0';
-
-
 const assert = require('assert');
-
-
 const client = new MongoClient(uri);
-
-
 const db = client.db(dbName);
-
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-
-    client.connect(err=>{
+client.connect(err=>{
     assert.equal(null, err);
     console.log("Connected successfully to the server")});
 
-
-    async function delayedGreeting() {
+async function delayedGreeting() {
     console.log("Connecting to server");
     await sleep(1);
   }
-
-
 delayedGreeting();
-
-
-app.get("/gi",()=>{
-    res.render('gi');
-});
-
-
 
 app.get("/login",(req,res)=>{
     res.render("login");
 })
-
-
 
 app.get('/wasm', function(req, res){
     var options = {
@@ -171,11 +119,6 @@ app.post("/login", async(req, res)=>{
 
     }
 })
-
-
-
-
-
 function read(attr,val,inde)
  {
      const findDocuments = function(db){
@@ -195,17 +138,7 @@ function read(attr,val,inde)
 
 
 
-
-
-
-
 app.set('view engine', 'ejs');
-
-
-
-
-
-
 
 app.post("/api",async(req,res)=>{
     ver=0;
@@ -264,17 +197,6 @@ app.post("/api",async(req,res)=>{
 });
 
 
-
-
-
-app.get("/feedback",()=>{
-    res.render("feedback");
-});
-
-
-
-
-
 app.get("/verify/obj/:random",async (req,res)=>{
     let tid = req.params.random;
     coll = await db.collection("API_INFORMATION");
@@ -288,16 +210,6 @@ app.get("/verify/obj/:random",async (req,res)=>{
     res.render('objectdtct',{tid});
 
 })
-
-
-
-
-
-
-
-
-
-
 app.get("/verify/barcode/:random",(req,res)=>{
     let tid = req.params.random;
     let passingbarcodeNum=newBarcodeByDynamosoft.slice(-1)[0];
@@ -306,38 +218,13 @@ app.get("/verify/barcode/:random",(req,res)=>{
 });
 
 
-
-
-
-
 app.get("/success",(req,res)=>{
     res.sendFile(__dirname+"#");
 });
 
-
-
-
-
-
-
-
-
-
-
-
 app.get("/pricing",(req,res)=>{
     res.render("pricing");
 });
-
-
-
-
-
-
-
-
-
-
 
 app.use(express.static('public'));
 app.get("/barcodedata/:tidd",(req,res)=>{
@@ -348,14 +235,6 @@ app.get("/barcodedata/:tidd",(req,res)=>{
     var passObj = {ado,pre};
     res.json(passObj);
 });
-
-
-
-
-
-
-
-
 
 app.post('/notverified/:stat',async(req,res)=>{
     ver=0;
@@ -368,13 +247,6 @@ app.post('/notverified/:stat',async(req,res)=>{
     sendOk(0,state,parsb.img,0,0);
     res.send(a);
 })
-
-
-
-
-
-
-
 
 
 app.post('/status/:sta',async (req,res)=>{
@@ -392,18 +264,6 @@ app.post('/status/:sta',async (req,res)=>{
     res.send(a);
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
 app.post('/statu/:sta',async (req,res)=>{
         console.log('at tym of statu called',stack,stk2,stk3,stk4,stk5,stk6,stk7);
     ver=1;
@@ -418,13 +278,6 @@ app.post('/statu/:sta',async (req,res)=>{
     let a = urlpr;
     res.send(a);
 })
-
-
-
-
-
-
-
 
  async function sendOk(ve,ge,image,time,p){
         console.log('at tym of sendok called',stack,stk2,stk3,stk4,stk5,stk6,stk7);
@@ -486,37 +339,18 @@ app.post('/statu/:sta',async (req,res)=>{
 }
 
 
-
-
-
 app.get('/home',(req,res)=>{
     res.render("home");
 });
-
-
-
-
-
-
-
 
 
 app.get('/start',(req,res)=>{
     res.render('start');
 });
 
-
-
-
-
 app.get('/signup',(req,res)=>{
     res.render('pricing')
 });
-
-
-
-
-
 
 app.get('/signup/:pln',(req,res)=>{
     let plnn=req.params.pln;
@@ -532,10 +366,6 @@ app.get('/signup/:pln',(req,res)=>{
     }
     res.render('signup',{pln});
 });
-
-
-
-
 
 
 app.post("/signup/:pln", async (req, res)=>{
@@ -583,11 +413,6 @@ app.post("/signup/:pln", async (req, res)=>{
 });
 
 
-
-
-
-
-
 function dele(ge){
         console.log('at tym of dele call',stack,stk2,stk3,stk4,stk5,stk6,stk7);
     var del = stack.findIndex(function (element) {
@@ -599,13 +424,6 @@ function dele(ge){
     stk2.slice(del,1)
     
 }
-
-
-
-
-
-
-
 app.listen(process.env.PORT || 8080,()=>{
     console.log("Listening");
 });

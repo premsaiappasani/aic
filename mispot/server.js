@@ -28,7 +28,7 @@ let BARcodE=""
 let NEWobj=""
 
 
-let newBarcodeByDynamosoft=[]
+let newBarcodeByDynamosoft=[];
 //express
 //joi
 //axios
@@ -109,6 +109,11 @@ function sleep(ms) {
   }
 
 
+
+
+
+
+
 delayedGreeting();
 
 
@@ -118,9 +123,30 @@ app.get("/gi",()=>{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 app.get("/login",(req,res)=>{
     res.render("login");
 })
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -138,6 +164,10 @@ app.get('/wasm', function(req, res){
         }
     });
 });
+
+
+
+
 
 
 
@@ -176,6 +206,10 @@ app.post("/login", async(req, res)=>{
 
 
 
+
+
+
+
 function read(attr,val,inde)
  {
      const findDocuments = function(db){
@@ -199,7 +233,13 @@ function read(attr,val,inde)
 
 
 
+
+
+
 app.set('view engine', 'ejs');
+
+
+
 
 
 
@@ -267,9 +307,17 @@ app.post("/api",async(req,res)=>{
 
 
 
+
+
+
+
 app.get("/feedback",()=>{
     res.render("feedback");
 });
+
+
+
+
 
 
 
@@ -304,6 +352,9 @@ app.get("/verify/barcode/:random",(req,res)=>{
         console.log('at tym of verify call at tym of redirectr pgae of barcode',stack,stk2,stk3,stk4,stk5,stk6,stk7);
     res.render('barcode',{tid,passingbarcodeNum});
 });
+
+
+
 
 
 
@@ -426,6 +477,9 @@ app.post('/statu/:sta',async (req,res)=>{
 
 
 
+
+
+
  async function sendOk(ve,ge,image,time,p){
         console.log('at tym of sendok called',stack,stk2,stk3,stk4,stk5,stk6,stk7);
     const coll = await db.collection("API_INFORMATION");
@@ -489,6 +543,10 @@ app.post('/statu/:sta',async (req,res)=>{
 
 
 
+
+
+
+
 app.get('/home',(req,res)=>{
     res.render("home");
 });
@@ -509,9 +567,17 @@ app.get('/start',(req,res)=>{
 
 
 
+
+
+
+
 app.get('/signup',(req,res)=>{
     res.render('pricing')
 });
+
+
+
+
 
 
 
@@ -532,6 +598,9 @@ app.get('/signup/:pln',(req,res)=>{
     }
     res.render('signup',{pln});
 });
+
+
+
 
 
 
@@ -606,7 +675,326 @@ function dele(ge){
 
 
 
+
+
+
+
+
+
+
+
+
+
 app.listen(process.env.PORT || 8080,()=>{
     console.log("Listening");
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// MiSpot - non-copyrighted 2021 [Prem Sai, Sai Teja, Sai Kiran, Nithish kumar];

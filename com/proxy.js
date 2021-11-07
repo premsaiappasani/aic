@@ -78,7 +78,7 @@ var objid = [];
 var pers = [];
 var tempurl = [];
 var ky=5001;
-var genuinityIndex;
+var genuinityIndex=0;
 app.get('/productdata',(req,res)=>{
     var sending = {objlist,objsrc,objver,objid,verimage,pers,genuinityIndex};
     res.json(sending);
@@ -188,7 +188,7 @@ app.post('/api',(req,res)=>{
         pers[index]=percent;
         genuinityIndex = req.body.genuinity_seller;
     }
-    else(req.body.ver==1){
+    else{
         objver[index] = 2;
         verimage[index] = req.body.image;
         genuinityIndex = req.body.genuinity_seller;

@@ -170,16 +170,16 @@
             <section class="main-section" id="Introduction">
               <header><h2>Introduction</h2></header>
                 <article>
-                  <p>MiSpot is a software solution, which reduces product mismatches in the e-commerce industry. Checkout demo <a href="#">here</a> before getting started.</p>
-                  <h6>Here's the short version of what you need to do:</h6>
+                  <p>MiSpot is a software solution, which helps in reducing the product mismatches in the e-commerce industry. Checkout demo <a href="#">here</a> before getting started.</p>
+                  <h6>Here's what you need to do in brief:</h6>
                   <p>
                     <ul>
-                      <li><b>Sign up: Get an API key</b></li>
-                      <li><b>Add a verify button: </b>Ask the seller to verify the product before he ship.</li>
-                      <li><b>Send the information to MiSpot: </b>Send the required information for verification along with your API key.</li>
-                      <li><b>Product will be verified: </b>Seller will be redirected to our verification page and verification is done.</li>
-                      <li><b>Get the verification status and other statistics: </b>You will get the verification info.</li>
-                      <li><b>Build the TRUST in customers.</b></li>
+                      <li><b>Sign up now and Get an API key: </b>You need to send this Key along with the data you send.</li>
+                      <li><b>Add a verify button: </b>Ask the seller to verify the product before shipping.</li>
+                      <li><b>Make sure, you send the information in the format shown <a href="#final">here</a> to MiSpot: </b>Send the required information for verification along with your API key every time a seller hits verify button.</li>
+                      <li><b>Redirect the seller: </b>Whenever you send a post request to MiSpot as shown below, you will be getting a link as response. Redirect the seller to that link.</li>
+                      <li><b>Get the data: </b>Post verification, MiSpot will post all the computed data to the web address given by you.</li>
+                      <li><b>Use the data wisely: </b>Use the industry unique parameters sent by MiSpot wisely to rule the industry.</li>
                     </ul>
                   </p>
                   <p>Follow the steps below to get started with MiSpot</p>
@@ -188,28 +188,27 @@
         
         <section class="main-section" id="Layout">
           <header><h2>Get all the Information needed</h2></header>
-          <p>You need to send the product data to us at https://mismatchesspotted.el.r.appspot.com/api/ . The body of your request should contain all the information you need to send to MiSpot. Follow the steps below to know what is that data and how can you send it.</p>
-          <p>First of all, Register by selecting a plan <a href="#">here</a> to create an account on MiSpot.</p>
-          <p>Next, Login using your credentials <a href="#">here</a>.</p>
+          <p>You need to send the product data to us at https://mismatchesspotted.el.r.appspot.com/api/ . The body of your <a href="https://en.wikipedia.org/wiki/POST_(HTTP)">POST</a> request should contain all the information you need to send to MiSpot. Follow the steps below to know what is that data and how can you send it.</p>
+          <p>First of all, Join us by selecting a plan <a href="https://mismatchesspotted.el.r.appspot.com/signup">here</a> to create an account on MiSpot.</p>
+          <p>Next, Login using your credentials <a href="https://mismatchesspotted.el.r.appspot.com/signup/1">here</a>.</p>
           <h3>API Key</h3>
           <p>Note the API Key provided on the profile page which renders right after you login. You will need it everytime when you send information to MiSpot. API key is a unique, secret 10-digit number, which describes your identity everytime we process your request.</p>
           <p>Include the API key in the data set you send.</p> 
           <article>
-            <p><img src="#" alt="Screenshot of register page"></p>
         <pre>
           <code>
             {
-            key = '1234567890';
+            key = '1234567890',
           }</code>
         </pre>
        
           <h3 id="redurl">Post URL</h3>
-              <p>Send the url of your company to where you want MiSpot to send the data</p>
+              <p>Send the url where, you want MiSpot to send the data</p>
         <pre>
           <code>
             {
-            key = '1234567890';
-            redUrl = 'https://api.mycompany.com/getData';
+            key = '1234567890',
+            redUrl = 'https://api.mycompany.com/getData',
           }</code>
         </pre>
         <h3>Name of the product</h3>
@@ -217,9 +216,9 @@
   <pre>
     <code>
       {
-      key = '1234567890';
-      redUrl = 'https://api.mycompany.com/getData';
-      object = 'bottle';
+      key = '1234567890',
+      redUrl = 'https://api.mycompany.com/getData',
+      object = 'bottle',
     }</code>
   </pre>
   <h3>Order ID</h3>
@@ -227,35 +226,35 @@
 <pre>
 <code>
 {
-key = '1234567890';
-redUrl = 'https://api.mycompany.com/getData';
-object = 'bottle';
-order = '421-4562-619';
+key = '1234567890',
+redUrl = 'https://api.mycompany.com/getData',
+object = 'bottle',
+order = '421-4562-619',
 }</code>
 </pre>
 <h3>Seller ID</h3>
-  <p>Send the Seller ID to get exclusive data about the seller like <a href="#">Genuinity Index</a> of the Seller.</p>
+  <p>Send the Seller ID to get exclusive data about the seller like <a href="https://mismatchesspotted.el.r.appspot.com/gi">Genuinity Index</a> of the Seller.</p>
 <pre>
 <code>
 {
-key = '1234567890';
-redUrl = 'https://api.mycompany.com/getData';
-object = 'bottle';
-order = '421-4562-619';
-seller = '100-201';
+key = '1234567890',
+redUrl = 'https://api.mycompany.com/getData',
+object = 'bottle',
+order = '421-4562-619',
+seller = '100-201',
 }</code>
 </pre>
 <h3>Product ID</h3>
-  <p>Send the Product ID to get <a href="#">Genuinity Index</a> of the Product.</p>
+  <p>Send the Product ID to get <a href="https://mismatchesspotted.el.r.appspot.com/gi">Genuinity Index</a> of the Product.</p>
 <pre>
 <code>
 {
-key = '1234567890';
-redUrl = 'https://api.mycompany.com/getData';
-object = 'bottle';
-order = '421-4562-619';
-seller = '100-201';
-product = '213-4589';
+key = '1234567890',
+redUrl = 'https://api.mycompany.com/getData',
+object = 'bottle',
+order = '421-4562-619',
+seller = '100-201',
+product = '213-4589',
 }</code>
 </pre>
 <h3>Barcode</h3>
@@ -263,20 +262,20 @@ product = '213-4589';
 <pre>
 <code>
 {
-key = '1234567890';
-redUrl = 'https://api.mycompany.com/getData';
-object = 'bottle';
-order = '421-4562-619';
-seller = '100-201';
-product = '213-4589';
-barcode = '9848235684143';
+key = '1234567890',
+redUrl = 'https://api.mycompany.com/getData',
+object = 'bottle',
+order = '421-4562-619',
+seller = '100-201',
+product = '213-4589',
+barcode = '9848235684143',
 }</code>
 </pre>
 <h3>Send Data</h3>
   <p>Send a http POST request at https://mismatchesspotted.el.r.appspot.com/api with a data object (shown above).</p>
   <p>In return, you will get a unique link where you need to redirect the seller. Look at the code below to know how to create a http post request to us in node.js.</p>
 <pre>
-<code>
+<code id="final">
 const http = require('http')
 <!-- const data = JSON.stringify({
   key = 1234567890,
@@ -520,7 +519,7 @@ Although ecommerce sales increased over the past years but most of the people ar
 
 
 </p>
-<h5>Finally we conclude that MiSpot ensures the trust between you and customers, help you save the money you are spending on product returns and can also helps startups to grow!</h5>
+<h5>Awesome!!!!!. You did it!!!!. Feel free to send feedback to us anytime <a href="https://mismatchesspotted.el.r.appspot.com/feedback">here</a>.</h5>
 
 
           </article>    

@@ -511,6 +511,7 @@ app.post('/statu/:sta',async (req,res)=>{
         return element == ge;})];
     let reUrl =stk6[stack.findIndex(function (element) {
         return element == ge;})];
+    console.log(reUrl,stk6);
     let ret = stk7[stack.findIndex(function (element) {
         return element == ge;})];
     let gi = 0.5*nov+0.2*non-0.6*ret;

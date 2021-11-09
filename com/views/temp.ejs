@@ -18,42 +18,42 @@
       //   // fetch("http://localhost:3000/fetch/").then((res) => {
       //   //   ag = res;
       //   // });
-        // if (ag == "failed") console.log("fiale");
-        // else if (ag != "undefined") {
-        //   location.replace(ag);
-        // }else{
+      // if (ag == "failed") console.log("fiale");
+      // else if (ag != "undefined") {
+      //   location.replace(ag);
+      // }else{
 
       //   document.getElementById("VE1").innerHTML =
       //     '<form id="formid"; action="https://mysterious-tundra-89995.herokuapp.com/temp" method="get"></form>';
       //   document.getElementById("formid").submit();
       //   }
       // }
-      setInterval(func,100);
-      function func() 
-      {var ag = undefined;
-            const req = new XMLHttpRequest();
-            req.onload = function () {
-              try {
-                ag = this.responseText;
-                if (ag == "failed") console.log("fiale");
-                else if (ag != "undefined") {
-                location.replace(ag);
-                }
-                
-              } catch (err) {
-                console.log(err);
-                alert("Unable to fetch data!");
-              }
-            };
-      
-            req.open(
-              "GET",
-              "https://mysterious-tundra-89995.herokuapp.com/fetch/" + document.getElementById('pagereq').innerHTML,
-              true
-            );
-            req.send();
-            req.onerror = function () {};
+      setInterval(func, 100);
+      function func() {
+        var ag = undefined;
+        const req = new XMLHttpRequest();
+        req.onload = function () {
+          try {
+            ag = this.responseText;
+            if (ag == "failed") console.log("fiale");
+            else if (ag != "undefined") {
+              location.replace(ag);
+            }
+          } catch (err) {
+            console.log(err);
+            alert("Unable to fetch data!");
           }
+        };
+
+        req.open(
+          "GET",
+          "https://proxycompany.uc.r.appspot.com/fetch/" +
+            document.getElementById("pagereq").innerHTML,
+          true
+        );
+        req.send();
+        req.onerror = function () {};
+      }
     </script>
   </body>
 </html>

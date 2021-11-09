@@ -32,7 +32,7 @@ app.get('/verify/:number',(req,res)=>{
     let num=req.params.number;
     changeUrl(num);
     console.log(num,'requested number');
-    res.redirect('https://mysterious-tundra-89995.herokuapp.com/temp/'+num);
+    res.redirect('https://proxycompany.uc.r.appspot.com/temp/'+num);
 });
 var reqs = undefined;
 app.get('/temp/:NUM',(req,res)=>{
@@ -50,7 +50,7 @@ function sleep(ms) {
       }
 var bar = '247624479298';
 var obj = 'bottle';
-var urlp = 'https://mysterious-tundra-89995.herokuapp.com/products';
+var urlp = 'https://proxycompany.uc.r.appspot.com/products';
 var orderId = 1;
 function changeUrl(num){
     // update bar and object using database
@@ -112,13 +112,13 @@ function changeUrl2(num){
 
 var data = JSON.stringify({
     "key": "1234567890",
-    "redUrl": "https://mysterious-tundra-89995.herokuapp.com/api",
+    "redUrl": "https://proxycompany.uc.r.appspot.com/api",
     "object": obj,
     "order": objid[num],
     "seller": "100-201",
     "product": "213-4589",
     "barcode": bar,
-    "sellerUrl": "https://mysterious-tundra-89995.herokuapp.com/products",
+    "sellerUrl": "https://proxycompany.uc.r.appspot.com/products",
     "notVerified": 0
 })
 
@@ -194,7 +194,7 @@ app.post('/api',(req,res)=>{
         genuinityIndex = req.body.genuinity_seller;
     };
     console.log(obj,id);
-    res.send("https://mysterious-tundra-89995.herokuapp.com/products");
+    res.send("https://proxycompany.uc.r.appspot.com/products");
 })
 
 app.use(express.static('public'));

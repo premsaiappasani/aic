@@ -48,7 +48,7 @@ app.get('/fetch/:NUM',(req,res)=>{
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
       }
-var bar = '247624479298';
+var bar = '9789388144353';
 var obj = 'bottle';
 var urlp = 'https://proxycompany.uc.r.appspot.com/products';
 var orderId = 1;
@@ -56,7 +56,7 @@ function changeUrl(num){
     // update bar and object using database
     // bar = '';
     if(Dirto[arrpro.findIndex((argu)=>{return argu === objlist[num]})] == 1){
-        bar='247624479298';
+        bar='9789388144353';
         obj = 'book';
     }
     else{

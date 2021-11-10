@@ -79,8 +79,11 @@ var pers = [];
 var tempurl = [];
 var ky=5001;
 var genuinityIndex=0;
+var changeingi = 0;
+var colorofgi = 'green';
 app.get('/productdata',(req,res)=>{
-    var sending = {objlist,objsrc,objver,objid,verimage,pers,genuinityIndex};
+    if(changeingi<0) colorofgi = 'red';
+    var sending = {objlist,objsrc,objver,objid,verimage,pers,genuinityIndex,changeingi,colorofgi};
     res.json(sending);
 });
 
@@ -186,11 +189,13 @@ app.post('/api',(req,res)=>{
         objver[index]=1;
         verimage[index]=req.body.image;
         pers[index]=percent;
+        changeingi =  req.body.genuinity_seller - genuinityIndex;
         genuinityIndex = req.body.genuinity_seller;
     }
     else{
         objver[index] = 2;
         verimage[index] = req.body.image;
+        changeingi =  req.body.genuinity_seller- genuinityIndex;
         genuinityIndex = req.body.genuinity_seller;
     };
     console.log(obj,id);

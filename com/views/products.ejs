@@ -100,9 +100,7 @@
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li> -->
           </ul>
-          <span class="d-flex"
-            >Current Genuinity index : <span id="gi">loading...</span></span
-          >
+          <b class="" style="color: #1f1f2b; font-size: 1.4em;">Genuinity index : <span id="gi">loading...</span><span id="cgi" style="font-size: 0.7em; "></span></b>
         </div>
       </div>
     </nav>
@@ -127,7 +125,7 @@
       </div>
     </div>
     <div id="v"></div>
-    <div id="pagereq" ; style="visibility: hidden"><%=aig%></div>
+    <div id="pagereq" ; style="visibility: hidden;"><%=aig%></div>
     <div id="forimg" ; style="visibility: hidden"><%=str%></div>
     <div id="forimg2" ; style="visibility: hidden"><%=str2%></div>
     <script
@@ -163,6 +161,8 @@
       function load() {
         let texttoins = "";
         document.getElementById("gi").innerHTML = txt.genuinityIndex;
+        document.getElementById("cgi").innerHTML = "+"+txt.changeingi.toFixed(2);
+        document.getElementById("cgi").style.color = txt.colorofgi;
         for (var i = txt.objlist.length - 1; i >= 0; i--) {
           let tx = "ntng";
           if (txt.objver[i] === 0) {
@@ -181,7 +181,7 @@
               ')">VERIFY</button></div></div>';
           } else {
             tx =
-              '<div id="forimg1"><b style="color: green; margin-right: 10px;">VERIFIED</b>\
+              '<div id="forimg1"><b style="color: green; margin-right: 10px; position: relative;">VERIFIED<img src="/thumbsup.png" style="width: 35px; height: auto; position: absolute; top: -8px;"></b>\
             <progress title="% Matched" id="file1" value=' +
               txt.pers[i] +
               '  max="100"> ' +

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products | Mispot</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link
@@ -76,8 +76,8 @@
 
         <a
           class="navbar-brand"
-          href="https://proxycompany.uc.r.appspot.com/home"
-          >Examplee</a
+          href="https://proxycompany.uc.r.appspot.com/example"
+          >Example</a
         >
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -85,7 +85,7 @@
               <a
                 class="nav-link active"
                 aria-current="page"
-                href="https://proxycompany.uc.r.appspot.com/home"
+                href="https://proxycompany.uc.r.appspot.com/example"
                 >Home</a
               >
             </li>
@@ -94,13 +94,22 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="#">help</a>
+              <b>
+                <a
+                  class="nav-link"
+                  href="https://proxycompany.uc.r.appspot.com/example"
+                  >Seller Page</a
+                ></b
+              >
             </li>
             <!-- <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li> -->
           </ul>
-          <b class="" style="color: #1f1f2b; font-size: 1.4em;">Genuinity index : <span id="gi">loading...</span><span id="cgi" style="font-size: 0.7em; "></span></b>
+          <b class="" style="color: #1f1f2b; font-size: 1.4em"
+            >Genuinity index : <span id="gi">loading...</span
+            ><span id="cgi" style="font-size: 0.7em"></span
+          ></b>
         </div>
       </div>
     </nav>
@@ -125,7 +134,7 @@
       </div>
     </div>
     <div id="v"></div>
-    <div id="pagereq" ; style="visibility: hidden;"><%=aig%></div>
+    <div id="pagereq" ; style="visibility: hidden"><%=aig%></div>
     <div id="forimg" ; style="visibility: hidden"><%=str%></div>
     <div id="forimg2" ; style="visibility: hidden"><%=str2%></div>
     <script
@@ -161,7 +170,8 @@
       function load() {
         let texttoins = "";
         document.getElementById("gi").innerHTML = txt.genuinityIndex;
-        document.getElementById("cgi").innerHTML = "+"+txt.changeingi.toFixed(2);
+        document.getElementById("cgi").innerHTML =
+          "+" + txt.changeingi.toFixed(2);
         document.getElementById("cgi").style.color = txt.colorofgi;
         for (var i = txt.objlist.length - 1; i >= 0; i--) {
           let tx = "ntng";

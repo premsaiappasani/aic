@@ -166,7 +166,7 @@ app.get('/newUrl/',(req,res)=>{
 
 app.set('view engine', 'ejs');
 
-app.get('/examplee.com',(req,res)=>{
+app.get('/example',(req,res)=>{
     res.render('examplee.ejs');
 })
 

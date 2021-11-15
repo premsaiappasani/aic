@@ -128,6 +128,14 @@ app.get("/gi",()=>{
 
 
 
+app.get("/demo",()=>{
+    res.render("demo");
+});
+
+
+
+
+
 
 
 
@@ -193,11 +201,11 @@ app.post("/login", async(req, res)=>{
      else
      {
          console.log('incorrect');
-         res.send("INCORRECT PASSWORD");
+         res.send("INCORRECT PASSWORD <a href=`https://mismatchesspotted.el.r.appspot.com/login`>retry</a>");
      }
      }
      catch(error){
-         res.status(400).send("Invalid username");
+         res.status(400).send("Invalid username <a href='https://mismatchesspotted.el.r.appspot.com/login'>retry</a>");
 
     }
 })
@@ -630,7 +638,7 @@ app.post("/signup/:pln", async (req, res)=>{
     const sg=await collection.countDocuments();
     console.log(sg);
     if(company!=null){
-         res.status(400).send("username exists.. try another<a href=`https://mismatchesspotted.el.r.appspot.com/login`></a>");
+         res.status(400).send("username exists.. try another <a href=`https://mismatchesspotted.el.r.appspot.com/login`>here</a>");
     }
     else{
         collection.insertOne({
@@ -654,7 +662,9 @@ app.post("/signup/:pln", async (req, res)=>{
 
 
 
-
+app.get("/",()=>{
+    res.render("home");
+})
 
 
 function dele(ge){

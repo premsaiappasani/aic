@@ -121,32 +121,34 @@
         </div>
       </div>
     </nav>
-    <div class="container-fluid" style="margin-top: 15px">
-      <div
-        class="card position-absolute top-50 start-50 translate-middle"
-        style="width: 50%"
-      >
-        <div class="card-header">
-          <h3 id="login">login</h3>
-        </div>
-        <div class="card-body">
-          <div id="userid" style="margin-left: 10px">
-            <span class="col-1">NO OF API CALLS : </span>
-            <span id="userName" class="col-2" style="float: right"
-              ><%=calls%></span
-            >
+
+    <div class="container-fluid">
+      <div class="container p-5">
+        <div class="row">
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="card card1 h-100">
+              <div class="card-body">
+                <h5 class="card-title">Number of calls</h5>
+                <h2><%=calls%></h2>
+              </div>
+            </div>
           </div>
-          <div id="cost" style="margin-left: 10px">
-            <span class="col-1">COST : </span>
-            <span id="pricing" class="col-2" style="float: right"
-              ><%=pricing%></span
-            >
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="card card2 h-100">
+              <div class="card-body">
+                <h5 class="card-title">Monthly Bill</h5>
+                <h2><%=pricing%></h2>
+              </div>
+            </div>
           </div>
-          <div style="margin-left: 10px">
-            <span>API KEY :</span>
-            <span id="noa"><%=key%></span>
+          <div class="col-lg-4 col-md-12 mb-4">
+            <div class="card card3 h-100">
+              <div class="card-body">
+                <h5 class="card-title">API KEY</h5>
+                <h2><%=key%></h2>
+              </div>
+            </div>
           </div>
-          <!-- <div style="margin-left: 10px">hi</div> -->
         </div>
       </div>
     </div>

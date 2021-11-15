@@ -117,7 +117,7 @@ function sleep(ms) {
 delayedGreeting();
 
 
-app.get("/gi",()=>{
+app.get("/gi",(req,res)=>{
     res.render('gi');
 });
 
@@ -128,7 +128,7 @@ app.get("/gi",()=>{
 
 
 
-app.get("/demo",()=>{
+app.get("/demo",(req,res)=>{
     res.render("demo");
 });
 
@@ -319,7 +319,7 @@ app.post("/api",async(req,res)=>{
 
 
 
-app.get("/feedback",()=>{
+app.get("/feedback",(req,res)=>{
     res.render("feedback");
 });
 
@@ -662,7 +662,7 @@ app.post("/signup/:pln", async (req, res)=>{
 
 
 
-app.get("/",()=>{
+app.get("/",(req,res)=>{
     res.render("home");
 })
 

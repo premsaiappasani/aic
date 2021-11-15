@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Verify | MiSpot</title>
     <link rel="icon" href="mispot.ico" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -72,14 +72,102 @@
     </style>
   </head>
   <body id="bodyId">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark"
+      style="position: relative; color: #f4d504 !important"
+    >
       <div class="container-fluid">
+        <img src="mispotimg.png" style="height: 50px; display: inline" />
         <a
           class="navbar-brand"
           href="https://mismatchesspotted.el.r.appspot.com/home"
-          style="font-family: 'Courier New', monospace; font-weight: bold"
-          >MiSpot</a
+          style="
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #f4d504 !important;
+          "
+          ><div>MiSpot</div>
+          <div style="font-size: 0.3em">Mismatches Spotted</div></a
         >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="logreg" style="position: absolute; right: 60px">
+          <span class="nav-item"> </span>
+        </div>
+        <div class="collapse navbar-collapse bg-dark" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="https://mismatchesspotted.el.r.appspot.com/home"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                class="nav-link"
+                href="https://mismatchesspotted.el.r.appspot.com/login"
+                >Login</a
+              >
+            </li>
+            <li>
+              <a
+                class="nav-link"
+                href="https://mismatchesspotted.el.r.appspot.com/signup"
+                >Register</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Docs
+              </a>
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+                style="background-color: #212529 !important"
+              >
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://mismatchesspotted.el.r.appspot.com/demo"
+                    >Demo</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://mismatchesspotted.el.r.appspot.com/start"
+                    >Getting Started</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://mismatchesspotted.el.r.appspot.com/pricing"
+                    >Pricing</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
     <div
@@ -181,7 +269,7 @@
           prev = txt.pre;
           txt = txt.ado;
           match = txt;
-          document.getElementById('str2').innerHTML = match;
+          document.getElementById("str2").innerHTML = match;
           console.log(txt);
           console.log(prev);
         } catch (err) {
@@ -316,7 +404,7 @@
                   let h = ss;
                   t = time;
                   let img = image_data_url;
-                  functocall(h,t,img);
+                  functocall(h, t, img);
                   h = 100;
                 }
               }
@@ -330,27 +418,25 @@
         });
       }
       var numbver = 0;
-      function functocall(h,t,img){
-        if(numbver ===0){
+      function functocall(h, t, img) {
+        if (numbver === 0) {
           numbver++;
           var httpPost = new XMLHttpRequest(),
-                    path =
-                      "https://mismatchesspotted.el.r.appspot.com/status/" +
-                      ttid,
-                    data = JSON.stringify({ h, t, img });
-                  console.log(data);
-                  httpPost.onreadystatechange = function (err) {
-                    if (httpPost.readyState == 4 && httpPost.status == 200) {
-                      console.log(httpPost.responseText);
-                      console.log('response came');
-                      location.replace(httpPost.responseText);
-                    } else {
-                      console.log(err);
-                    }
-                  };
-                  // Set the content type of the request to json since that's what's being sent
-                  httpPost.open("POST", path, true);
-                  httpPost.send(data);
+            path = "https://mismatchesspotted.el.r.appspot.com/status/" + ttid,
+            data = JSON.stringify({ h, t, img });
+          console.log(data);
+          httpPost.onreadystatechange = function (err) {
+            if (httpPost.readyState == 4 && httpPost.status == 200) {
+              console.log(httpPost.responseText);
+              console.log("response came");
+              location.replace(httpPost.responseText);
+            } else {
+              console.log(err);
+            }
+          };
+          // Set the content type of the request to json since that's what's being sent
+          httpPost.open("POST", path, true);
+          httpPost.send(data);
         }
       }
       function done() {
@@ -387,12 +473,13 @@
         image_data_url = canvas.toDataURL("image/jpeg");
         let img = image_data_url;
         var httpPost = new XMLHttpRequest(),
-          path = "https://mismatchesspotted.el.r.appspot.com/notverified/" + ttid,
+          path =
+            "https://mismatchesspotted.el.r.appspot.com/notverified/" + ttid,
           data = JSON.stringify({ img });
         httpPost.onreadystatechange = function (err) {
           if (httpPost.readyState == 4 && httpPost.status == 200) {
             console.log(httpPost.responseText);
-            console.log('response came');
+            console.log("response came");
             location.replace(httpPost.responseText);
           } else {
             console.log(err);

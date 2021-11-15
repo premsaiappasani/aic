@@ -37,7 +37,7 @@
   <body>
     <nav
       class="navbar navbar-expand-lg navbar-dark bg-dark"
-      style="position: relative; color: #f4d504 !important; z-index: 2;"
+      style="position: relative; color: #f4d504 !important"
     >
       <div class="container-fluid">
         <img src="mispotimg.png" style="height: 50px; display: inline" />
@@ -63,10 +63,8 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div style="position: absolute; right: 60px">
-          <span class="nav-item">
-            
-          </span>
+        <div id="logreg" style="position: absolute; right: 60px">
+          <span class="nav-item"> </span>
         </div>
         <div class="collapse navbar-collapse bg-dark" id="navbarNavDropdown">
           <ul class="navbar-nav">
@@ -80,18 +78,18 @@
             </li>
             <li>
               <a
-              class="nav-link"
-              href="https://mismatchesspotted.el.r.appspot.com/login"
-              style=" "
-              >Login</a
-            >
+                class="nav-link"
+                href="https://mismatchesspotted.el.r.appspot.com/login"
+                >Login</a
+              >
             </li>
-            <li><a
-              class="nav-link"
-              href="https://mismatchesspotted.el.r.appspot.com/signup"
-              style=" "
-              >Register</a
-            ></li>
+            <li>
+              <a
+                class="nav-link"
+                href="https://mismatchesspotted.el.r.appspot.com/signup"
+                >Register</a
+              >
+            </li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -108,34 +106,33 @@
                 aria-labelledby="navbarDropdownMenuLink"
                 style="background-color: #212529 !important"
               >
-                <li><a class="dropdown-item" href="#">Demo</a></li>
                 <li>
-                  <a class="dropdown-item" href="https://mismatchesspotted.el.r.appspot.com/start"
-                    >Getting Started</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="https://mismatchesspotted.el.r.appspot.com/pricing"
-                    >Pricing</a
+                  <a
+                    class="dropdown-item"
+                    href="https://mismatchesspotted.el.r.appspot.com/demo"
+                    >Demo</a
                   >
                 </li>
                 <li>
                   <a
                     class="dropdown-item"
-                    href="https://mismatchesspotted.el.r.appspot.com/signup"
-                    style="display: inline"
-                    >Get your free trail today</a
+                    href="https://mismatchesspotted.el.r.appspot.com/start"
+                    >Getting Started</a
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">How to use MiSpot</a>
+                  <a
+                    class="dropdown-item"
+                    href="https://mismatchesspotted.el.r.appspot.com/pricing"
+                    >Pricing</a
+                  >
                 </li>
               </ul>
             </li>
           </ul>
         </div>
       </div>
-    </nav>-
+    </nav>
 	<div class="card position-absolute top-50 start-50 translate-middle" style="z-index: 1;">
     <form action = "/login" method = 'post' id="users">
 		

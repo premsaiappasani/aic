@@ -556,7 +556,7 @@ app.post('/statu/:sta',async (req,res)=>{
 
 
 app.get('/home',(req,res)=>{
-    res.render("home");
+    res.redirect("start");
 });
 
 

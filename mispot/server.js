@@ -78,7 +78,7 @@ var stack = [],stk2 = [],stk3 = [],stk4 = [],stk5 = [],stk6 = [],stk7 = [];
 const MongoClient = require('mongodb').MongoClient
 
 
-const uri = "mongodb+srv://database:accenture25k@cluster0.lqmlj.mongodb.net/Cluster0?retryWrites=true&w=majority";
+const uri = mongokey;
 
 
 const dbName = 'Cluster0';
